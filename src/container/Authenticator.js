@@ -1,15 +1,24 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Authentication, DevCloud } from "@datenbanker/devcloud-client-lib";
 import Storage from "@datenbanker/storage";
 const storage = new Storage();
 
-const data = props => {
+const data = store => {
   return {};
 };
 
-const actions = props => {
+const actions = dispatch => {
+  const checkDispatch = (on, type, payload = {}) => {
+    if (on && on[type])
+      dispatch({
+        type: on[type],
+        payload
+      });
+  };
   return {
-    autoLogin: () => {
+    dispatch: checkDispatch,
+    autoLogin: on => {
       if (storage.get("user:refreshToken")) {
         const tokens = {
           accessToken: storage.get("user:accessToken"),
@@ -17,23 +26,23 @@ const actions = props => {
           refreshToken: storage.get("user:refreshToken")
         };
         DevCloud.setTokens(tokens);
-        if (props.onAuthenticated) props.onAuthenticated();
+        checkDispatch(on, "signIn");
       }
     },
-    login: async (username, password) => {
+    login: async (username, password, on) => {
       const auth = new Authentication();
       const resp = await auth.login(username, password);
       if (resp.accessToken && resp.idToken && resp.refreshToken) {
-        if (props.onAuthenticated) props.onAuthenticated();
+        checkDispatch(on, "signIn");
         return true;
       } else {
         return resp;
       }
     },
-    challenge: async (challenges, session) => {
+    challenge: async (challenges, session, on) => {
       const auth = new Authentication();
       const resp = await auth.challenge(challenges, session);
-      if (props.onAuthenticated) props.onAuthenticated();
+      checkDispatch(on, "signIn");
       return resp;
     },
     resetPassword: async email => {
@@ -47,12 +56,7 @@ const actions = props => {
   };
 };
 export default component =>
-  class AuthenticatorContainer extends Component {
-    render() {
-      const { props } = this;
-      return React.createElement(component, {
-        ...actions(props),
-        ...data(props)
-      });
-    }
-  };
+  connect(
+    data,
+    actions
+  )(component);

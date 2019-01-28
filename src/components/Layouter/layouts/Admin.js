@@ -18,6 +18,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/pro-light-svg-icons/faBars";
 import { faTimes } from "@fortawesome/pro-light-svg-icons/faTimes";
+import { faSignOutAlt } from "@fortawesome/pro-light-svg-icons/faSignOutAlt";
+
 import Theme from "../../Theme";
 import defaultStyle from "../../../styles/Layouts/Admin";
 
@@ -25,9 +27,28 @@ class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menu: window.innerWidth > 559
+      menu: window.innerWidth > 559,
+      windowSize: window.innerWidth < 560 ? "xs" : "lg"
     };
   }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.onWindowResize.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.onWindowResize.bind(this));
+  }
+
+  onWindowResize() {
+    const width = window.innerWidth;
+    const { windowSize, menu } = this.state;
+    if (width < 560 && windowSize !== "xs")
+      this.setState({ ...this.state, windowSize: "xs", menu: false });
+    else if (width > 559 && windowSize !== "lg")
+      this.setState({ ...this.state, windowSize: "lg" });
+  }
+
   toggleMenu(set) {
     let menu = set;
     if (typeof menu !== "undefined") menu = !this.state.menu;
@@ -59,6 +80,7 @@ class Admin extends Component {
                     classes={{
                       root: classNames([
                         classes.fontMenu,
+                        classes.iconMenu,
                         active ? classes.activeLink : false
                       ])
                     }}
@@ -101,14 +123,27 @@ class Admin extends Component {
                 onClick={() => {
                   this.toggleMenu(true);
                 }}
-                className={classes.closeButton}
+                className={classes.openMenuButton}
               >
                 <FontAwesomeIcon icon={faBars} />
               </IconButton>
             )}
-            <Typography variant="h6" color="inherit">
+            {this.state.menu && window.innerWidth < 560 && (
+              <IconButton className={classes.openMenuButton}>
+                <FontAwesomeIcon icon={faBars} />
+              </IconButton>
+            )}
+            <Typography variant="h6" color="inherit" style={{ flexGrow: 1 }}>
               {page}
             </Typography>
+            <IconButton
+              onClick={() => {
+                this.props.signOut();
+              }}
+              className={classes.signOutButton}
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} />
+            </IconButton>
           </Toolbar>
         </AppBar>
         <SwipeableDrawer

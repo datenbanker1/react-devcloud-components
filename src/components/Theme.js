@@ -54,6 +54,8 @@ class Theme {
       switch (component) {
         case "Block":
           return component.Block;
+        case "Layouter":
+          return styles.Layouter;
         case "Layout/Admin":
           return styles.Layout.Admin;
         case "Layout/EmptyPage":

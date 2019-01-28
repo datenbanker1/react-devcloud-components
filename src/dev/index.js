@@ -1,4 +1,6 @@
 import React from "react";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 import ReactDOM from "react-dom";
 import { DevCloud } from "@datenbanker/devcloud-client-lib";
 import Theme from "../components/Theme";
@@ -30,8 +32,29 @@ DevCloud.init({
 
 Theme.init();
 
+const Store = createStore((state = [], action) => {
+  console.log(action.type);
+  switch (action.type) {
+    case "AUTHENTICATOR::SIGN_IN":
+      window.location = "/forms";
+      break;
+  }
+  return state;
+});
+
 ReactDOM.render(
-  /**/
-  <Router groups={["public"]} pages={routes} />,
+  <Provider store={Store}>
+    <Router
+      groups={["public"]}
+      pages={routes}
+      on={{}}
+      layouter={{
+        on: {
+          contentLoaded: "LAYOUTER::CONTENT_LOADED",
+          signOut: "LAYOUTER::SIGN_OUT"
+        }
+      }}
+    />
+  </Provider>,
   document.getElementById("root")
 );

@@ -1,13 +1,21 @@
 # `react-devcloud-components`
 
 ## Components
+All components require redux so make sure you wrap a Provider component aound your App.
+ 
+ ```js
+ <Provider store={Store}>
+     <App/>
+ </Provider>
+ ```
+ 
 ###Authenticator
 This component will handle the complete sign in -, challenges -, reset password - and reset Account processes. It also sets tokens in your devcloud-client-lib.
+>######Redux flags
+>***signIn***
 ```js
 <Authenticator
-    onAuthenticated={() => {
-      doSomething()
-    }}
+    on={{signIn: "AUTHENTICATOR::SIGN_IN"}}
 />
 ```
 
@@ -138,6 +146,8 @@ return (<Form actions={actions}>
 ```
 ###Layouter
 Sets the basic layout of the current page. You can choose from a preset of layouts.
+>######Redux flags
+>***contentLoaded, signOut***
 ```js
 <Layouter
     layout="admin"
@@ -150,26 +160,46 @@ Sets the basic layout of the current page. You can choose from a preset of layou
       }
     ]}
     routing={false}
+    on={{
+      contentLoaded: "LAYOUTER::CONTENT_LOADED",
+      signOut: "LAYOUTER::SIGN_OUT"
+    }}
   />
 ```
 
 ###Router
-A simple routing component, works best with redux.
+A simple routing component. You can lazy load components if you set component a function.
+
+>######Redux flags
+>***none***
 ```js
 <Router 
     groups={["public"]} 
+    on={{}}
+    layouter={{}}
     pages={[{
-       name: "Login",
-       component: Authenticator,
-       display: false,
-       group: "public",
-       path: "/login",
-       aliasPath: ["/"],
-     }, {
-       name: "Browser",
-       component: Browser,
-       group: "private",
-       path:"/browser"
-     }]}/>;
+    name: "Login",
+    icon: faSignInAlt,
+    layout: "emptyPage",
+    component: () => {
+      //lazy load component
+      return import("../views/Authenticator");
+    },
+    inMenu: false,
+    props: { label: "page 1", primary: true },
+    display: false,
+    group: "public",
+    path: "/login",
+    aliasPath: ["/"]
+  },
+  {
+    name: "Forms",
+    icon: faEdit,
+    layout: "admin",
+    component: Form, //load simple react component
+    props: { label: "page 2", primary: true },
+    group: "private",
+    path: "/forms"
+  }]}/>;
 
 ```

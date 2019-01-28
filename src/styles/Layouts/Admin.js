@@ -9,9 +9,26 @@ const style = theme => materialUiTheme => {
     closeButtonHolder: {
       textAlign: "right"
     },
+    openMenuButton: {
+      margin: materialUiTheme.spacing.unit,
+      width: "48px",
+      height: "48px",
+      color: "rgba(255, 255, 255, 1)"
+    },
+    signOutButton: {
+      margin: materialUiTheme.spacing.unit,
+      width: "48px",
+      height: "48px",
+      color: "rgba(255, 255, 255, 1)",
+      paddingLeft: "16px"
+    },
     menu: {
       width: "250px",
       backgroundColor: theme.palette.thirdly
+    },
+    iconMenu: {
+      width: "25px",
+      margin: "0px"
     },
     fontMenu: {
       color: "rgba(255, 255, 255, 0.7)",

@@ -14,8 +14,8 @@ class AuthWrapper extends Component {
       >
         <Grid item xs={12} md={5}>
           <Authenticator
-            onAuthenticated={() => {
-              window.location = "/forms";
+            on={{
+              signIn: "AUTHENTICATOR::SIGN_IN"
             }}
           />
         </Grid>

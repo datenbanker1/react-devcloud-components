@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter, withRouter } from "react-router-dom";
 import Layouter from "./Layouter";
+import Container from "../container/Router";
 
 class Router extends Component {
   getVisibleLinks(group, pages) {
@@ -30,6 +31,7 @@ class Router extends Component {
           const content = withRouter(props => {
             return (
               <Layouter
+                {...this.props.layouter || {}}
                 layout={page.layout}
                 links={this.getVisibleLinks(group, pages)}
                 content={page.component}
@@ -69,4 +71,4 @@ class Router extends Component {
   }
 }
 
-export default Router;
+export default Container(Router);

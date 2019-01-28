@@ -1,8 +1,14 @@
 import React, { Component } from "react";
-import { MuiThemeProvider } from "@material-ui/core/styles";
+import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import Admin from "./layouts/Admin";
 import EmptyPage from "./layouts/EmptyPage";
+import AppBarOnly from "./layouts/AppBarOnly";
+import { CircularProgress } from "@material-ui/core";
+import CenterElements from "../CenterElements";
+import Container from "../../container/Layouter";
+
 import Theme from "../Theme";
+import defaultStyle from "../../styles/Layouter";
 
 class Layouter extends Component {
   constructor(props) {
@@ -16,7 +22,9 @@ class Layouter extends Component {
       }
     };
     this.loadContent = this.loadContent.bind(this);
+
     if (loadContentAsync) this.loadContent();
+    else this.props.dispatch(this.props.on, "contentLoaded");
   }
   async loadContent() {
     const module = await this.props.content();
@@ -26,15 +34,41 @@ class Layouter extends Component {
       error: false,
       toCreate: module.default
     };
+    this.props.dispatch(this.props.on, "contentLoaded");
     this.setState({ ...this.state, content });
   }
+
   getLayout(name, params) {
+    const { on, signOut } = this.props;
     switch (name) {
       case "admin":
-        return <Admin {...params} />;
+        return (
+          <Admin
+            {...params}
+            signOut={() => this.props.dispatch(this.props.on, "signOut")}
+          />
+        );
       case "emptyPage":
         return <EmptyPage {...params} />;
+      case "appBarOnly":
+        return (
+          <AppBarOnly
+            {...params}
+            signOut={() => this.props.dispatch(this.props.on, "signOut")}
+          />
+        );
     }
+  }
+
+  renderPendingContent() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.pendingIconWrapper}>
+        <CenterElements textAlign="center">
+          <CircularProgress size={60} />
+        </CenterElements>
+      </div>
+    );
   }
 
   render() {
@@ -49,7 +83,7 @@ class Layouter extends Component {
             links: links || [],
             content: !content.pending
               ? React.createElement(content.toCreate, { ...contentProps })
-              : "pending",
+              : this.renderPendingContent(),
             routing
           })}
         </div>
@@ -58,5 +92,8 @@ class Layouter extends Component {
   }
 }
 
-export default Layouter;
+export default withStyles(Theme.getStyle("Layouter", defaultStyle))(
+  Container(Layouter)
+);
+
 export { Admin };

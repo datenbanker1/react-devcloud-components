@@ -19,7 +19,6 @@ import settings from "./../settings";
 import Theme from "../../Theme";
 import defaultStyle from "../../../styles/Form/Fields/Text";
 
-
 class Text extends Component {
   constructor(props) {
     super(props);
@@ -95,7 +94,7 @@ class Text extends Component {
             )}
           </InputLabel>
           <Input
-            type={type || "text"}
+            type={type && !this.props.readOnly ? type : "text"}
             className={classNames([
               isSuccess
                 ? classes.inputSuccess

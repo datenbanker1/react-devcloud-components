@@ -44,7 +44,7 @@ class Authenticator extends Component {
     this.login = this.login.bind(this);
   }
   componentDidMount() {
-    this.props.autoLogin();
+    this.props.autoLogin(this.props.on);
   }
   async reset(formActions) {
     const { email, type } = this.state.resetCredentials;
@@ -66,7 +66,7 @@ class Authenticator extends Component {
     const { user, password } = this.state.login;
     formActions.togglePending(true);
     try {
-      const resp = await this.props.login(user, password);
+      const resp = await this.props.login(user, password, this.props.on);
       if (resp === true) return true;
       if (resp.challenges.length) {
         formActions.togglePending(false);
@@ -131,7 +131,7 @@ class Authenticator extends Component {
       return challengeResponse;
     });
     try {
-      await this.props.challenge(challenges, session);
+      await this.props.challenge(challenges, session, this.props.on);
     } catch (error) {
       if (error.code === "validationError") {
         let newState = { ...this.state };
@@ -271,10 +271,7 @@ class Authenticator extends Component {
     );
 
     return (
-      <Block
-        label={firstLogin ? "Erster Login" : "Zurückgestellt"}
-        primary
-      >
+      <Block label={firstLogin ? "Erster Login" : "Zurückgestellt"} primary>
         {firstLogin && (
           <Typography variant="body1">
             Da dies Ihre erste Anmeldung ist bitten wir Sie Ihren Benutzernamen
