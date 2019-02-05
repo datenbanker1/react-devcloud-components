@@ -118,6 +118,32 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.text}
               />
+              <Text
+                xs={12}
+                sm={6}
+                label="Text Strict"
+                strict
+                value={this.state.values.text}
+                readOnly={this.state.readOnly}
+                onChange={value => {
+                  let newState = { ...this.state };
+                  newState.values.text = value;
+                  this.setState(newState);
+                }}
+                error={this.state.errors.text}
+              />
+              <Text
+                xs={12}
+                sm={6}
+                label="Changer 4 readOnly"
+                value={this.state.values.text}
+                onChange={value => {
+                  let newState = { ...this.state };
+                  newState.values.text = value;
+                  this.setState(newState);
+                }}
+                error={this.state.errors.text}
+              />
               <Date
                 xs={12}
                 sm={6}

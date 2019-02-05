@@ -4,13 +4,14 @@ import Color from "color";
 const defaultTheme = {
   palette: {
     primary: "#5c90d2",
-    secondary: "#2d467d",
+    secondary: "#2c689c",
     thirdly: "#2c343f",
     background: "#ececec",
     danger: "#b7433f",
     success: "#559554",
     warning: "#e8db05",
     default: "#b9b9b9",
+    fontSubtle: "#686868",
     body: "#ececec",
     grey: "#e0e0e0"
   },
@@ -76,6 +77,12 @@ class Theme {
           return styles.Form.Fields.Text;
         case "Form/Fields/Time":
           return styles.Form.Fields.Time;
+        case "Browser":
+          return styles.Browser;
+        case "Pagination":
+          return styles.Pagination;
+        case "Sorting":
+          return styles.Sorting;
         default:
           return undefined;
       }

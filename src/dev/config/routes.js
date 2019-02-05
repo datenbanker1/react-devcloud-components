@@ -1,4 +1,8 @@
-import { faSignInAlt, faEdit } from "@fortawesome/pro-light-svg-icons";
+import {
+  faSignInAlt,
+  faEdit,
+  faBrowser
+} from "@fortawesome/pro-light-svg-icons";
 
 export default [
   {
@@ -24,5 +28,15 @@ export default [
     props: { label: "page 2", primary: true },
     group: "private",
     path: "/forms"
+  },
+  {
+    name: "Browser",
+    icon: faBrowser,
+    layout: "admin",
+    component: () => {
+      return import("../views/Browser");
+    },
+    group: "private",
+    path: "/browser"
   }
 ];

@@ -51,7 +51,7 @@ class Text extends Component {
     else this.props.onChange(value || null);
   }
   render() {
-    const { classes, xs, sm, md, lg, readOnly, type } = this.props;
+    const { classes, xs, sm, md, lg, readOnly, type, strict } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
@@ -107,7 +107,11 @@ class Text extends Component {
             autoComplete={type === "password" ? "current-password" : "off"}
             onChange={this.handleChange}
             value={
-              this.props.readOnly ? this.props.value || "-" : this.state.value
+              this.props.readOnly
+                ? this.props.value || "-"
+                : strict
+                ? this.props.value
+                : this.state.value
             }
           />
         </FormControl>
