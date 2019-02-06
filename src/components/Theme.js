@@ -83,6 +83,14 @@ class Theme {
           return styles.Pagination;
         case "Sorting":
           return styles.Sorting;
+        case "SubAppBar":
+          return styles.SubAppBar;
+        case "Buttons/Fab":
+          return styles.Buttons.Fab;
+        case "Buttons/Button":
+          return styles.Buttons.Button;
+        case "Buttons/DrawerButton":
+          return styles.Buttons.DrawerButton;
         default:
           return undefined;
       }

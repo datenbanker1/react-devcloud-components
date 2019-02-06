@@ -1,10 +1,21 @@
 import {
   faSignInAlt,
   faEdit,
-  faBrowser
+  faBrowser,
+  faEquals
 } from "@fortawesome/pro-light-svg-icons";
 
 export default [
+  {
+    name: "AppBar",
+    icon: faEquals,
+    layout: "admin",
+    component: () => {
+      return import("../views/AppBar");
+    },
+    group: "private",
+    path: "/appBar"
+  },
   {
     name: "Login",
     icon: faSignInAlt,

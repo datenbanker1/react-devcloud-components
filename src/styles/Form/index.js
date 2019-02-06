@@ -7,7 +7,7 @@ const style = theme => materialUiTheme => {
       right: 0,
       bottom: 0,
       left: 0,
-      zIndex: 1,
+      zIndex: 100,
       backgroundColor: "rgba(255, 255, 255, 0.8)"
     }
   };

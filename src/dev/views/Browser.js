@@ -38,9 +38,9 @@ class BrowserWrapper extends Component {
                         ? 1
                         : 0;
                     else
-                      return a.name < b.potential
+                      return a.potential < b.potential
                         ? 1
-                        : a.name > b.potential
+                        : a.potential > b.potential
                         ? -1
                         : 0;
                   default:

@@ -26,6 +26,50 @@ A block element with subheading. Can be used as a paper element.
     Hallo
 </Block>
 ```
+
+###Browser
+A simple wrapper with pagination and sorting for data which is not displayed in a table.
+```js
+<Browser
+    items={elements}
+    element={item => {
+      return (
+        <div key={item.name}>
+          {item.name}, Potential: {item.potential}
+        </div>
+      );
+    }}
+    filter={element => element}
+    sort={{
+      function: (a, b, selected) => {
+        const { active, order } = selected;
+        switch (active) {
+          case "Name":
+            if (order === "asc")
+              return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+            else return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
+          case "Potential":
+            if (order === "asc")
+              return a.potential < b.potential
+                ? -1
+                : a.potential > b.potential
+                ? 1
+                : 0;
+            else
+              return a.potential < b.potential
+                ? 1
+                : a.potential > b.potential
+                ? -1
+                : 0;
+          default:
+            return 0;
+        }
+      },
+      options: ["Name", "Potential"]
+    }}
+   />
+```
+
 ###Form
 A unified Form interface.
 ```js
