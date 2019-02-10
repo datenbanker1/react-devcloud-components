@@ -14,7 +14,7 @@ class AppBarWrapper extends Component {
             position="right"
             variant="default"
             label="Filter"
-            badge={1}
+            badge={4}
           >
             Drawer Content
           </DrawerButton>
