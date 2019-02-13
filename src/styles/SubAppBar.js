@@ -3,8 +3,7 @@ const style = theme => materialUiTheme => ({
     backgroundColor: "#fff",
     margin: "-8px",
     padding: "8px",
-    whiteSpace: "nowrap",
-    overflow: "scroll"
+    whiteSpace: "nowrap"
   }
 });
 

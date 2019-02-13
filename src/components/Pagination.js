@@ -60,111 +60,113 @@ class Pagination extends Component {
     const { anchorRecordsPerPage } = this.state;
     const pages = to - from + 1;
     return (
-      <div className={classes.holder}>
-        <Grid container size={4}>
-          <Grid item xs={12} sm={6} className={classes.recordsPerPageHolder}>
-            <Typography
-              aria-owns={anchorRecordsPerPage ? "simple-menu" : undefined}
-              aria-haspopup="true"
-              variant="caption"
-              className={classes.RecordsPerPageText}
-              onClick={toggleRecordsPerPageMenu}
-            >
-              Einträge pro Seite {recordsPerPage}{" "}
-              {recordsPerPageOptions && recordsPerPageOptions.length && (
-                <FontAwesomeIcon
-                  style={{ position: "relative", top: "1px" }}
-                  icon={faCaretDown}
-                />
-              )}
-            </Typography>
-            {recordsPerPageOptions && recordsPerPageOptions.length && (
-              <Menu
-                id="simple-menu"
-                anchorEl={anchorRecordsPerPage}
-                open={Boolean(anchorRecordsPerPage)}
-                onClose={toggleRecordsPerPageMenu}
-                classes={{ paper: classes.menu }}
+      <div className={classes.wrapper}>
+        <div className={classes.holder}>
+          <Grid container size={4}>
+            <Grid item xs={12} sm={6} className={classes.recordsPerPageHolder}>
+              <Typography
+                aria-owns={anchorRecordsPerPage ? "simple-menu" : undefined}
+                aria-haspopup="true"
+                variant="caption"
+                className={classes.RecordsPerPageText}
+                onClick={toggleRecordsPerPageMenu}
               >
-                {recordsPerPageOptions.map(option => (
-                  <MenuItem
-                    key={"recordsPerPageOption-" + option}
-                    onClick={event => changeRecordsPerPage(event, option)}
-                  >
-                    {option}
-                  </MenuItem>
-                ))}
-              </Menu>
-            )}
+                Einträge pro Seite {recordsPerPage}{" "}
+                {recordsPerPageOptions && recordsPerPageOptions.length && (
+                  <FontAwesomeIcon
+                    style={{ position: "relative", top: "1px" }}
+                    icon={faCaretDown}
+                  />
+                )}
+              </Typography>
+              {recordsPerPageOptions && recordsPerPageOptions.length && (
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorRecordsPerPage}
+                  open={Boolean(anchorRecordsPerPage)}
+                  onClose={toggleRecordsPerPageMenu}
+                  classes={{ paper: classes.menu }}
+                >
+                  {recordsPerPageOptions.map(option => (
+                    <MenuItem
+                      key={"recordsPerPageOption-" + option}
+                      onClick={event => changeRecordsPerPage(event, option)}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              )}
+            </Grid>
+            <Grid item xs={12} sm={6} className={classes.paginationHolder}>
+              <Fab
+                classes={{
+                  root: classNames([
+                    classes.paginationBtn,
+                    current <= from
+                      ? classes.paginationBtnDisabled
+                      : classes.paginationBtnActive
+                  ]),
+                  label: classes.paginationLabel
+                }}
+                onClick={this.firstPage}
+                color="default"
+                variant="round"
+              >
+                <FontAwesomeIcon icon={faChevronDoubleLeft} />
+              </Fab>
+              <Fab
+                classes={{
+                  root: classNames([
+                    classes.paginationBtn,
+                    current <= from
+                      ? classes.paginationBtnDisabled
+                      : classes.paginationBtnActive
+                  ]),
+                  label: classes.paginationLabel
+                }}
+                onClick={this.previous}
+                color="default"
+                variant="round"
+              >
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </Fab>
+              <Typography className={classes.text} variant="caption">
+                {current} von {pages}
+              </Typography>
+              <Fab
+                classes={{
+                  root: classNames([
+                    classes.paginationBtn,
+                    current >= to
+                      ? classes.paginationBtnDisabled
+                      : classes.paginationBtnActive
+                  ])
+                }}
+                onClick={this.next}
+                color="default"
+                variant="round"
+              >
+                <FontAwesomeIcon icon={faChevronRight} />
+              </Fab>
+              <Fab
+                classes={{
+                  root: classNames([
+                    classes.paginationBtn,
+                    current >= to
+                      ? classes.paginationBtnDisabled
+                      : classes.paginationBtnActive
+                  ])
+                }}
+                onClick={this.lastPage}
+                color="default"
+                variant="round"
+              >
+                <FontAwesomeIcon icon={faChevronDoubleRight} />
+              </Fab>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.paginationHolder}>
-            <Fab
-              classes={{
-                root: classNames([
-                  classes.paginationBtn,
-                  current <= from
-                    ? classes.paginationBtnDisabled
-                    : classes.paginationBtnActive
-                ]),
-                label: classes.paginationLabel
-              }}
-              onClick={this.firstPage}
-              color="default"
-              variant="round"
-            >
-              <FontAwesomeIcon icon={faChevronDoubleLeft} />
-            </Fab>
-            <Fab
-              classes={{
-                root: classNames([
-                  classes.paginationBtn,
-                  current <= from
-                    ? classes.paginationBtnDisabled
-                    : classes.paginationBtnActive
-                ]),
-                label: classes.paginationLabel
-              }}
-              onClick={this.previous}
-              color="default"
-              variant="round"
-            >
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </Fab>
-            <Typography className={classes.text} variant="caption">
-              {current} von {pages}
-            </Typography>
-            <Fab
-              classes={{
-                root: classNames([
-                  classes.paginationBtn,
-                  current >= to
-                    ? classes.paginationBtnDisabled
-                    : classes.paginationBtnActive
-                ])
-              }}
-              onClick={this.next}
-              color="default"
-              variant="round"
-            >
-              <FontAwesomeIcon icon={faChevronRight} />
-            </Fab>
-            <Fab
-              classes={{
-                root: classNames([
-                  classes.paginationBtn,
-                  current >= to
-                    ? classes.paginationBtnDisabled
-                    : classes.paginationBtnActive
-                ])
-              }}
-              onClick={this.lastPage}
-              color="default"
-              variant="round"
-            >
-              <FontAwesomeIcon icon={faChevronDoubleRight} />
-            </Fab>
-          </Grid>
-        </Grid>
+        </div>
       </div>
     );
   }

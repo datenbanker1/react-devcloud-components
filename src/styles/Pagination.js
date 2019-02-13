@@ -1,4 +1,8 @@
 const style = theme => materialUiTheme => ({
+  wrapper: {
+    overflow: "hidden",
+    height: "46px"
+  },
   holder: {
     margin: "0px 4px"
   },
@@ -8,7 +12,7 @@ const style = theme => materialUiTheme => ({
   paginationHolder: {
     textAlign: "right",
     whiteSpace: "nowrap",
-    overflow: "scroll"
+    overflowX: "scroll"
   },
   menu: {
     border: "1px solid " + theme.palette.default

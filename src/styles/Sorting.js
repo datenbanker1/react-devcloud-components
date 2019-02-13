@@ -1,7 +1,9 @@
 const style = theme => materialUiTheme => ({
   holder: {
     margin: "0px",
-    paddingTop: "12px"
+    paddingTop: "12px",
+    overflow: "hidden",
+    height: "27px"
   },
   list: {
     listStyle: "none",

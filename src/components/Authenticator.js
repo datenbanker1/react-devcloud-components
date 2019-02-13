@@ -196,6 +196,7 @@ class Authenticator extends Component {
           <Button
             variant="contained"
             color="primary"
+            type="submit"
             onClick={e => {
               e.preventDefault();
               this.login(formActions);
@@ -259,6 +260,7 @@ class Authenticator extends Component {
           <Button
             variant="contained"
             color="primary"
+            type="submit"
             onClick={e => {
               e.preventDefault();
               this.challenge(formActions);
@@ -354,6 +356,7 @@ class Authenticator extends Component {
               variant="contained"
               disabled={this.state.resetCredentials.type === ""}
               color="primary"
+              type="submit"
               style={{ marginLeft: "8px" }}
               onClick={e => {
                 e.preventDefault();
@@ -406,6 +409,7 @@ class Authenticator extends Component {
             <Button
               variant="contained"
               color="default"
+              type="submit"
               onClick={e => {
                 e.preventDefault();
                 this.setState({
@@ -444,6 +448,7 @@ class Authenticator extends Component {
               variant="contained"
               disabled={this.state.resetCredentials.type === ""}
               color="primary"
+              type="submit"
               style={{ marginLeft: "8px" }}
               onClick={e => {
                 e.preventDefault();

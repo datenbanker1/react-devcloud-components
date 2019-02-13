@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Grid } from "@material-ui/core";
-import Block from "../../components/Block";
 import Browser from "../../components/Browser";
 
 class BrowserWrapper extends Component {
@@ -55,7 +54,5 @@ class BrowserWrapper extends Component {
     );
   }
 }
-
-const style = theme => ({});
 
 export default BrowserWrapper;
