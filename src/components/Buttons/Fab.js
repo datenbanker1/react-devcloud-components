@@ -7,12 +7,20 @@ import defaultStyle from "../../styles/Buttons/Fab";
 
 class Fab extends Component {
   render() {
-    const { classes, icon, variant, style, onClick } = this.props;
+    const {
+      classes,
+      icon,
+      variant,
+      style,
+      onClick,
+      override = {}
+    } = this.props;
     const className = variant || "default";
     return (
       <FabButton
         className={classes[className]}
         size="small"
+        classes={{ root: override.button, label: override.icon }}
         {...{ style, onClick }}
       >
         <FontAwesomeIcon icon={icon} />

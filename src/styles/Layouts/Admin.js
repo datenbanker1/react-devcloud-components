@@ -51,7 +51,7 @@ const style = theme => materialUiTheme => {
       padding: "64px 8px 8px 258px",
       [materialUiTheme.breakpoints.up("xs") +
       " and (orientation: landscape)"]: {
-        padding: "56px 8px 8px 258px"
+        padding: "72px 8px 8px 258px"
       },
       [materialUiTheme.breakpoints.up("sm")]: {
         padding: "72px 8px 8px 258px"
