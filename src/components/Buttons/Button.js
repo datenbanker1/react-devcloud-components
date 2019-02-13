@@ -7,11 +7,22 @@ import defaultStyle from "../../styles/Buttons/Button";
 
 class Button extends Component {
   render() {
-    const { classes, variant, style, onClick, children } = this.props;
+    const {
+      classes,
+      variant,
+      style,
+      onClick,
+      children,
+      override = {}
+    } = this.props;
     const className = variant || "default";
     return (
       <MaButton
-        className={classNames([classes.btn, classes[className]])}
+        className={classNames([
+          classes.btn,
+          classes[className],
+          override.button
+        ])}
         variant="contained"
         {...{ style, onClick }}
       >

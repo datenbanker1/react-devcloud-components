@@ -60,7 +60,7 @@ class Pagination extends Component {
     const { anchorRecordsPerPage } = this.state;
     const pages = to - from + 1;
     return (
-      <div className={classes.wrapper}>
+      <div>
         <div className={classes.holder}>
           <Grid container size={4}>
             <Grid item xs={12} sm={6} className={classes.recordsPerPageHolder}>
@@ -98,72 +98,74 @@ class Pagination extends Component {
                 </Menu>
               )}
             </Grid>
-            <Grid item xs={12} sm={6} className={classes.paginationHolder}>
-              <Fab
-                classes={{
-                  root: classNames([
-                    classes.paginationBtn,
-                    current <= from
-                      ? classes.paginationBtnDisabled
-                      : classes.paginationBtnActive
-                  ]),
-                  label: classes.paginationLabel
-                }}
-                onClick={this.firstPage}
-                color="default"
-                variant="round"
-              >
-                <FontAwesomeIcon icon={faChevronDoubleLeft} />
-              </Fab>
-              <Fab
-                classes={{
-                  root: classNames([
-                    classes.paginationBtn,
-                    current <= from
-                      ? classes.paginationBtnDisabled
-                      : classes.paginationBtnActive
-                  ]),
-                  label: classes.paginationLabel
-                }}
-                onClick={this.previous}
-                color="default"
-                variant="round"
-              >
-                <FontAwesomeIcon icon={faChevronLeft} />
-              </Fab>
-              <Typography className={classes.text} variant="caption">
-                {current} von {pages}
-              </Typography>
-              <Fab
-                classes={{
-                  root: classNames([
-                    classes.paginationBtn,
-                    current >= to
-                      ? classes.paginationBtnDisabled
-                      : classes.paginationBtnActive
-                  ])
-                }}
-                onClick={this.next}
-                color="default"
-                variant="round"
-              >
-                <FontAwesomeIcon icon={faChevronRight} />
-              </Fab>
-              <Fab
-                classes={{
-                  root: classNames([
-                    classes.paginationBtn,
-                    current >= to
-                      ? classes.paginationBtnDisabled
-                      : classes.paginationBtnActive
-                  ])
-                }}
-                onClick={this.lastPage}
-                color="default"
-                variant="round"
-              >
-                <FontAwesomeIcon icon={faChevronDoubleRight} />
-              </Fab>
+            <Grid item xs={12} sm={6} className={classes.wrapper}>
+              <div className={classes.paginationHolder}>
+                <Fab
+                  classes={{
+                    root: classNames([
+                      classes.paginationBtn,
+                      current <= from
+                        ? classes.paginationBtnDisabled
+                        : classes.paginationBtnActive
+                    ]),
+                    label: classes.paginationLabel
+                  }}
+                  onClick={this.firstPage}
+                  color="default"
+                  variant="round"
+                >
+                  <FontAwesomeIcon icon={faChevronDoubleLeft} />
+                </Fab>
+                <Fab
+                  classes={{
+                    root: classNames([
+                      classes.paginationBtn,
+                      current <= from
+                        ? classes.paginationBtnDisabled
+                        : classes.paginationBtnActive
+                    ]),
+                    label: classes.paginationLabel
+                  }}
+                  onClick={this.previous}
+                  color="default"
+                  variant="round"
+                >
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </Fab>
+                <Typography className={classes.text} variant="caption">
+                  {current} von {pages}
+                </Typography>
+                <Fab
+                  classes={{
+                    root: classNames([
+                      classes.paginationBtn,
+                      current >= to
+                        ? classes.paginationBtnDisabled
+                        : classes.paginationBtnActive
+                    ])
+                  }}
+                  onClick={this.next}
+                  color="default"
+                  variant="round"
+                >
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </Fab>
+                <Fab
+                  classes={{
+                    root: classNames([
+                      classes.paginationBtn,
+                      current >= to
+                        ? classes.paginationBtnDisabled
+                        : classes.paginationBtnActive
+                    ])
+                  }}
+                  onClick={this.lastPage}
+                  color="default"
+                  variant="round"
+                >
+                  <FontAwesomeIcon icon={faChevronDoubleRight} />
+                </Fab>
+              </div>
             </Grid>
           </Grid>
         </div>
