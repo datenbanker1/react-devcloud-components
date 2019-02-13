@@ -1,6 +1,6 @@
 {
   "name": "@datenbanker/react-devcloud-components",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "build/index.js",
   "directories": {
@@ -18,7 +18,7 @@
   "peerDependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "@datenbanker/devcloud-client-lib": "0.0.6",
+    "@datenbanker/devcloud-client-lib": "0.0.^6",
     "@datenbanker/storage": "0.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
     "@fortawesome/pro-light-svg-icons": "^5.6.3",

@@ -7,10 +7,11 @@
 .idea
 .vscode
 .editorconfig
+*.code-workspace
 
 # production
 .npmrc
-/dist
+/build
 *.iml
 *.xml
 # misc

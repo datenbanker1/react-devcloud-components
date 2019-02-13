@@ -6,6 +6,7 @@ import { faTimes } from "@fortawesome/pro-light-svg-icons";
 import Button from "./Button";
 import Theme from "../Theme";
 import defaultStyle from "../../styles/Buttons/DrawerButton";
+import className from "classnames";
 
 class DrawerButton extends Component {
   state = {
@@ -15,16 +16,25 @@ class DrawerButton extends Component {
     this.setState({ ...this.state, open: !this.state.open });
   };
   render() {
-    const { classes, position, children, label, style, badge } = this.props;
+    const {
+      classes,
+      position,
+      children,
+      variant,
+      label,
+      style,
+      badge,
+      override = {}
+    } = this.props;
     return (
       <div className={classes.holder} style={style}>
         <Badge
-          classes={{ badge: classes.badge }}
+          classes={{ badge: className([classes.badge, override.badge]) }}
           badgeContent={badge}
           invisible={!Boolean(badge) && badge !== 0}
           color="secondary"
         >
-          <Button variant="default" onClick={this.toggleDrawer}>
+          <Button variant={variant} onClick={this.toggleDrawer}>
             {label}
           </Button>
         </Badge>

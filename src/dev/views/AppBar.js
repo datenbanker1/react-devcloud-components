@@ -1,10 +1,19 @@
 import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
 import SubAppBar from "../../components/SubAppBar";
 import { Fab, DrawerButton } from "../../components/Buttons";
 import { faPlus } from "@fortawesome/pro-light-svg-icons";
 
+const overrideStyle = {
+  test: {
+    top: "-5px",
+    right: "-5px"
+  }
+};
+
 class AppBarWrapper extends Component {
   render() {
+    const { classes } = this.props;
     return (
       <div>
         <SubAppBar>
@@ -15,6 +24,7 @@ class AppBarWrapper extends Component {
             variant="default"
             label="Filter"
             badge={4}
+            override={{ badge: classes.test }}
           >
             Drawer Content
           </DrawerButton>
@@ -24,4 +34,4 @@ class AppBarWrapper extends Component {
   }
 }
 
-export default AppBarWrapper;
+export default withStyles(overrideStyle)(AppBarWrapper);
