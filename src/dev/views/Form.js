@@ -17,13 +17,15 @@ class FormWrapper extends Component {
     super(props);
     this.state = {
       readOnly: false,
+      disable: false,
       values: {
         text: "Hallo ich bin ein Textfeld",
         radio: "",
         date: "",
         multiSelect: [],
         select: "",
-        range: 0,
+        range: [5],
+        ranger: [0, 2, 10],
         time: ""
       },
       errors: {
@@ -39,6 +41,18 @@ class FormWrapper extends Component {
     const actions = formActions => (
       <Grid container direction="row" justify="flex-end">
         <Grid item xs={12} style={{ textAlign: "right" }}>
+          <Button
+            variant="contained"
+            style={{ marginRight: "8px" }}
+            color="default"
+            onClick={e => {
+              e.preventDefault();
+              let newState = { ...this.state, disable: !this.state.disable };
+              this.setState(newState);
+            }}
+          >
+            disable
+          </Button>
           <Button
             variant="contained"
             style={{ marginRight: "8px" }}
@@ -117,6 +131,7 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.text}
+                disabled={this.state.disable}
               />
               <Text
                 xs={12}
@@ -131,6 +146,7 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.text}
+                disabled={this.state.disable}
               />
               <Text
                 xs={12}
@@ -143,6 +159,7 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.text}
+                disabled={this.state.disable}
               />
               <Date
                 xs={12}
@@ -156,6 +173,7 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.date}
+                disabled={this.state.disable}
               />
               <MultiSelect
                 xs={12}
@@ -171,6 +189,7 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.radio}
+                disabled={this.state.disable}
               />
               <Select
                 xs={12}
@@ -186,11 +205,12 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.radio}
+                disabled={this.state.disable}
               />
               <Time
                 xs={12}
                 sm={6}
-                label="Start"
+                label="Time"
                 value={this.state.values.time}
                 readOnly={this.state.readOnly}
                 onChange={value => {
@@ -200,12 +220,12 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.time}
+                disabled={this.state.disable}
               />
               <Range
                 xs={12}
                 sm={6}
                 label="Range"
-                options={["option 1", "option 2"]}
                 value={this.state.values.range}
                 readOnly={this.state.readOnly}
                 min={0}
@@ -217,6 +237,24 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.range}
+                disabled={this.state.disable}
+              />
+              <Range
+                xs={12}
+                sm={6}
+                label="Range"
+                value={this.state.values.ranger}
+                readOnly={this.state.readOnly}
+                min={0}
+                max={10}
+                step={1}
+                onChange={value => {
+                  let newState = { ...this.state };
+                  newState.values.ranger = value;
+                  this.setState(newState);
+                }}
+                error={this.state.errors.range}
+                disabled={this.state.disable}
               />
               <Radio
                 xs={12}
@@ -235,6 +273,7 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.radio}
+                disabled={this.state.disable}
               />
             </Form>
           </Block>
@@ -243,7 +282,5 @@ class FormWrapper extends Component {
     );
   }
 }
-
-const style = theme => ({});
 
 export default FormWrapper;

@@ -51,7 +51,7 @@ class Time extends Component {
     else this.props.onChange(value || null);
   }
   render() {
-    const { classes, xs, sm, md, lg, readOnly } = this.props;
+    const { classes, xs, sm, md, lg, readOnly, disabled } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
@@ -111,6 +111,8 @@ class Time extends Component {
             value={
               this.props.readOnly ? this.props.value || "-" : this.state.value
             }
+            readOnly={readOnly}
+            disabled={disabled}
           />
         </FormControl>
         {hasError && (

@@ -20,6 +20,9 @@ const style = theme => materialUiTheme => {
     select: {
       "&:focus": { background: "rgba(0, 0, 0, 0)" }
     },
+    disabledCursor: {
+      cursor: "not-allowed !important"
+    },
     input: {
       width: "100%",
       "&:hover:before": {

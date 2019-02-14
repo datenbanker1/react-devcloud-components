@@ -82,7 +82,7 @@ class MultiSelect extends Component {
     else this.props.onChange(value);
   }
   render() {
-    const { classes, xs, sm, md, lg, readOnly } = this.props;
+    const { classes, xs, sm, md, lg, readOnly, disabled } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
@@ -136,10 +136,16 @@ class MultiSelect extends Component {
               style={{
                 whiteSpace: "normal"
               }}
-              classes={{ selectMenu: classes.select }}
+              classes={{
+                selectMenu: classNames([
+                  classes.select,
+                  disabled ? classes.disabledCursor : false
+                ])
+              }}
               multiple
               value={readOnly ? this.props.value : this.state.value}
               readOnly={readOnly}
+              disabled={disabled || readOnly}
               onChange={this.handleChange}
               onClose={this.handleClose}
               input={
@@ -187,6 +193,6 @@ class MultiSelect extends Component {
   }
 }
 
-export default withStyles(Theme.getStyle("Form/Fields/MultiSelect", defaultStyle))(
-  MultiSelect
-);
+export default withStyles(
+  Theme.getStyle("Form/Fields/MultiSelect", defaultStyle)
+)(MultiSelect);

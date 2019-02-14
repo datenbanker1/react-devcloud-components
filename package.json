@@ -1,6 +1,6 @@
 {
   "name": "@datenbanker/react-devcloud-components",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "main": "build/index.js",
   "directories": {
@@ -63,5 +63,7 @@
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react-compound-slider": "^0.20.1"
+  }
 }

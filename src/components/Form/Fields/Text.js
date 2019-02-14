@@ -51,7 +51,17 @@ class Text extends Component {
     else this.props.onChange(value || null);
   }
   render() {
-    const { classes, xs, sm, md, lg, readOnly, type, strict } = this.props;
+    const {
+      classes,
+      xs,
+      sm,
+      md,
+      lg,
+      readOnly,
+      type,
+      strict,
+      disabled
+    } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
@@ -113,6 +123,8 @@ class Text extends Component {
                 ? this.props.value
                 : this.state.value
             }
+            readOnly={readOnly}
+            disabled={disabled}
           />
         </FormControl>
         {hasError && (

@@ -36,7 +36,7 @@ class RadioStatic extends Component {
   }
 
   render() {
-    const { classes, xs, sm, md, lg, options, readOnly } = this.props;
+    const { classes, xs, sm, md, lg, options, readOnly, disabled } = this.props;
     const hasError = this.props.error && !readOnly && !this.state.pending;
     const isSuccess = this.state.success && !readOnly && !this.state.pending;
     const value = this.props.readOnly
@@ -60,6 +60,7 @@ class RadioStatic extends Component {
                       <Radio
                         className={classNames([hasError ? classes.danger : ""])}
                         color="primary"
+                        disabled={disabled}
                       />
                     }
                     label={
