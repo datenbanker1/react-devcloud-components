@@ -37,7 +37,8 @@ class Browser extends Component {
       .map(element);
   };
   getPages = records => {
-    const { recordsPerPage } = this.state;
+    const recordsPerPage =
+      this.props.recordsPerPage || this.state.recordsPerPage;
     return Math.ceil(records.length / recordsPerPage);
   };
   setCurrentPage = page => {
