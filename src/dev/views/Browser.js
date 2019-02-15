@@ -3,6 +3,10 @@ import { Grid } from "@material-ui/core";
 import Browser from "../../components/Browser";
 
 class BrowserWrapper extends Component {
+  state = {
+    currentPage: 0,
+    recordsPerPage: 4
+  };
   render() {
     const elements = [];
     for (let i = 0; i < 20; i++) {
@@ -21,6 +25,15 @@ class BrowserWrapper extends Component {
               );
             }}
             filter={element => element}
+            currentPage={this.state.currentPage}
+            onCurrentPageChange={currentPage =>
+              this.setState({ ...this.state, currentPage })
+            }
+            recordsPerPage={this.state.recordsPerPage}
+            onRecordsPerPageChange={recordsPerPage =>
+              this.setState({ ...this.state, recordsPerPage })
+            }
+            recordsPerPageOptions={[1, 2, 3, 4, 5, 10, 20, 50]}
             sort={{
               function: (a, b, selected) => {
                 const { active, order } = selected;

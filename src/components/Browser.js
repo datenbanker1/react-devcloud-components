@@ -22,7 +22,12 @@ class Browser extends Component {
       .sort((a, b) => sort.function(a, b, currentSorting));
   };
   getElementsForPage = elements => {
-    const { currentPage, recordsPerPage } = this.state;
+    const currentPage =
+      this.props.currentPage || this.props.currentPage === 0
+        ? this.props.currentPage
+        : this.state.currentPage;
+    const recordsPerPage =
+      this.props.recordsPerPage || this.state.recordsPerPage;
     const { element } = this.props;
     return elements
       .slice(
@@ -36,10 +41,15 @@ class Browser extends Component {
     return Math.ceil(records.length / recordsPerPage);
   };
   setCurrentPage = page => {
-    this.setState({ ...this.state, currentPage: page - 1 });
+    const currentPageProp = this.props.currentPage;
+    if (currentPageProp || currentPageProp === 0)
+      this.props.onCurrentPageChange(page - 1);
+    else this.setState({ ...this.state, currentPage: page - 1 });
   };
   setRecordsPerPage = recordsPerPage => {
-    this.setState({ ...this.state, recordsPerPage });
+    const recordsPerPageeProp = this.props.recordsPerPage;
+    if (recordsPerPageeProp) this.props.onRecordsPerPageChange(recordsPerPage);
+    else this.setState({ ...this.state, recordsPerPage });
   };
   setSorting = currentSorting => {
     this.setState({ ...this.state, currentSorting });
@@ -54,8 +64,13 @@ class Browser extends Component {
       setRecordsPerPage,
       setSorting
     } = this;
-    const { classes, items, sort } = props;
-    const { currentPage, recordsPerPage } = this.state;
+    const { classes, items, sort, recordsPerPageOptions } = props;
+    const currentPage =
+      this.props.currentPage || this.props.currentPage === 0
+        ? this.props.currentPage
+        : this.state.currentPage;
+    const recordsPerPage =
+      this.props.recordsPerPage || this.state.recordsPerPage;
     const preparedItems = getFilteredAndSortedItems(items);
     const pages = getPages(preparedItems);
 
@@ -66,7 +81,9 @@ class Browser extends Component {
             <Sorting options={sort.options} onChange={setSorting} />
           </div>
         )}
-        <div className={classes.elementsHolder}>{getElementsForPage(preparedItems)}</div>
+        <div className={classes.elementsHolder}>
+          {getElementsForPage(preparedItems)}
+        </div>
         <div className={classes.paginationHolder}>
           <Pagination
             current={currentPage + 1}
@@ -74,7 +91,9 @@ class Browser extends Component {
             to={pages}
             onChange={setCurrentPage}
             recordsPerPage={recordsPerPage}
-            recordsPerPageOptions={[5, 10, 20, 50, 100]}
+            recordsPerPageOptions={
+              recordsPerPageOptions || [5, 10, 20, 50, 100]
+            }
             onChangeRecordsPerPage={setRecordsPerPage}
           />
         </div>

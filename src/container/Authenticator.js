@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Authentication, DevCloud } from "@datenbanker/devcloud-client-lib";
 import Storage from "@datenbanker/storage";
