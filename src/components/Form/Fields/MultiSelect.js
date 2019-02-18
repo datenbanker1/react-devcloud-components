@@ -163,18 +163,35 @@ class MultiSelect extends Component {
               }
               renderValue={selected => (
                 <div>
-                  {selected.map(value => (
-                    <Chip key={value} label={value} className={classes.chip} />
-                  ))}
+                  {selected.map(item => {
+                    const value = item;
+                    const label =
+                      typeof this.props.options[0] === "object"
+                        ? this.props.options.find(
+                            option => option.value === value
+                          ).label
+                        : item;
+                    return (
+                      <Chip
+                        key={value}
+                        label={label}
+                        className={classes.chip}
+                      />
+                    );
+                  })}
                 </div>
               )}
               MenuProps={MenuProps}
             >
-              {this.props.options.map(name => (
-                <MenuItem key={name} value={name}>
-                  {name}
-                </MenuItem>
-              ))}
+              {this.props.options.map(item => {
+                const label = typeof item === "object" ? item.label : item;
+                const value = typeof item === "object" ? item.value : item;
+                return (
+                  <MenuItem key={value} value={value}>
+                    {label}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
           {hasError && (

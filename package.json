@@ -1,6 +1,6 @@
 {
   "name": "@datenbanker/react-devcloud-components",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "",
   "main": "build/index.js",
   "directories": {
@@ -11,7 +11,7 @@
     "start": "webpack-dev-server --config=config/webpack.dev.js",
     "build": "rm -rf build && webpack --config=config/webpack.production.js",
     "analyse": "rm -rf build && webpack --config=config/webpack.production.js --json",
-    "pub": "npm run build && npm publish --access=public"
+    "pub": "npm run build; npm publish --access=public"
   },
   "author": "",
   "license": "ISC",

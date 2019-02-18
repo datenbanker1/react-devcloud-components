@@ -179,7 +179,10 @@ class FormWrapper extends Component {
                 xs={12}
                 sm={6}
                 label="Multiselect"
-                options={["option 1", "option 2"]}
+                options={[
+                  { label: "option1", value: "value1" },
+                  { label: "option2", value: "value2" }
+                ]}
                 value={this.state.values.multiSelect}
                 readOnly={this.state.readOnly}
                 onChange={value => {
