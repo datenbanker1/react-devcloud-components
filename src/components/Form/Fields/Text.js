@@ -60,6 +60,7 @@ class Text extends Component {
       readOnly,
       type,
       strict,
+      rows,
       disabled
     } = this.props;
     const hasError =
@@ -105,6 +106,8 @@ class Text extends Component {
           </InputLabel>
           <Input
             type={type && !this.props.readOnly ? type : "text"}
+            multiline={!!rows}
+            rows={rows}
             className={classNames([
               isSuccess
                 ? classes.inputSuccess

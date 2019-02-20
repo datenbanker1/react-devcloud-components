@@ -26,7 +26,8 @@ class FormWrapper extends Component {
         select: "",
         range: [5],
         ranger: [0, 2, 10],
-        time: ""
+        time: "",
+        textField: ""
       },
       errors: {
         text: false,
@@ -173,6 +174,20 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.date}
+                disabled={this.state.disable}
+              />
+              <Text
+                xs={12}
+                label="Textfeld"
+                rows={5}
+                value={this.state.values.textField}
+                readOnly={this.state.readOnly}
+                onChange={value => {
+                  let newState = { ...this.state };
+                  newState.values.textField = value;
+                  this.setState(newState);
+                }}
+                error={this.state.errors.text}
                 disabled={this.state.disable}
               />
               <MultiSelect

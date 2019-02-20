@@ -39,7 +39,6 @@ class Layouter extends Component {
   }
 
   getLayout(name, params) {
-    const { on, signOut } = this.props;
     switch (name) {
       case "admin":
         return (
@@ -57,6 +56,8 @@ class Layouter extends Component {
             signOut={() => this.props.dispatch(this.props.on, "signOut")}
           />
         );
+      default:
+        console.log("LAYOUTER: layout not defined");
     }
   }
 
@@ -82,7 +83,10 @@ class Layouter extends Component {
             page: page || "",
             links: links || [],
             content: !content.pending
-              ? React.createElement(content.toCreate, { ...contentProps })
+              ? React.createElement(content.toCreate, {
+                  ...contentProps,
+                  routing
+                })
               : this.renderPendingContent(),
             routing
           })}

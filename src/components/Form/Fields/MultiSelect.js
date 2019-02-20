@@ -18,9 +18,9 @@ import {
   faLockAlt
 } from "@fortawesome/pro-light-svg-icons";
 import settings from "./../settings";
-
 import Theme from "../../Theme";
 import defaultStyle from "../../../styles/Form/Fields/MultiSelect";
+import Text from "./Text";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -82,131 +82,131 @@ class MultiSelect extends Component {
     else this.props.onChange(value);
   }
   render() {
-    const { classes, xs, sm, md, lg, readOnly, disabled } = this.props;
+    const { classes, xs, sm, md, lg, readOnly, disabled, label } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
       this.state.success && !this.props.readOnly && !this.state.pending;
-    const hasValues =
-      (readOnly && this.props.value.length) ||
-      (!readOnly && this.state.value.length)
-        ? true
-        : false;
-    return (
-      <Grid item {...{ xs, sm, md, lg }}>
-        <div className="instant-form-control">
-          <FormControl className={classes.formControl}>
-            <InputLabel
-              className={classNames([
-                isSuccess ? classes.success : "",
-                hasError ? classes.danger : ""
-              ])}
-            >
-              {this.props.label}
-              {this.state.pending && (
-                <CircularProgress
-                  className={classes.default}
-                  style={{ marginLeft: "5px", display: "inline-block" }}
-                  size={13}
-                />
-              )}
-              {readOnly && (
-                <FontAwesomeIcon
-                  className={classes.default}
-                  style={{ marginLeft: "5px" }}
-                  icon={faLockAlt}
-                />
-              )}
-              {hasError && (
-                <FontAwesomeIcon
-                  className={classes.danger}
-                  style={{ marginLeft: "5px" }}
-                  icon={faExclamationCircle}
-                />
-              )}
-              {isSuccess && (
-                <FontAwesomeIcon
-                  className={classes.success}
-                  style={{ marginLeft: "5px" }}
-                  icon={faCheck}
-                />
-              )}
-            </InputLabel>
-            <Select
-              style={{
-                whiteSpace: "normal"
-              }}
-              classes={{
-                selectMenu: classNames([
-                  classes.select,
-                  disabled ? classes.disabledCursor : false
-                ])
-              }}
-              multiple
-              value={readOnly ? this.props.value : this.state.value}
-              readOnly={readOnly}
-              disabled={disabled || readOnly}
-              onChange={this.handleChange}
-              onClose={this.handleClose}
-              input={
-                <Input
-                  className={classNames([
-                    isSuccess
-                      ? classes.inputSuccess
-                      : hasError
-                      ? classes.inputError
-                      : readOnly
-                      ? classes.inputReadonly
-                      : classes.input
-                  ])}
-                />
-              }
-              renderValue={selected => (
-                <div>
-                  {selected.map(item => {
-                    const value = item;
-                    const label =
-                      typeof this.props.options[0] === "object"
-                        ? this.props.options.find(
-                            option => option.value === value
-                          ).label
-                        : item;
-                    return (
-                      <Chip
-                        key={value}
-                        label={label}
-                        className={classes.chip}
-                      />
-                    );
-                  })}
-                </div>
-              )}
-              MenuProps={MenuProps}
-            >
-              {this.props.options.map(item => {
-                const label = typeof item === "object" ? item.label : item;
-                const value = typeof item === "object" ? item.value : item;
-                return (
-                  <MenuItem key={value} value={value}>
-                    {label}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-          {hasError && (
-            <Typography
-              className={classNames([hasError ? classes.danger : ""])}
-              variant="body2"
-              gutterBottom
-              style={{ display: "inline" }}
-            >
-              {this.props.error}
-            </Typography>
-          )}
-        </div>
-      </Grid>
-    );
+    if (readOnly && !this.props.value.length)
+      return (
+        <Text {...{ xs, sm, md, lg, readOnly, disabled, label }} value="" />
+      );
+    else
+      return (
+        <Grid item {...{ xs, sm, md, lg }}>
+          <div className="instant-form-control">
+            <FormControl className={classes.formControl}>
+              <InputLabel
+                className={classNames([
+                  isSuccess ? classes.success : "",
+                  hasError ? classes.danger : ""
+                ])}
+              >
+                {this.props.label}
+                {this.state.pending && (
+                  <CircularProgress
+                    className={classes.default}
+                    style={{ marginLeft: "5px", display: "inline-block" }}
+                    size={13}
+                  />
+                )}
+                {readOnly && (
+                  <FontAwesomeIcon
+                    className={classes.default}
+                    style={{ marginLeft: "5px" }}
+                    icon={faLockAlt}
+                  />
+                )}
+                {hasError && (
+                  <FontAwesomeIcon
+                    className={classes.danger}
+                    style={{ marginLeft: "5px" }}
+                    icon={faExclamationCircle}
+                  />
+                )}
+                {isSuccess && (
+                  <FontAwesomeIcon
+                    className={classes.success}
+                    style={{ marginLeft: "5px" }}
+                    icon={faCheck}
+                  />
+                )}
+              </InputLabel>
+              <Select
+                style={{
+                  whiteSpace: "normal"
+                }}
+                classes={{
+                  selectMenu: classNames([
+                    classes.select,
+                    disabled ? classes.disabledCursor : false
+                  ])
+                }}
+                multiple
+                value={readOnly ? this.props.value : this.state.value}
+                readOnly={readOnly}
+                disabled={disabled || readOnly}
+                onChange={this.handleChange}
+                onClose={this.handleClose}
+                input={
+                  <Input
+                    className={classNames([
+                      isSuccess
+                        ? classes.inputSuccess
+                        : hasError
+                        ? classes.inputError
+                        : readOnly
+                        ? classes.inputReadonly
+                        : classes.input
+                    ])}
+                  />
+                }
+                renderValue={selected => (
+                  <div>
+                    {selected.map(item => {
+                      const value = item;
+                      const label =
+                        typeof this.props.options[0] === "object"
+                          ? this.props.options.find(
+                              option => option.value === value
+                            ).label
+                          : item;
+                      return (
+                        <Chip
+                          key={value}
+                          label={label}
+                          className={classes.chip}
+                        />
+                      );
+                    })}
+                  </div>
+                )}
+                MenuProps={MenuProps}
+              >
+                {this.props.options.map(item => {
+                  const label = typeof item === "object" ? item.label : item;
+                  const value = typeof item === "object" ? item.value : item;
+                  return (
+                    <MenuItem key={value} value={value}>
+                      {label}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            {hasError && (
+              <Typography
+                className={classNames([hasError ? classes.danger : ""])}
+                variant="body2"
+                gutterBottom
+                style={{ display: "inline" }}
+              >
+                {this.props.error}
+              </Typography>
+            )}
+          </div>
+        </Grid>
+      );
   }
 }
 
