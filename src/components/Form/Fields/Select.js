@@ -77,6 +77,7 @@ class SelectExport extends Component {
       sm,
       md,
       lg,
+      xl,
       readOnly,
       disabled,
       label,
@@ -99,13 +100,13 @@ class SelectExport extends Component {
           : selectedOption;
       return (
         <Text
-          {...{ xs, sm, md, lg, readOnly, disabled, label }}
+          {...{ xs, sm, md, lg, xl, readOnly, disabled, label }}
           value={textValue || ""}
         />
       );
     } else
       return (
-        <Grid item {...{ xs, sm, md, lg }}>
+        <Grid item {...{ xs, sm, md, lg, xl }}>
           <div className="instant-form-control">
             <FormControl className={classes.formControl}>
               <InputLabel

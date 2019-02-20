@@ -50,13 +50,13 @@ class Date extends Component {
     else this.props.onChange(value || null);
   }
   render() {
-    const { classes, xs, sm, md, lg, readOnly, disabled } = this.props;
+    const { classes, xs, sm, md, lg, xl, readOnly, disabled } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
       this.state.success && !this.props.readOnly && !this.state.pending;
     return (
-      <Grid item {...{ xs, sm, md, lg }}>
+      <Grid item {...{ xs, sm, md, lg, xl }}>
         <FormControl className={classes.formControl}>
           <InputLabel
             className={classNames([

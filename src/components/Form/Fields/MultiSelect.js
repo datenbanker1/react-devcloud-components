@@ -82,18 +82,28 @@ class MultiSelect extends Component {
     else this.props.onChange(value);
   }
   render() {
-    const { classes, xs, sm, md, lg, readOnly, disabled, label } = this.props;
+    const {
+      classes,
+      xs,
+      sm,
+      md,
+      lg,
+      xl,
+      readOnly,
+      disabled,
+      label
+    } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
       this.state.success && !this.props.readOnly && !this.state.pending;
     if (readOnly && !this.props.value.length)
       return (
-        <Text {...{ xs, sm, md, lg, readOnly, disabled, label }} value="" />
+        <Text {...{ xs, sm, md, lg, xl, readOnly, disabled, label }} value="" />
       );
     else
       return (
-        <Grid item {...{ xs, sm, md, lg }}>
+        <Grid item {...{ xs, sm, md, lg, xl }}>
           <div className="instant-form-control">
             <FormControl className={classes.formControl}>
               <InputLabel

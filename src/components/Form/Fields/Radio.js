@@ -36,14 +36,24 @@ class RadioStatic extends Component {
   }
 
   render() {
-    const { classes, xs, sm, md, lg, options, readOnly, disabled } = this.props;
+    const {
+      classes,
+      xs,
+      sm,
+      md,
+      lg,
+      xl,
+      options,
+      readOnly,
+      disabled
+    } = this.props;
     const hasError = this.props.error && !readOnly && !this.state.pending;
     const isSuccess = this.state.success && !readOnly && !this.state.pending;
     const value = this.props.readOnly
       ? this.props.value || null
       : this.state.value;
     return (
-      <Grid item {...{ xs, sm, md, lg }}>
+      <Grid item {...{ xs, sm, md, lg, xl }}>
         <div className="static-form-control">
           <FormControl className={classNames([classes.formControl])}>
             <RadioGroup

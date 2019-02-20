@@ -57,6 +57,7 @@ class Text extends Component {
       sm,
       md,
       lg,
+      xl,
       readOnly,
       type,
       strict,
@@ -69,7 +70,7 @@ class Text extends Component {
       this.state.success && !this.props.readOnly && !this.state.pending;
 
     return (
-      <Grid item {...{ xs, sm, md, lg }}>
+      <Grid item {...{ xs, sm, md, lg, xl }}>
         <FormControl className={classes.formControl}>
           <InputLabel
             className={classNames([hasError ? classes.labelError : false])}

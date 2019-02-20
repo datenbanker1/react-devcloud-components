@@ -150,14 +150,14 @@ class Range extends Component {
   }
 
   render() {
-    const { classes, xs, sm, md, lg, readOnly } = this.props;
+    const { classes, xs, sm, md, lg, xl, readOnly } = this.props;
     const hasError = this.props.error && !readOnly && !this.state.pending;
     const isSuccess = this.state.success && !readOnly && !this.state.pending;
     const Ranger = this.ranger;
     const LinearProgress = this.linearProgress;
 
     return (
-      <Grid item {...{ xs, sm, md, lg }}>
+      <Grid item {...{ xs, sm, md, lg, xl }}>
         <FormControl className={classes.formControl}>
           <InputLabel
             className={classNames([
