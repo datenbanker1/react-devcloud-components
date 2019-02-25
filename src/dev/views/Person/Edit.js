@@ -16,7 +16,15 @@ class PersonFormWrapper extends Component {
       <Grid container spacing={8}>
         <Grid item xs={12} md={6} lg={9} />
         <Grid item xs={12} md={6} lg={3}>
-          <Tracker id="0337ce6c-48f7-4c16-bfe8-e737c295f800" type="person" />
+          <Tracker
+            id="0337ce6c-48f7-4c16-bfe8-e737c295f800"
+            type="person"
+            history={{
+              listElement: element => {
+                return <p>HIHIHIH</p>;
+              }
+            }}
+          />
         </Grid>
       </Grid>
     );

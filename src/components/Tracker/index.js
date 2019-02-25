@@ -50,7 +50,13 @@ class Tracker extends Component {
           />
         </BottomNavigation>
         <div>
-          {!mode && <History id={this.props.id} type={this.props.type} />}
+          {!mode && (
+            <History
+              id={this.props.id}
+              type={this.props.type}
+              {...{ ...(this.props.history || {}) }}
+            />
+          )}
         </div>
       </div>
     );
