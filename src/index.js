@@ -7,6 +7,8 @@ import Layouter from "./components/Layouter";
 import SubAppBar from "./components/SubAppBar";
 import * as ButtonsComponents from "./components/Buttons";
 import Browser from "./components/Browser";
+import Tracker from "./components/Browser";
+import History from "./components/Tracker/History";
 
 export {
   Authenticator,
@@ -17,5 +19,7 @@ export {
   Theme,
   FormComponents,
   Layouter,
-  SubAppBar
+  SubAppBar,
+  Tracker,
+  History
 };
