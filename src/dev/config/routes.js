@@ -2,7 +2,8 @@ import {
   faSignInAlt,
   faEdit,
   faBrowser,
-  faEquals
+  faEquals,
+  faUser
 } from "@fortawesome/pro-light-svg-icons";
 
 export default [
@@ -49,5 +50,15 @@ export default [
     },
     group: "private",
     path: "/browser"
+  },
+  {
+    name: "Person Form",
+    icon: faUser,
+    layout: "admin",
+    component: () => {
+      return import("../views/Person/Edit");
+    },
+    group: "private",
+    path: "/person/form"
   }
 ];

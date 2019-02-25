@@ -77,6 +77,8 @@ class Theme {
           return styles.Form.Fields.Text;
         case "Form/Fields/Time":
           return styles.Form.Fields.Time;
+        case "History":
+          return styles.History;
         case "Browser":
           return styles.Browser;
         case "Pagination":
@@ -100,7 +102,7 @@ class Theme {
   }
 
   convert(type) {
-    const { palette, darken, lighten } = this.config;
+    const { palette, darken } = this.config;
     switch (type) {
       case "material-ui":
         let mUiTheme = {
@@ -119,6 +121,8 @@ class Theme {
           };
         }
         return createMuiTheme(mUiTheme);
+      default:
+        console.log("conversion type for theme not defined");
     }
   }
 }

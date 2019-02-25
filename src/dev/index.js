@@ -22,6 +22,9 @@ DevCloud.init({
       },
       opportunity: {
         pool: ["a5452ff8-189d-4b9d-96b2-525179f921a9"]
+      },
+      task: {
+        pool: ["a5452ff8-189d-4b9d-96b2-525179f921a9"]
       }
     }
   },

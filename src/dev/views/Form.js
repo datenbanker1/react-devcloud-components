@@ -124,6 +124,7 @@ class FormWrapper extends Component {
                 xs={12}
                 sm={6}
                 label="Text"
+                instant
                 value={this.state.values.text}
                 readOnly={this.state.readOnly}
                 onChange={value => {
