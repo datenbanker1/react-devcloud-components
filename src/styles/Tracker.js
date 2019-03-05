@@ -25,7 +25,8 @@ const style = theme => materialUiTheme => ({
   historyList: {
     listStyle: "none",
     borderLeft: "4px solid " + theme.palette.default,
-    paddingLeft: "25px"
+    paddingLeft: "25px",
+    marginTop: "8px"
   },
   historyElement: {
     backgroundColor: "#fff",
