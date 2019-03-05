@@ -18,7 +18,24 @@ import settings from "./../settings";
 import Theme from "../../Theme";
 import defaultStyle from "../../../styles/Form/Fields/Date";
 
-class Date extends Component {
+const formatDate = date => {
+  const dateHelper = new Date(date);
+  const year = dateHelper.getFullYear();
+  const month = dateHelper.getMonth();
+  const day = dateHelper.getDate();
+
+  return (
+    (day < 10 ? "0" : "") +
+    day +
+    "." +
+    (month + 1 < 10 ? "0" : "") +
+    (month + 1) +
+    "." +
+    year
+  );
+};
+
+class DateField extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,7 +124,11 @@ class Date extends Component {
             ])}
             onChange={this.handleChange}
             value={
-              this.props.readOnly ? this.props.value || "-" : this.state.value
+              this.props.readOnly
+                ? this.props.value
+                  ? formatDate(this.props.value)
+                  : "-"
+                : this.state.value
             }
             readOnly={readOnly}
             disabled={disabled}
@@ -129,5 +150,5 @@ class Date extends Component {
 }
 
 export default withStyles(Theme.getStyle("Form/Fields/Date", defaultStyle))(
-  Date
+  DateField
 );

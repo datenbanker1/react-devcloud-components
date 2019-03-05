@@ -17,14 +17,14 @@ class Form extends Component {
     this.setState({ ...this.state, pending: set || !this.state.pending });
   }
   render() {
-    const { label, children, actions, classes } = this.props;
+    const { label, children, actions, classes, pendingContent } = this.props;
     const { pending } = this.state;
     const formActions = {
       togglePending: this.togglePending
     };
     return (
       <form style={{ position: "relative" }}>
-        {pending && (
+        {(pending || pendingContent) && (
           <div className={classes.overlay}>
             <CenterElements textAlign="center">
               <CircularProgress size={25} />
@@ -32,12 +32,16 @@ class Form extends Component {
           </div>
         )}
         {label && (
-          <Typography variant="subheading" gutterBottom>
+          <Typography variant="body2" gutterBottom>
             <span className="primary">{label}</span>
           </Typography>
         )}
         <Grid container spacing={8}>
-          {children}
+          {pendingContent &&
+            React.Children.map(this.props.children, child => {
+              return React.cloneElement(child);
+            })}
+          {!pendingContent && children}
         </Grid>
         <div style={{ paddingTop: "15px" }}>
           {actions && actions(formActions)}

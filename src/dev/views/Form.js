@@ -18,6 +18,7 @@ class FormWrapper extends Component {
     this.state = {
       readOnly: false,
       disable: false,
+      pending: true,
       values: {
         text: "Hallo ich bin ein Textfeld",
         radio: "",
@@ -39,6 +40,7 @@ class FormWrapper extends Component {
     };
   }
   render() {
+    const { pending } = this.state;
     const actions = formActions => (
       <Grid container direction="row" justify="flex-end">
         <Grid item xs={12} style={{ textAlign: "right" }}>
@@ -119,13 +121,13 @@ class FormWrapper extends Component {
       <Grid container spacing={8}>
         <Grid item xs={12} lg={6}>
           <Block label="Statisch" head={{ primary: false }}>
-            <Form actions={actions}>
+            <Form actions={actions} pendingContent={pending}>
               <Text
                 xs={12}
                 sm={6}
                 label="Text"
                 instant
-                value={this.state.values.text}
+                value={pending ? "" : this.state.values.text}
                 readOnly={this.state.readOnly}
                 onChange={value => {
                   let newState = { ...this.state };
@@ -140,7 +142,7 @@ class FormWrapper extends Component {
                 sm={6}
                 label="Text Strict"
                 strict
-                value={this.state.values.text}
+                value={pending ? "" : this.state.values.text}
                 readOnly={this.state.readOnly}
                 onChange={value => {
                   let newState = { ...this.state };
@@ -154,7 +156,7 @@ class FormWrapper extends Component {
                 xs={12}
                 sm={6}
                 label="Changer 4 readOnly"
-                value={this.state.values.text}
+                value={pending ? "" : this.state.values.text}
                 onChange={value => {
                   let newState = { ...this.state };
                   newState.values.text = value;
@@ -167,7 +169,7 @@ class FormWrapper extends Component {
                 xs={12}
                 sm={6}
                 label="Date"
-                value={this.state.values.date}
+                value={pending ? "" : this.state.values.date}
                 readOnly={this.state.readOnly}
                 onChange={value => {
                   let newState = { ...this.state };
@@ -181,7 +183,7 @@ class FormWrapper extends Component {
                 xs={12}
                 label="Textfeld"
                 rows={5}
-                value={this.state.values.textField}
+                value={pending ? "" : this.state.values.textField}
                 readOnly={this.state.readOnly}
                 onChange={value => {
                   let newState = { ...this.state };
@@ -199,7 +201,7 @@ class FormWrapper extends Component {
                   { label: "option1", value: "value1" },
                   { label: "option2", value: "value2" }
                 ]}
-                value={this.state.values.multiSelect}
+                value={pending ? [] : this.state.values.multiSelect}
                 readOnly={this.state.readOnly}
                 onChange={value => {
                   console.log(value);
@@ -215,7 +217,7 @@ class FormWrapper extends Component {
                 sm={6}
                 label="Select"
                 options={["option 1", "option 2"]}
-                value={this.state.values.select}
+                value={pending ? "" : this.state.values.select}
                 readOnly={this.state.readOnly}
                 onChange={value => {
                   console.log(value);
@@ -230,7 +232,7 @@ class FormWrapper extends Component {
                 xs={12}
                 sm={6}
                 label="Time"
-                value={this.state.values.time}
+                value={pending ? "" : this.state.values.time}
                 readOnly={this.state.readOnly}
                 onChange={value => {
                   console.log(value);
@@ -245,7 +247,7 @@ class FormWrapper extends Component {
                 xs={12}
                 sm={6}
                 label="Range"
-                value={this.state.values.range}
+                value={pending ? [0] : this.state.values.range}
                 readOnly={this.state.readOnly}
                 min={0}
                 max={10}
@@ -262,7 +264,7 @@ class FormWrapper extends Component {
                 xs={12}
                 sm={6}
                 label="Range"
-                value={this.state.values.ranger}
+                value={pending ? [0, 0, 0] : this.state.values.ranger}
                 readOnly={this.state.readOnly}
                 min={0}
                 max={10}
@@ -283,7 +285,7 @@ class FormWrapper extends Component {
                   { value: "radio 1", label: "option 1" },
                   { value: "radio 2", label: "option 2" }
                 ]}
-                value={this.state.values.radio}
+                value={pending ? "" : this.state.values.radio}
                 readOnly={this.state.readOnly}
                 onChange={value => {
                   console.log(value);
@@ -296,6 +298,20 @@ class FormWrapper extends Component {
               />
             </Form>
           </Block>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            style={{ marginRight: "8px" }}
+            color="default"
+            onClick={e => {
+              e.preventDefault();
+              let newState = { ...this.state, pending: !this.state.pending };
+              this.setState(newState);
+            }}
+          >
+            pending content
+          </Button>
         </Grid>
       </Grid>
     );
