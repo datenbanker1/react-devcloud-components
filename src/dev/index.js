@@ -24,7 +24,7 @@ DevCloud.init({
         pool: ["a5452ff8-189d-4b9d-96b2-525179f921a9"]
       },
       task: {
-        pool: ["a5452ff8-189d-4b9d-96b2-525179f921a9"]
+        pool: ["3b955ad1-db47-4d70-94a3-d0623f907cee"]
       }
     }
   },
@@ -36,7 +36,6 @@ DevCloud.init({
 Theme.init();
 
 const Store = createStore((state = [], action) => {
-  console.log(action.type);
   switch (action.type) {
     case "AUTHENTICATOR::SIGN_IN":
       window.location = "/forms";

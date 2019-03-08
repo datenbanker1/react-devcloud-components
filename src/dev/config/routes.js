@@ -3,7 +3,8 @@ import {
   faEdit,
   faBrowser,
   faEquals,
-  faUser
+  faUser,
+  faClock
 } from "@fortawesome/pro-light-svg-icons";
 
 export default [
@@ -60,5 +61,15 @@ export default [
     },
     group: "private",
     path: "/person/form"
+  },
+  {
+    name: "Stechuhr",
+    icon: faClock,
+    layout: "admin",
+    component: () => {
+      return import("../views/Timer");
+    },
+    group: "private",
+    path: "/timer"
   }
 ];
