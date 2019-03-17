@@ -88,6 +88,9 @@ const style = theme => materialUiTheme => {
     },
     defaultLabel: {
       color: "inherit"
+    },
+    placeholder: {
+      color: "rgba(0, 0, 0, .54)"
     }
   };
   return element;

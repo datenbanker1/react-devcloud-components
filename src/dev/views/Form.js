@@ -9,6 +9,7 @@ import {
   Date,
   MultiSelect,
   Select,
+  InlineSelect,
   Time
 } from "../../components/Form";
 
@@ -216,6 +217,22 @@ class FormWrapper extends Component {
                 xs={12}
                 sm={6}
                 label="Select"
+                options={["option 1", "option 2"]}
+                value={pending ? "" : this.state.values.select}
+                readOnly={this.state.readOnly}
+                onChange={value => {
+                  console.log(value);
+                  let newState = { ...this.state };
+                  newState.values.select = value;
+                  this.setState(newState);
+                }}
+                error={this.state.errors.radio}
+                disabled={this.state.disable}
+              />
+              <Select
+                xs={12}
+                sm={6}
+                placeholder="Bitte wählen"
                 options={["option 1", "option 2"]}
                 value={pending ? "" : this.state.values.select}
                 readOnly={this.state.readOnly}

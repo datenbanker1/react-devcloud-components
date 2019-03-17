@@ -81,6 +81,8 @@ class SelectExport extends Component {
       readOnly,
       disabled,
       label,
+      placeholder,
+      override = {},
       options
     } = this.props;
     const hasError =
@@ -104,105 +106,113 @@ class SelectExport extends Component {
           value={textValue || ""}
         />
       );
-    } else
-      return (
-        <Grid item {...{ xs, sm, md, lg, xl }}>
-          <div className="instant-form-control">
-            <FormControl className={classes.formControl}>
-              <InputLabel
-                className={classNames([
-                  isSuccess ? classes.success : "",
-                  hasError ? classes.danger : ""
-                ])}
-              >
-                {this.props.label}
-                {this.state.pending && (
-                  <CircularProgress
-                    className={classes.default}
-                    style={{ marginLeft: "5px", display: "inline-block" }}
-                    size={13}
-                  />
-                )}
-                {readOnly && (
-                  <FontAwesomeIcon
-                    className={classes.default}
-                    style={{ marginLeft: "5px" }}
-                    icon={faLockAlt}
-                  />
-                )}
-                {hasError && (
-                  <FontAwesomeIcon
-                    className={classes.danger}
-                    style={{ marginLeft: "5px" }}
-                    icon={faExclamationCircle}
-                  />
-                )}
-                {isSuccess && (
-                  <FontAwesomeIcon
-                    className={classes.success}
-                    style={{ marginLeft: "5px" }}
-                    icon={faCheck}
-                  />
-                )}
-              </InputLabel>
-              <Select
-                style={{
-                  whiteSpace: "normal"
-                }}
-                classes={{
-                  selectMenu: classNames([
-                    classes.select,
-                    disabled ? classes.disabledCursor : ""
-                  ])
-                }}
-                value={readOnly ? this.props.value : this.state.value}
-                readOnly={readOnly}
-                disabled={disabled || readOnly}
-                onChange={this.handleChange}
-                input={
-                  <Input
-                    className={classNames([
-                      isSuccess
-                        ? classes.inputSuccess
-                        : hasError
-                        ? classes.inputError
-                        : readOnly
-                        ? classes.inputReadonly
-                        : classes.input
-                    ])}
-                  />
-                }
-                MenuProps={MenuProps}
-              >
-                {this.props.options.map(option => {
-                  if (typeof option === "object")
-                    return (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    );
-                  else
-                    return (
-                      <MenuItem key={option} value={option}>
-                        {option}
-                      </MenuItem>
-                    );
-                })}
-              </Select>
-            </FormControl>
-            {hasError && (
-              <Typography
-                className={classNames([hasError ? classes.danger : ""])}
-                variant="body2"
-                gutterBottom
-                style={{ display: "inline" }}
-              >
-                {this.props.error}
-              </Typography>
-            )}
-          </div>
-        </Grid>
-      );
+    }
+    const value = readOnly ? this.props.value : this.state.value;
+    return (
+      <Grid item {...{ xs, sm, md, lg, xl }}>
+        <div className="instant-form-control">
+          <FormControl className={classes.formControl}>
+            <InputLabel
+              className={classNames([
+                isSuccess ? classes.success : "",
+                hasError ? classes.danger : ""
+              ])}
+            >
+              {this.props.label}
+              {this.state.pending && (
+                <CircularProgress
+                  className={classes.default}
+                  style={{ marginLeft: "5px", display: "inline-block" }}
+                  size={13}
+                />
+              )}
+              {readOnly && (
+                <FontAwesomeIcon
+                  className={classes.default}
+                  style={{ marginLeft: "5px" }}
+                  icon={faLockAlt}
+                />
+              )}
+              {hasError && (
+                <FontAwesomeIcon
+                  className={classes.danger}
+                  style={{ marginLeft: "5px" }}
+                  icon={faExclamationCircle}
+                />
+              )}
+              {isSuccess && (
+                <FontAwesomeIcon
+                  className={classes.success}
+                  style={{ marginLeft: "5px" }}
+                  icon={faCheck}
+                />
+              )}
+            </InputLabel>
+            <Select
+              style={{
+                whiteSpace: "normal"
+              }}
+              classes={{
+                root: override.select,
+                selectMenu: classNames([
+                  classes.select,
+                  disabled ? classes.disabledCursor : "",
+                  placeholder && value === "" ? classes.placeholder : ""
+                ])
+              }}
+              value={placeholder && value === "" ? "placeholder" : value}
+              readOnly={readOnly}
+              disabled={disabled || readOnly}
+              onChange={this.handleChange}
+              input={
+                <Input
+                  className={classNames([
+                    isSuccess
+                      ? classes.inputSuccess
+                      : hasError
+                      ? classes.inputError
+                      : readOnly
+                      ? classes.inputReadonly
+                      : classes.input
+                  ])}
+                />
+              }
+              MenuProps={MenuProps}
+            >
+              {placeholder && (
+                <MenuItem value="placeholder" disabled>
+                  {placeholder}
+                </MenuItem>
+              )}
+              {this.props.options.map(option => {
+                if (typeof option === "object")
+                  return (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  );
+                else
+                  return (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  );
+              })}
+            </Select>
+          </FormControl>
+          {hasError && (
+            <Typography
+              className={classNames([hasError ? classes.danger : ""])}
+              variant="body2"
+              gutterBottom
+              style={{ display: "inline" }}
+            >
+              {this.props.error}
+            </Typography>
+          )}
+        </div>
+      </Grid>
+    );
   }
 }
 
