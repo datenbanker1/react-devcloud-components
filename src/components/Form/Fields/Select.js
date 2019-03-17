@@ -166,6 +166,7 @@ class SelectExport extends Component {
               onChange={this.handleChange}
               input={
                 <Input
+                  classes={{ input: override.input }}
                   className={classNames([
                     isSuccess
                       ? classes.inputSuccess
