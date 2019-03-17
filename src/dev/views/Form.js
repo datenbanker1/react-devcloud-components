@@ -232,6 +232,7 @@ class FormWrapper extends Component {
               <Select
                 xs={12}
                 sm={6}
+                label=""
                 placeholder="Bitte wählen"
                 options={["option 1", "option 2"]}
                 value={pending ? "" : this.state.values.select}

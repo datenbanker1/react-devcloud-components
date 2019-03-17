@@ -108,46 +108,49 @@ class SelectExport extends Component {
       );
     }
     const value = readOnly ? this.props.value : this.state.value;
+
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
         <div className="instant-form-control">
           <FormControl className={classes.formControl}>
-            <InputLabel
-              className={classNames([
-                isSuccess ? classes.success : "",
-                hasError ? classes.danger : ""
-              ])}
-            >
-              {this.props.label}
-              {this.state.pending && (
-                <CircularProgress
-                  className={classes.default}
-                  style={{ marginLeft: "5px", display: "inline-block" }}
-                  size={13}
-                />
-              )}
-              {readOnly && (
-                <FontAwesomeIcon
-                  className={classes.default}
-                  style={{ marginLeft: "5px" }}
-                  icon={faLockAlt}
-                />
-              )}
-              {hasError && (
-                <FontAwesomeIcon
-                  className={classes.danger}
-                  style={{ marginLeft: "5px" }}
-                  icon={faExclamationCircle}
-                />
-              )}
-              {isSuccess && (
-                <FontAwesomeIcon
-                  className={classes.success}
-                  style={{ marginLeft: "5px" }}
-                  icon={faCheck}
-                />
-              )}
-            </InputLabel>
+            {(label || label === "") && (
+              <InputLabel
+                className={classNames([
+                  isSuccess ? classes.success : "",
+                  hasError ? classes.danger : ""
+                ])}
+              >
+                {this.props.label}
+                {this.state.pending && (
+                  <CircularProgress
+                    className={classes.default}
+                    style={{ marginLeft: "5px", display: "inline-block" }}
+                    size={13}
+                  />
+                )}
+                {readOnly && (
+                  <FontAwesomeIcon
+                    className={classes.default}
+                    style={{ marginLeft: "5px" }}
+                    icon={faLockAlt}
+                  />
+                )}
+                {hasError && (
+                  <FontAwesomeIcon
+                    className={classes.danger}
+                    style={{ marginLeft: "5px" }}
+                    icon={faExclamationCircle}
+                  />
+                )}
+                {isSuccess && (
+                  <FontAwesomeIcon
+                    className={classes.success}
+                    style={{ marginLeft: "5px" }}
+                    icon={faCheck}
+                  />
+                )}
+              </InputLabel>
+            )}
             <Select
               style={{
                 whiteSpace: "normal"
@@ -180,7 +183,7 @@ class SelectExport extends Component {
               }
               MenuProps={MenuProps}
             >
-              {placeholder && (
+              {!!placeholder && (
                 <MenuItem value="placeholder" disabled>
                   {placeholder}
                 </MenuItem>
