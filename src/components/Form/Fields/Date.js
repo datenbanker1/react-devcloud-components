@@ -67,7 +67,18 @@ class DateField extends Component {
     else this.props.onChange(value || null);
   }
   render() {
-    const { classes, xs, sm, md, lg, xl, readOnly, disabled } = this.props;
+    const {
+      classes,
+      xs,
+      sm,
+      md,
+      lg,
+      xl,
+      readOnly,
+      disabled,
+      label,
+      dontShowLock = false
+    } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
@@ -75,42 +86,44 @@ class DateField extends Component {
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
         <FormControl className={classes.formControl}>
-          <InputLabel
-            className={classNames([
-              classes.label,
-              hasError ? classes.labelError : false
-            ])}
-          >
-            {this.props.label}
-            {this.state.pending && (
-              <CircularProgress
-                className={classes.default}
-                style={{ marginLeft: "5px", display: "inline-block" }}
-                size={13}
-              />
-            )}
-            {readOnly && (
-              <FontAwesomeIcon
-                className={classes.default}
-                style={{ marginLeft: "5px" }}
-                icon={faLockAlt}
-              />
-            )}
-            {hasError && (
-              <FontAwesomeIcon
-                className={classes.danger}
-                style={{ marginLeft: "5px" }}
-                icon={faExclamationCircle}
-              />
-            )}
-            {isSuccess && (
-              <FontAwesomeIcon
-                className={classes.success}
-                style={{ marginLeft: "5px" }}
-                icon={faCheck}
-              />
-            )}
-          </InputLabel>
+          {(label || label === "") && (
+            <InputLabel
+              className={classNames([
+                classes.label,
+                hasError ? classes.labelError : false
+              ])}
+            >
+              {this.props.label}
+              {this.state.pending && (
+                <CircularProgress
+                  className={classes.default}
+                  style={{ marginLeft: "5px", display: "inline-block" }}
+                  size={13}
+                />
+              )}
+              {readOnly && !dontShowLock && (
+                <FontAwesomeIcon
+                  className={classes.default}
+                  style={{ marginLeft: "5px" }}
+                  icon={faLockAlt}
+                />
+              )}
+              {hasError && (
+                <FontAwesomeIcon
+                  className={classes.danger}
+                  style={{ marginLeft: "5px" }}
+                  icon={faExclamationCircle}
+                />
+              )}
+              {isSuccess && (
+                <FontAwesomeIcon
+                  className={classes.success}
+                  style={{ marginLeft: "5px" }}
+                  icon={faCheck}
+                />
+              )}
+            </InputLabel>
+          )}
           <Input
             type={this.props.readOnly ? "text" : "date"}
             className={classNames([
