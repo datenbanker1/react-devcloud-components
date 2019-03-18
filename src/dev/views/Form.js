@@ -233,6 +233,7 @@ class FormWrapper extends Component {
                 xs={12}
                 sm={6}
                 label=""
+                dontShowLock={true}
                 placeholder="Bitte wählen"
                 options={["option 1", "option 2"]}
                 value={pending ? "" : this.state.values.select}
@@ -270,6 +271,7 @@ class FormWrapper extends Component {
                 min={0}
                 max={10}
                 step={1}
+                dontShowLock
                 onChange={value => {
                   let newState = { ...this.state };
                   newState.values.range = value;

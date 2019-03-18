@@ -150,7 +150,16 @@ class Range extends Component {
   }
 
   render() {
-    const { classes, xs, sm, md, lg, xl, readOnly } = this.props;
+    const {
+      classes,
+      xs,
+      sm,
+      md,
+      lg,
+      xl,
+      readOnly,
+      dontShowLock = false
+    } = this.props;
     const hasError = this.props.error && !readOnly && !this.state.pending;
     const isSuccess = this.state.success && !readOnly && !this.state.pending;
     const Ranger = this.ranger;
@@ -176,7 +185,7 @@ class Range extends Component {
                 size={13}
               />
             )}
-            {readOnly && (
+            {readOnly && !dontShowLock && (
               <FontAwesomeIcon
                 className={classes.default}
                 style={{ marginLeft: "5px" }}

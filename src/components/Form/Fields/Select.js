@@ -82,6 +82,7 @@ class SelectExport extends Component {
       disabled,
       label,
       placeholder,
+      dontShowLock = false,
       override = {},
       options
     } = this.props;
@@ -102,13 +103,12 @@ class SelectExport extends Component {
           : selectedOption;
       return (
         <Text
-          {...{ xs, sm, md, lg, xl, readOnly, disabled, label }}
+          {...{ xs, sm, md, lg, xl, readOnly, dontShowLock, disabled, label }}
           value={textValue || ""}
         />
       );
     }
     const value = readOnly ? this.props.value : this.state.value;
-
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
         <div className="instant-form-control">
