@@ -113,7 +113,8 @@ class SelectExport extends Component {
       primary,
       variant,
       readOnly,
-      pending
+      pending,
+      justify
     } = this.props;
     const { Fab } = ButtonsComponents;
     const { optionsToConfirm, add } = this.state;
@@ -127,7 +128,10 @@ class SelectExport extends Component {
 
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
-        <Grid container>
+        <Grid
+          container
+          justify={justify === "right" ? "flex-end" : "flex-start"}
+        >
           {activeOptions.map(item => {
             let label = item;
             let value = item;

@@ -332,6 +332,7 @@ class FormWrapper extends Component {
                   newState.values.chips = values;
                   this.setState(newState);
                 }}
+                justify="right"
                 pending={false}
                 select={{ xs: 12, sm: 6, lg: 2 }}
               />
