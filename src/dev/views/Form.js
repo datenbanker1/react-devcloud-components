@@ -9,7 +9,7 @@ import {
   Date,
   MultiSelect,
   Select,
-  InlineSelect,
+  Chips,
   Time
 } from "../../components/Form";
 
@@ -29,7 +29,8 @@ class FormWrapper extends Component {
         range: [5],
         ranger: [0, 2, 10],
         time: "",
-        textField: ""
+        textField: "",
+        chips: ["some1", "some2"]
       },
       errors: {
         text: false,
@@ -315,6 +316,24 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.radio}
                 disabled={this.state.disable}
+              />
+              <Chips
+                xs={12}
+                primary
+                options={[
+                  { label: "test1", value: "some1" },
+                  { label: "test2", value: "some2" }
+                ]}
+                readOnly={this.state.readOnly}
+                value={pending ? [] : this.state.values.chips}
+                onChange={values => {
+                  console.log(values);
+                  let newState = { ...this.state };
+                  newState.values.chips = values;
+                  this.setState(newState);
+                }}
+                pending={false}
+                select={{ xs: 12, sm: 6, lg: 2 }}
               />
             </Form>
           </Block>

@@ -14,6 +14,7 @@ class Form extends Component {
     this.togglePending = this.togglePending.bind(this);
   }
   togglePending(set) {
+    console.log("CALLED");
     this.setState({ ...this.state, pending: set || !this.state.pending });
   }
   render() {

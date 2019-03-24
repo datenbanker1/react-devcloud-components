@@ -198,6 +198,24 @@ return (
       }}
       error={this.state.errors.radio}
     />
+    <Chips
+      xs={12}
+      primary
+      options={[
+        { label: "test1", value: "some1" },
+        { label: "test2", value: "some2" }
+      ]}
+      readOnly={this.state.readOnly}
+      value={pending ? [] : this.state.values.chips}
+      onChange={values => {
+        console.log(values);
+        let newState = { ...this.state };
+        newState.values.chips = values;
+        this.setState(newState);
+      }}
+      pending={false}
+      select={{ xs: 12, sm: 6, lg: 2 }}
+    />
   </Form>
 );
 ```

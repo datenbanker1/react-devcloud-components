@@ -6,5 +6,6 @@ import Date from "./Fields/Date";
 import MultiSelect from "./Fields/MultiSelect";
 import Select from "./Fields/Select";
 import Time from "./Fields/Time";
+import Chips from "./Fields/Chips";
 
-export { Form, Text, Radio, Range, Date, MultiSelect, Select, Time };
+export { Form, Text, Radio, Range, Date, MultiSelect, Select, Time, Chips };
