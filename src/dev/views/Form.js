@@ -19,7 +19,7 @@ class FormWrapper extends Component {
     this.state = {
       readOnly: false,
       disable: false,
-      pending: true,
+      pending: false,
       values: {
         text: "Hallo ich bin ein Textfeld",
         radio: "",
@@ -164,6 +164,15 @@ class FormWrapper extends Component {
                   newState.values.text = value;
                   this.setState(newState);
                 }}
+                error={this.state.errors.text}
+                disabled={this.state.disable}
+              />
+              <Text
+                xs={6}
+                label=""
+                placeholder="only a placeholder"
+                value={pending ? "" : ""}
+                onChange={value => {}}
                 error={this.state.errors.text}
                 disabled={this.state.disable}
               />

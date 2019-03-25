@@ -64,18 +64,23 @@ class Text extends Component {
       rows,
       label,
       dontShowLock = false,
+      placeholder,
       disabled
     } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
       this.state.success && !this.props.readOnly && !this.state.pending;
-
+    let inputLabel = {};
+    if (Boolean(placeholder)) {
+      inputLabel.shrink = true;
+    }
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
         <FormControl className={classes.formControl}>
           {(label || label === "") && (
             <InputLabel
+              {...inputLabel}
               className={classNames([hasError ? classes.labelError : false])}
             >
               {this.props.label}
@@ -113,6 +118,7 @@ class Text extends Component {
             type={type && !this.props.readOnly ? type : "text"}
             multiline={!!rows}
             rows={rows}
+            placeholder={placeholder}
             className={classNames([
               isSuccess
                 ? classes.inputSuccess
