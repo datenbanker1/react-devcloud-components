@@ -3,7 +3,7 @@ import {
   faEdit,
   faBrowser,
   faEquals,
-  faUser,
+  faHistory,
   faClock
 } from "@fortawesome/pro-light-svg-icons";
 
@@ -53,11 +53,11 @@ export default [
     path: "/browser"
   },
   {
-    name: "Person Form",
-    icon: faUser,
+    name: "History",
+    icon: faHistory,
     layout: "admin",
     component: () => {
-      return import("../views/Person/Edit");
+      return import("../views/History");
     },
     group: "private",
     path: "/person/form"

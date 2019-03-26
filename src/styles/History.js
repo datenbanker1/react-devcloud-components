@@ -26,12 +26,13 @@ const style = theme => materialUiTheme => ({
     listStyle: "none",
     borderLeft: "4px solid " + theme.palette.default,
     paddingLeft: "25px",
-    marginTop: "8px"
+    marginTop: "0px",
+    paddingBottom: "16px"
   },
   historyElement: {
     backgroundColor: "#fff",
     padding: "8px",
-    margin: "8px 0px 8px 0px"
+    margin: "0px 0px 16px 0px"
   },
   historyListItemIndicator: {
     position: "absolute",
@@ -73,7 +74,7 @@ const style = theme => materialUiTheme => ({
     borderRadius: "20px",
     width: "16px",
     height: "16px",
-    border: "4px solid " + theme.palette.success,
+    border: "4px solid " + theme.palette.primary,
     backgroundColor: theme.palette.body
   },
   historyYearFlag: {
