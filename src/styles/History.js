@@ -84,6 +84,9 @@ const style = theme => materialUiTheme => ({
     display: "inline-block",
     border: "3px dashed " + theme.palette.danger,
     backgroundColor: theme.palette.body
+  },
+  historyYearFlagHolder: {
+    marginBottom: "16px"
   }
 });
 

@@ -24,6 +24,7 @@ class FormWrapper extends Component {
         text: "Hallo ich bin ein Textfeld",
         radio: "",
         date: "",
+        number: "",
         multiSelect: [],
         select: "",
         range: [5],
@@ -188,6 +189,22 @@ class FormWrapper extends Component {
                   this.setState(newState);
                 }}
                 error={this.state.errors.date}
+                disabled={this.state.disable}
+              />
+
+              <Text
+                xs={6}
+                label="Number"
+                type="number"
+                strict
+                value={pending ? "" : this.state.values.number || ""}
+                onChange={value => {
+                  let newState = { ...this.state };
+                  console.log(value);
+                  newState.values.number = value;
+                  this.setState(newState);
+                }}
+                error={this.state.errors.text}
                 disabled={this.state.disable}
               />
               <Text

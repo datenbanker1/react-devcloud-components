@@ -25,6 +25,7 @@ class Text extends Component {
     this.state = {
       success: false,
       pending: false,
+      addFloatKomma: false,
       value: this.props.value
     };
     this.handleChange = this.handleChange.bind(this);
@@ -32,9 +33,31 @@ class Text extends Component {
   componentWillUnmount() {
     if (this.timer) window.clearTimeout(this.timer);
   }
+
+  formatNumber = (value, unify = false) => {
+    value = typeof value !== "string" ? "" : value;
+    if (unify) return value.split(",").join(".");
+    switch (document.documentElement.lang) {
+      case "de":
+        return value.split(".").join(",");
+      default:
+        return value.split(",").join(".");
+    }
+  };
   handleChange(e) {
-    const value = e.target.value;
-    this.setState({ value, success: false, pending: !!this.props.instant });
+    const { type } = this.props;
+    const unifiedValue = this.formatNumber(e.target.value, true);
+    const value = type === "number" ? parseFloat(unifiedValue) : e.target.value;
+
+    this.setState({
+      value,
+      success: false,
+      pending: !!this.props.instant,
+      addFloatKomma:
+        type === "number" &&
+        !unifiedValue.startsWith(".") &&
+        unifiedValue.endsWith(".")
+    });
     if (this.timer) window.clearTimeout(this.timer);
     if (this.props.instant)
       this.timer = window.setTimeout(async () => {
@@ -67,6 +90,7 @@ class Text extends Component {
       placeholder,
       disabled
     } = this.props;
+    const { addFloatKomma } = this.state;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
@@ -75,6 +99,15 @@ class Text extends Component {
     if (Boolean(placeholder)) {
       inputLabel.shrink = true;
     }
+
+    let value = this.props.readOnly
+      ? this.props.value || "-"
+      : strict
+      ? this.props.value
+      : this.state.value;
+    if (!readOnly && type === "number" && addFloatKomma)
+      value = this.formatNumber(value + ".");
+
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
         <FormControl className={classes.formControl}>
@@ -115,7 +148,9 @@ class Text extends Component {
             </InputLabel>
           )}
           <Input
-            type={type && !this.props.readOnly ? type : "text"}
+            type={
+              type && type !== "number" && !this.props.readOnly ? type : "text"
+            }
             multiline={!!rows}
             rows={rows}
             placeholder={placeholder}
@@ -130,13 +165,7 @@ class Text extends Component {
             ])}
             autoComplete={type === "password" ? "current-password" : "off"}
             onChange={this.handleChange}
-            value={
-              this.props.readOnly
-                ? this.props.value || "-"
-                : strict
-                ? this.props.value
-                : this.state.value
-            }
+            value={type === "number" ? this.formatNumber(value + "") : value}
             readOnly={readOnly}
             disabled={disabled}
           />

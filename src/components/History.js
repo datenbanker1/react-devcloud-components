@@ -30,7 +30,10 @@ class History extends Component {
     switch (type) {
       case "yearFlag":
         return (
-          <li key={"history:yearFlag" + element.year}>
+          <li
+            key={"history:yearFlag" + element.year}
+            className={classes.historyYearFlagHolder}
+          >
             <div className={classes.historyYearFlag}>
               <Typography variant="body2">{element.year}</Typography>
             </div>
