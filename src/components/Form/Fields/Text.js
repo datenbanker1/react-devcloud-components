@@ -48,7 +48,6 @@ class Text extends Component {
     const { type } = this.props;
     const unifiedValue = this.formatNumber(e.target.value, true);
     const value = type === "number" ? parseFloat(unifiedValue) : e.target.value;
-
     this.setState({
       value,
       success: false,
@@ -71,7 +70,7 @@ class Text extends Component {
           }, settings.successTime);
         }
       }, settings.delay);
-    else this.props.onChange(value || null);
+    else this.props.onChange(value === 0 ? 0 : value || null);
   }
   render() {
     const {
@@ -105,8 +104,10 @@ class Text extends Component {
       : strict
       ? this.props.value
       : this.state.value;
+    value = value === null ? "" : value;
     if (!readOnly && type === "number" && addFloatKomma)
       value = this.formatNumber(value + ".");
+    value = type === "number" ? this.formatNumber(value + "") : value;
 
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
@@ -165,7 +166,7 @@ class Text extends Component {
             ])}
             autoComplete={type === "password" ? "current-password" : "off"}
             onChange={this.handleChange}
-            value={type === "number" ? this.formatNumber(value + "") : value}
+            value={value}
             readOnly={readOnly}
             disabled={disabled}
           />

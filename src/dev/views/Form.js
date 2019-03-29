@@ -197,7 +197,7 @@ class FormWrapper extends Component {
                 label="Number"
                 type="number"
                 strict
-                value={pending ? "" : this.state.values.number || ""}
+                value={pending ? "" : this.state.values.number}
                 onChange={value => {
                   let newState = { ...this.state };
                   console.log(value);
