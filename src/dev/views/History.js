@@ -14,7 +14,12 @@ class PersonFormWrapper extends Component {
     }
     return (
       <History
-        elements={["ASD", "HUI", { $type: "yearFlag", year: 2019 }]}
+        elements={[
+          "ASD",
+          { $type: "yearFlag", year: 2019 },
+          "HUI",
+          { $type: "yearFlag", year: 2018 }
+        ]}
         listElement={element => {
           return <p>{element}</p>;
         }}

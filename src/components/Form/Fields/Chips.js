@@ -122,7 +122,7 @@ class SelectExport extends Component {
     const activeOptions = options.filter(item => {
       const itemValue = typeof item === "object" ? item.value : item;
       const filter = value.indexOf(itemValue) > -1;
-      if (!filter) inActiveOptions.push(itemValue);
+      if (!filter) inActiveOptions.push(item);
       return filter;
     });
 
@@ -147,7 +147,9 @@ class SelectExport extends Component {
               <Chip
                 key={value}
                 className={classNames([
-                  classes.chips,
+                  variant === "outlined"
+                    ? classes.chipsOutlined
+                    : classes.chips,
                   confirmDelete ? classes.delete : ""
                 ])}
                 label={content}
@@ -183,6 +185,7 @@ class SelectExport extends Component {
                 {inActiveOptions.map(item => {
                   const label = typeof item === "object" ? item.label : item;
                   const value = typeof item === "object" ? item.value : item;
+
                   return (
                     <MenuItem
                       key={value}

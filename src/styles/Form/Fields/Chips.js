@@ -8,6 +8,9 @@ const style = theme => materialUiTheme => ({
     margin: "5px 10px 3px 0px",
     color: "#fff"
   },
+  chipsOutlined: {
+    margin: "5px 10px 3px 0px"
+  },
   addMenu: {
     boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)"
   },
