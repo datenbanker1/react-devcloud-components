@@ -41,7 +41,7 @@ class Layouter extends Component {
       error: false,
       toCreate: module.default
     };
-    if (this._isMounted) this.setState({ ...this.state, content });
+    this.setState({ ...this.state, content });
     this.props.dispatch(this.props.on, "contentLoaded");
   }
 
