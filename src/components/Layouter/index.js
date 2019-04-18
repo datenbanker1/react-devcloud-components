@@ -34,8 +34,8 @@ class Layouter extends Component {
       error: false,
       toCreate: module.default
     };
-    this.props.dispatch(this.props.on, "contentLoaded");
     this.setState({ ...this.state, content });
+    this.props.dispatch(this.props.on, "contentLoaded");
   }
 
   getLayout(name, params) {
