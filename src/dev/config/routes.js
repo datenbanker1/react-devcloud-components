@@ -2,6 +2,7 @@ import {
   faSignInAlt,
   faEdit,
   faBrowser,
+  faList,
   faEquals,
   faHistory,
   faClock
@@ -61,6 +62,22 @@ export default [
     },
     group: "private",
     path: "/person/form"
+  },
+  {
+    name: "Sublist",
+    icon: faList,
+    type: "list",
+    elements: [
+      {
+        name: "Link 1",
+        layout: "admin",
+        component: () => {
+          return import("../views/History");
+        },
+        group: "private",
+        path: "/person/form"
+      }
+    ]
   },
   {
     name: "Stechuhr",

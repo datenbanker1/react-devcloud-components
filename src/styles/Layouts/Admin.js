@@ -37,6 +37,12 @@ const style = theme => materialUiTheme => {
     linkMenu: {
       textDecoration: "none"
     },
+    linkList: {
+      margin: "0px",
+      listStyle: "none"
+    },
+    linkListElementNoIcon: { paddingLeft: "16px !important" },
+    linkListElementText: { fontSize: "0.95rem", lineHeight: "1rem" },
     activeLink: {
       color: "rgba(255, 255, 255, 1)"
     },

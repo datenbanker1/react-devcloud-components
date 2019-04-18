@@ -54,8 +54,76 @@ class Admin extends Component {
     if (typeof menu !== "undefined") menu = !this.state.menu;
     this.setState({ ...this.state, menu });
   }
+  renderNavigationElements(link, index, keyPrefix = "") {
+    const { classes, routing } = this.props;
+    const active =
+      routing && link.path ? link.path === routing.match.path : false;
+    const wrapLink = component => {
+      if (link.path)
+        return (
+          <a
+            key={keyPrefix + "navigation-link-" + index}
+            href={link.path}
+            className={classes.linkMenu}
+          >
+            {component}
+          </a>
+        );
+      return (
+        <span key={keyPrefix + "navigation-element-" + index}>{component}</span>
+      );
+    };
+
+    return (
+      <div key={"navigation-element-" + index}>
+        {wrapLink(
+          <ListItem classes={{ root: classes.rippleMenu }} button>
+            {link.icon && (
+              <ListItemIcon
+                classes={{
+                  root: classNames([
+                    classes.fontMenu,
+                    classes.iconMenu,
+                    active && classes.activeLink
+                  ])
+                }}
+              >
+                <FontAwesomeIcon icon={link.icon} />
+              </ListItemIcon>
+            )}
+            <ListItemText
+              classes={{
+                root: classNames([
+                  keyPrefix && !link.icon && classes.linkListElementNoIcon
+                ]),
+                primary: classNames([
+                  classes.fontMenu,
+                  active && classes.activeLink,
+                  keyPrefix && classes.linkListElementText
+                ])
+              }}
+              inset
+              primary={link.name}
+            />
+          </ListItem>
+        )}
+        {link.elements && (
+          <ul className={classes.linkList}>
+            {link.elements.map((item, i) => (
+              <li
+                key={"list-element" + index + "-" + i}
+                className={classes.linkListElement}
+              >
+                {this.renderNavigationElements(item, i, "list-element" + index)}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  }
   renderLinks() {
-    const { links, classes, routing } = this.props;
+    const { links, classes } = this.props;
     return (
       <List
         component="nav"
@@ -66,41 +134,7 @@ class Admin extends Component {
         }
       >
         {links.map((link, index) => {
-          const active =
-            routing && link.path ? link.path === routing.match.path : false;
-          return (
-            <a
-              key={"navigation-link-" + index}
-              href={link.path}
-              className={classes.linkMenu}
-            >
-              <ListItem classes={{ root: classes.rippleMenu }} button>
-                {link.icon && (
-                  <ListItemIcon
-                    classes={{
-                      root: classNames([
-                        classes.fontMenu,
-                        classes.iconMenu,
-                        active ? classes.activeLink : false
-                      ])
-                    }}
-                  >
-                    <FontAwesomeIcon icon={link.icon} />
-                  </ListItemIcon>
-                )}
-                <ListItemText
-                  classes={{
-                    primary: classNames([
-                      classes.fontMenu,
-                      active ? classes.activeLink : false
-                    ])
-                  }}
-                  inset
-                  primary={link.name}
-                />
-              </ListItem>
-            </a>
-          );
+          return this.renderNavigationElements(link, index);
         })}
       </List>
     );

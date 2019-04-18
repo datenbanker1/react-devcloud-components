@@ -29,6 +29,25 @@ class AppBarWrapper extends Component {
             Drawer Content
           </DrawerButton>
         </SubAppBar>
+        <div>Content</div>
+        <ul>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+          <li>Hallo</li>
+        </ul>
       </div>
     );
   }

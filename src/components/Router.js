@@ -17,7 +17,8 @@ class Router extends Component {
           {
             path: link.path,
             name: link.name,
-            icon: link.icon
+            icon: link.icon,
+            elements: link.elements || false
           }
         ];
     }, []);
@@ -42,25 +43,27 @@ class Router extends Component {
               />
             );
           });
-          return [
-            ...routes,
-            <Route
-              exact={true}
-              key={"switch-" + index}
-              path={page.path}
-              component={content}
-            />,
-            (page.aliasPath || []).map((alias, i) => {
-              return (
-                <Route
-                  exact={true}
-                  key={"switch-alias-" + index + "-" + i}
-                  path={alias}
-                  component={content}
-                />
-              );
-            })
-          ];
+          if (page.path)
+            return [
+              ...routes,
+              <Route
+                exact={true}
+                key={"switch-" + index}
+                path={page.path}
+                component={content}
+              />,
+              (page.aliasPath || []).map((alias, i) => {
+                return (
+                  <Route
+                    exact={true}
+                    key={"switch-alias-" + index + "-" + i}
+                    path={alias}
+                    component={content}
+                  />
+                );
+              })
+            ];
+          else return [...routes];
         }, [])}
       </Switch>
     );
