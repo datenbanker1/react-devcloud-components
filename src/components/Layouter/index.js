@@ -11,6 +11,7 @@ import Theme from "../Theme";
 import defaultStyle from "../../styles/Layouter";
 
 class Layouter extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     const loadContentAsync = typeof props.content === "function";
@@ -26,6 +27,12 @@ class Layouter extends Component {
     if (loadContentAsync) this.loadContent();
     else this.props.dispatch(this.props.on, "contentLoaded");
   }
+  componentDidMount() {
+    this._isMounted = true;
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
   async loadContent() {
     const module = await this.props.content();
     const content = {
@@ -34,7 +41,7 @@ class Layouter extends Component {
       error: false,
       toCreate: module.default
     };
-    this.setState({ ...this.state, content });
+    if (this._isMounted) this.setState({ ...this.state, content });
     this.props.dispatch(this.props.on, "contentLoaded");
   }
 
