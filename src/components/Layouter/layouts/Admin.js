@@ -13,7 +13,8 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
-  withStyles
+  withStyles,
+  CircularProgress
 } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/pro-light-svg-icons/faBars";
@@ -77,7 +78,15 @@ class Admin extends Component {
     return (
       <div key={"navigation-element-" + index}>
         {wrapLink(
-          <ListItem classes={{ root: classes.rippleMenu }} button>
+          <ListItem
+            classes={{
+              root: classNames([
+                classes.rippleMenu,
+                keyPrefix && classes.linkListElementHolder
+              ])
+            }}
+            button
+          >
             {link.icon && (
               <ListItemIcon
                 classes={{
@@ -94,7 +103,8 @@ class Admin extends Component {
             <ListItemText
               classes={{
                 root: classNames([
-                  keyPrefix && !link.icon && classes.linkListElementNoIcon
+                  keyPrefix && !link.icon && classes.linkListElementNoIcon,
+                  keyPrefix && classes.linkListElementText
                 ]),
                 primary: classNames([
                   classes.fontMenu,
@@ -103,7 +113,17 @@ class Admin extends Component {
                 ])
               }}
               inset
-              primary={link.name}
+              primary={
+                <span>
+                  {link.name}
+                  {link.pending && (
+                    <CircularProgress
+                      size={12}
+                      classes={{ root: classes.pendingIcon }}
+                    />
+                  )}
+                </span>
+              }
             />
           </ListItem>
         )}

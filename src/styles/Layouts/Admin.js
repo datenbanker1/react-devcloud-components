@@ -38,11 +38,24 @@ const style = theme => materialUiTheme => {
       textDecoration: "none"
     },
     linkList: {
+      paddingLeft: "59px",
       margin: "0px",
       listStyle: "none"
     },
-    linkListElementNoIcon: { paddingLeft: "16px !important" },
-    linkListElementText: { fontSize: "0.95rem", lineHeight: "1rem" },
+    linkListElementNoIcon: { paddingLeft: "0px !important" },
+    linkListElementText: {
+      fontSize: "0.9rem",
+      paddingLeft: "0px",
+      lineHeight: "1rem"
+    },
+    linkListElementHolder: {
+      padding: "8px 16px",
+      borderLeft: "1px solid rgba(255, 255, 255, 0.4)"
+    },
+    pendingIcon: {
+      color: "rgba(255, 255, 255, 0.7)",
+      float: "right"
+    },
     activeLink: {
       color: "rgba(255, 255, 255, 1)"
     },

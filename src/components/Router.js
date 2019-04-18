@@ -18,6 +18,7 @@ class Router extends Component {
             path: link.path,
             name: link.name,
             icon: link.icon,
+            pending: link.pending,
             elements: link.elements || false
           }
         ];

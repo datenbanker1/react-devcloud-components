@@ -2,7 +2,8 @@ import {
   faSignInAlt,
   faEdit,
   faBrowser,
-  faList,
+  faPaintBrush,
+  faPlus,
   faEquals,
   faHistory,
   faClock
@@ -64,18 +65,39 @@ export default [
     path: "/person/form"
   },
   {
-    name: "Sublist",
-    icon: faList,
+    name: "Kunstwerke",
+    icon: faPaintBrush,
+    pending: true,
     type: "list",
     elements: [
       {
-        name: "Link 1",
+        name: "Alle",
         layout: "admin",
-        component: () => {
-          return import("../views/History");
-        },
+        component: () => {},
         group: "private",
-        path: "/person/form"
+        path: "/art/all"
+      },
+      {
+        name: "Meine",
+        layout: "admin",
+        component: () => {},
+        group: "private",
+        path: "/art/my"
+      },
+      {
+        name: "Gemietet",
+        layout: "admin",
+        component: () => {},
+        group: "private",
+        path: "/art/rent"
+      },
+      {
+        icon: faPlus,
+        name: "Neue Sammlung",
+        layout: "admin",
+        component: () => {},
+        group: "private",
+        path: "/art/rent"
       }
     ]
   },
