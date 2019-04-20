@@ -37,7 +37,20 @@ class Router extends Component {
                 exact={true}
                 key={"switch-" + index}
                 path={page.path}
-                component={content}
+                component={withRouter(props => {
+                  return (
+                    <Layouter
+                      {...this.props.layouter || {}}
+                      layout={page.layout}
+                      links={this.getVisibleLinks(group, pages)}
+                      content={page.component}
+                      icon={page.icon}
+                      page={page.name}
+                      contentProps={page.props || {}}
+                      routing={props}
+                    />
+                  );
+                })}
               />,
               ...(page.aliasPath || []).map((alias, i) => {
                 return (
@@ -45,26 +58,25 @@ class Router extends Component {
                     exact={true}
                     key={"switch-alias-" + index + "-" + i}
                     path={alias}
-                    component={content}
+                    component={withRouter(props => {
+                      return (
+                        <Layouter
+                          {...this.props.layouter || {}}
+                          layout={page.layout}
+                          links={this.getVisibleLinks(group, pages)}
+                          content={page.component}
+                          icon={page.icon}
+                          page={page.name}
+                          contentProps={page.props || {}}
+                          routing={props}
+                        />
+                      );
+                    })}
                   />
                 );
               })
             ];
           };
-          const content = withRouter(props => {
-            return (
-              <Layouter
-                {...this.props.layouter || {}}
-                layout={page.layout}
-                links={this.getVisibleLinks(group, pages)}
-                content={page.component}
-                icon={page.icon}
-                page={page.name}
-                contentProps={page.props || {}}
-                routing={props}
-              />
-            );
-          });
           let toAdd = [...routes];
           if (page.elements)
             toAdd = [
