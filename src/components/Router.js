@@ -24,12 +24,33 @@ class Router extends Component {
         ];
     }, []);
   }
+  renderContent(page) {}
   renderRoutes(group, pages) {
     return (
       <Switch>
         {pages.reduce((routes, page, index) => {
           if (group && page.group && group.indexOf(page.group) === -1)
             return [...routes];
+          const generateRoutes = page => {
+            return [
+              <Route
+                exact={true}
+                key={"switch-" + index}
+                path={page.path}
+                component={content}
+              />,
+              ...(page.aliasPath || []).map((alias, i) => {
+                return (
+                  <Route
+                    exact={true}
+                    key={"switch-alias-" + index + "-" + i}
+                    path={alias}
+                    component={content}
+                  />
+                );
+              })
+            ];
+          };
           const content = withRouter(props => {
             return (
               <Layouter
@@ -44,27 +65,18 @@ class Router extends Component {
               />
             );
           });
-          if (page.path)
-            return [
-              ...routes,
-              <Route
-                exact={true}
-                key={"switch-" + index}
-                path={page.path}
-                component={content}
-              />,
-              (page.aliasPath || []).map((alias, i) => {
-                return (
-                  <Route
-                    exact={true}
-                    key={"switch-alias-" + index + "-" + i}
-                    path={alias}
-                    component={content}
-                  />
-                );
-              })
+          let toAdd = [...routes];
+          if (page.elements)
+            toAdd = [
+              ...toAdd,
+              ...page.elements.reduce((routes, page, index) => {
+                return [...routes, ...generateRoutes(page)];
+              }, [])
             ];
-          else return [...routes];
+
+          if (page.path) {
+            return [...toAdd, ...generateRoutes(page)];
+          } else return [...toAdd];
         }, [])}
       </Switch>
     );
