@@ -4,7 +4,8 @@ import {
   CircularProgress,
   FormControl,
   InputLabel,
-  Input
+  Input,
+  InputBase
 } from "@material-ui/core";
 import { Typography, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -30,6 +31,7 @@ class Text extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
+
   componentWillUnmount() {
     if (this.timer) window.clearTimeout(this.timer);
   }
@@ -87,7 +89,8 @@ class Text extends Component {
       label,
       dontShowLock = false,
       placeholder,
-      disabled
+      disabled,
+      variant
     } = this.props;
     const { addFloatKomma } = this.state;
     const hasError =
@@ -116,6 +119,10 @@ class Text extends Component {
             <InputLabel
               {...inputLabel}
               className={classNames([hasError ? classes.labelError : false])}
+              classes={{
+                root: variant === "fullField" && classes.fullFieldLabel,
+                shrink: variant === "fullField" && classes.fullFieldLabelShrink
+              }}
             >
               {this.props.label}
               {this.state.pending && (
@@ -156,14 +163,22 @@ class Text extends Component {
             rows={rows}
             placeholder={placeholder}
             className={classNames([
-              isSuccess
-                ? classes.inputSuccess
-                : hasError
-                ? classes.inputError
+              variant !== "fullField"
+                ? isSuccess
+                  ? classes.inputSuccess
+                  : hasError
+                  ? classes.inputError
+                  : readOnly
+                  ? classes.inputReadonly
+                  : classes.input
                 : readOnly
                 ? classes.inputReadonly
-                : classes.input
+                : classes.fullFieldRoot
             ])}
+            classes={{
+              input:
+                variant === "fullField" && !readOnly && classes.fullFieldInput
+            }}
             autoComplete={type === "password" ? "current-password" : "off"}
             onChange={this.handleChange}
             value={value}

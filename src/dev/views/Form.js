@@ -20,6 +20,7 @@ class FormWrapper extends Component {
       readOnly: false,
       disable: false,
       pending: false,
+      variant: "fullField",
       values: {
         text: "Hallo ich bin ein Textfeld",
         radio: "",
@@ -43,10 +44,26 @@ class FormWrapper extends Component {
     };
   }
   render() {
-    const { pending } = this.state;
+    const { pending, variant } = this.state;
     const actions = formActions => (
       <Grid container direction="row" justify="flex-end">
         <Grid item xs={12} style={{ textAlign: "right" }}>
+          <Button
+            variant="contained"
+            style={{ marginRight: "8px" }}
+            color="default"
+            onClick={e => {
+              e.preventDefault();
+              let newState = {
+                ...this.state,
+                variant:
+                  this.state.variant === "fullField" ? "material" : "fullField"
+              };
+              this.setState(newState);
+            }}
+          >
+            variant
+          </Button>
           <Button
             variant="contained"
             style={{ marginRight: "8px" }}
@@ -139,6 +156,7 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.text}
                 disabled={this.state.disable}
+                variant={variant}
               />
               <Text
                 xs={12}
@@ -154,6 +172,7 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.text}
                 disabled={this.state.disable}
+                variant={variant}
               />
               <Text
                 xs={12}
@@ -167,6 +186,7 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.text}
                 disabled={this.state.disable}
+                variant={variant}
               />
               <Text
                 xs={6}
@@ -176,6 +196,8 @@ class FormWrapper extends Component {
                 onChange={value => {}}
                 error={this.state.errors.text}
                 disabled={this.state.disable}
+                readOnly={this.state.readOnly}
+                variant={variant}
               />
               <Date
                 xs={12}
@@ -190,8 +212,8 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.date}
                 disabled={this.state.disable}
+                variant={variant}
               />
-
               <Text
                 xs={6}
                 label="Number"
@@ -206,6 +228,8 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.text}
                 disabled={this.state.disable}
+                readOnly={this.state.readOnly}
+                variant={variant}
               />
               <Text
                 xs={12}
@@ -220,6 +244,7 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.text}
                 disabled={this.state.disable}
+                variant={variant}
               />
               <MultiSelect
                 xs={12}
@@ -239,6 +264,7 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.radio}
                 disabled={this.state.disable}
+                variant={variant}
               />
               <Select
                 xs={12}
@@ -255,6 +281,7 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.radio}
                 disabled={this.state.disable}
+                variant={variant}
               />
               <Select
                 xs={12}
@@ -273,6 +300,7 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.radio}
                 disabled={this.state.disable}
+                variant={variant}
               />
               <Time
                 xs={12}
@@ -288,6 +316,7 @@ class FormWrapper extends Component {
                 }}
                 error={this.state.errors.time}
                 disabled={this.state.disable}
+                variant={variant}
               />
               <Range
                 xs={12}

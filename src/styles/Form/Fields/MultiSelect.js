@@ -1,3 +1,4 @@
+import { fade } from "@material-ui/core/styles/colorManipulator";
 const style = theme => materialUiTheme => {
   let element = {
     labelError: {
@@ -13,12 +14,6 @@ const style = theme => materialUiTheme => {
     },
     formControl: {
       width: "100%"
-    },
-    formControl: {
-      width: "100%"
-    },
-    select: {
-      "&:focus": { background: "rgba(0, 0, 0, 0)" }
     },
     disabledCursor: {
       cursor: "not-allowed !important"
@@ -91,6 +86,41 @@ const style = theme => materialUiTheme => {
     },
     placeholder: {
       color: "rgba(0, 0, 0, .54)"
+    },
+    fullFieldRoot: {
+      padding: "0px",
+      "&:hover": {
+        borderRadius: materialUiTheme.shape.borderRadius,
+        backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5)
+      },
+      "&:hover:before": {
+        borderBottom: "0px solid #fff !important"
+      },
+      "&:before": {
+        borderBottom: "0px solid #fff !important"
+      },
+      "&:after": {
+        borderBottom: "0px solid"
+      }
+    },
+    fullFieldLabel: {
+      zIndex: 2,
+      margin: "3px 10px 8px"
+    },
+    fullFieldLabelShrink: {
+      margin: "0px"
+    },
+    fullFieldInput: {
+      color: "inherit",
+      borderRadius: materialUiTheme.shape.borderRadius,
+      padding: "9px 10px 8px",
+      backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5)
+    },
+    fullFieldSelect: {
+      "&:focus": { borderRadius: materialUiTheme.shape.borderRadius },
+      "&:hover": {
+        backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5)
+      }
     }
   };
   return element;

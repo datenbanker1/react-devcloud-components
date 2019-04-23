@@ -77,7 +77,8 @@ class DateField extends Component {
       readOnly,
       disabled,
       label,
-      dontShowLock = false
+      dontShowLock = false,
+      variant
     } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
@@ -92,6 +93,10 @@ class DateField extends Component {
                 classes.label,
                 hasError ? classes.labelError : false
               ])}
+              classes={{
+                root: variant === "fullField" && classes.fullFieldLabel,
+                shrink: variant === "fullField" && classes.fullFieldLabelShrink
+              }}
             >
               {this.props.label}
               {this.state.pending && (
@@ -127,14 +132,22 @@ class DateField extends Component {
           <Input
             type={this.props.readOnly ? "text" : "date"}
             className={classNames([
-              isSuccess
-                ? classes.inputSuccess
-                : hasError
-                ? classes.inputError
+              variant !== "fullField"
+                ? isSuccess
+                  ? classes.inputSuccess
+                  : hasError
+                  ? classes.inputError
+                  : readOnly
+                  ? classes.inputReadonly
+                  : classes.input
                 : readOnly
                 ? classes.inputReadonly
-                : classes.input
+                : classes.fullFieldRoot
             ])}
+            classes={{
+              input:
+                variant === "fullField" && !readOnly && classes.fullFieldInput
+            }}
             onChange={this.handleChange}
             value={
               this.props.readOnly

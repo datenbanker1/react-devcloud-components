@@ -1,3 +1,5 @@
+import { fade } from "@material-ui/core/styles/colorManipulator";
+
 const style = theme => materialUiTheme => {
   let element = {
     labelError: {
@@ -73,6 +75,39 @@ const style = theme => materialUiTheme => {
     },
     defaultLabel: {
       color: "inherit"
+    },
+    fullFieldRoot: {
+      padding: "0px",
+      "&:hover": {
+        borderRadius: materialUiTheme.shape.borderRadius,
+        backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5)
+      },
+      "&:hover:before": {
+        borderBottom: "0px solid #fff !important"
+      },
+      "&:before": {
+        borderBottom: "0px solid #fff !important"
+      },
+      "&:after": {
+        borderBottom: "0px solid"
+      }
+    },
+    fullFieldLabel: {
+      zIndex: 2,
+      margin: "3px 10px 8px"
+    },
+    fullFieldLabelShrink: {
+      margin: "0px"
+    },
+    fullFieldInput: {
+      color: "inherit",
+      width: "100%",
+      borderRadius: materialUiTheme.shape.borderRadius,
+      padding: "9px 10px 8px",
+      backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5),
+      "&:hover": {
+        backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5)
+      }
     }
   };
   return element;

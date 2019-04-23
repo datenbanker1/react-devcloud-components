@@ -8,6 +8,7 @@ import SubAppBar from "./components/SubAppBar";
 import * as ButtonsComponents from "./components/Buttons";
 import Browser from "./components/Browser";
 import History from "./components/History";
+import Modal from "./components/Modal";
 
 export {
   Authenticator,
@@ -19,5 +20,6 @@ export {
   FormComponents,
   Layouter,
   SubAppBar,
-  History
+  History,
+  Modal
 };

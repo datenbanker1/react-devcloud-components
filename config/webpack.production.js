@@ -25,6 +25,7 @@ module.exports = {
     "@material-ui/core",
     "@material-ui/lab",
     "@material-ui/core/styles",
+    "@material-ui/core/styles/colorManipulator",
     "@datenbanker/devcloud-client-lib",
     "@datenbanker/storage",
     "@fortawesome/fontawesome-svg-core",

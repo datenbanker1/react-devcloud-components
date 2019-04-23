@@ -51,7 +51,17 @@ class Time extends Component {
     else this.props.onChange(value || null);
   }
   render() {
-    const { classes, xs, sm, md, lg, xl, readOnly, disabled } = this.props;
+    const {
+      classes,
+      xs,
+      sm,
+      md,
+      lg,
+      xl,
+      readOnly,
+      disabled,
+      variant
+    } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
@@ -65,6 +75,10 @@ class Time extends Component {
               classes.label,
               hasError ? classes.labelError : false
             ])}
+            classes={{
+              root: variant === "fullField" && classes.fullFieldLabel,
+              shrink: variant === "fullField" && classes.fullFieldLabelShrink
+            }}
           >
             {this.props.label}
             {this.state.pending && (
@@ -99,14 +113,22 @@ class Time extends Component {
           <Input
             type={this.props.readOnly ? "text" : "time"}
             className={classNames([
-              isSuccess
-                ? classes.inputSuccess
-                : hasError
-                ? classes.inputError
+              variant !== "fullField"
+                ? isSuccess
+                  ? classes.inputSuccess
+                  : hasError
+                  ? classes.inputError
+                  : readOnly
+                  ? classes.inputReadonly
+                  : classes.input
                 : readOnly
                 ? classes.inputReadonly
-                : classes.input
+                : classes.fullFieldRoot
             ])}
+            classes={{
+              input:
+                variant === "fullField" && !readOnly && classes.fullFieldInput
+            }}
             onChange={this.handleChange}
             value={
               this.props.readOnly ? this.props.value || "-" : this.state.value

@@ -84,7 +84,8 @@ class SelectExport extends Component {
       placeholder,
       dontShowLock = false,
       override = {},
-      options
+      options,
+      variant
     } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
@@ -119,6 +120,11 @@ class SelectExport extends Component {
                   isSuccess ? classes.success : "",
                   hasError ? classes.danger : ""
                 ])}
+                classes={{
+                  root: variant === "fullField" && classes.fullFieldLabel,
+                  shrink:
+                    variant === "fullField" && classes.fullFieldLabelShrink
+                }}
               >
                 {this.props.label}
                 {this.state.pending && (
@@ -158,7 +164,7 @@ class SelectExport extends Component {
               classes={{
                 root: override.select,
                 selectMenu: classNames([
-                  classes.select,
+                  variant === "fullField" && classes.fullFieldSelect,
                   disabled ? classes.disabledCursor : "",
                   placeholder && value === "" ? classes.placeholder : ""
                 ])
@@ -169,16 +175,27 @@ class SelectExport extends Component {
               onChange={this.handleChange}
               input={
                 <Input
-                  classes={{ input: override.input }}
                   className={classNames([
-                    isSuccess
-                      ? classes.inputSuccess
-                      : hasError
-                      ? classes.inputError
+                    variant !== "fullField"
+                      ? isSuccess
+                        ? classes.inputSuccess
+                        : hasError
+                        ? classes.inputError
+                        : readOnly
+                        ? classes.inputReadonly
+                        : classes.input
                       : readOnly
                       ? classes.inputReadonly
-                      : classes.input
+                      : classes.fullFieldRoot
                   ])}
+                  classes={{
+                    input: classNames([
+                      variant === "fullField" &&
+                        !readOnly &&
+                        classes.fullFieldInput,
+                      override.input
+                    ])
+                  }}
                 />
               }
               MenuProps={MenuProps}

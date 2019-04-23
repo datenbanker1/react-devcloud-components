@@ -2,10 +2,11 @@ import {
   faSignInAlt,
   faEdit,
   faBrowser,
-  faPaintBrush,
+  faList,
   faPlus,
   faEquals,
   faHistory,
+  faExpand,
   faClock
 } from "@fortawesome/pro-light-svg-icons";
 
@@ -65,27 +66,37 @@ export default [
     path: "/person/form"
   },
   {
-    name: "Kunstwerke",
-    icon: faPaintBrush,
+    name: "Modals",
+    icon: faExpand,
+    layout: "admin",
+    component: () => {
+      return import("../views/Modal");
+    },
+    group: "private",
+    path: "/modals"
+  },
+  {
+    name: "Liste",
+    icon: faList,
     pending: true,
     type: "list",
     elements: [
       {
-        name: "Alle",
+        name: "Link 1",
         layout: "admin",
         component: () => {},
         group: "private",
         path: "/art/all"
       },
       {
-        name: "Meine",
+        name: "Link 2",
         layout: "admin",
         component: () => {},
         group: "private",
         path: "/art/my"
       },
       {
-        name: "Gemietet",
+        name: "Link 3",
         layout: "admin",
         component: () => {},
         group: "private",
@@ -93,7 +104,7 @@ export default [
       },
       {
         icon: faPlus,
-        name: "Neue Sammlung",
+        name: "Neuen Link",
         layout: "admin",
         component: () => {},
         group: "private",

@@ -91,7 +91,8 @@ class MultiSelect extends Component {
       xl,
       readOnly,
       disabled,
-      label
+      label,
+      variant
     } = this.props;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
@@ -111,6 +112,11 @@ class MultiSelect extends Component {
                   isSuccess ? classes.success : "",
                   hasError ? classes.danger : ""
                 ])}
+                classes={{
+                  root: variant === "fullField" && classes.fullFieldLabel,
+                  shrink:
+                    variant === "fullField" && classes.fullFieldLabelShrink
+                }}
               >
                 {this.props.label}
                 {this.state.pending && (
@@ -148,7 +154,7 @@ class MultiSelect extends Component {
                 }}
                 classes={{
                   selectMenu: classNames([
-                    classes.select,
+                    variant === "fullField" && classes.fullFieldSelect,
                     disabled ? classes.disabledCursor : false
                   ])
                 }}
@@ -161,14 +167,24 @@ class MultiSelect extends Component {
                 input={
                   <Input
                     className={classNames([
-                      isSuccess
-                        ? classes.inputSuccess
-                        : hasError
-                        ? classes.inputError
+                      variant !== "fullField"
+                        ? isSuccess
+                          ? classes.inputSuccess
+                          : hasError
+                          ? classes.inputError
+                          : readOnly
+                          ? classes.inputReadonly
+                          : classes.input
                         : readOnly
                         ? classes.inputReadonly
-                        : classes.input
+                        : classes.fullFieldRoot
                     ])}
+                    classes={{
+                      input:
+                        variant === "fullField" &&
+                        !readOnly &&
+                        classes.fullFieldInput
+                    }}
                   />
                 }
                 renderValue={selected => (
