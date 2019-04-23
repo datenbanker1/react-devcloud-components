@@ -108,6 +108,9 @@ const style = theme => materialUiTheme => {
       "&:hover": {
         backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5)
       }
+    },
+    helpBlock: {
+      margin: "2px 0px 0px 0px"
     }
   };
   return element;

@@ -90,7 +90,8 @@ class Text extends Component {
       dontShowLock = false,
       placeholder,
       disabled,
-      variant
+      variant,
+      helpBlock
     } = this.props;
     const { addFloatKomma } = this.state;
     const hasError =
@@ -185,6 +186,12 @@ class Text extends Component {
             readOnly={readOnly}
             disabled={disabled}
           />
+          {hasError ||
+            (helpBlock && (
+              <Typography className={classes.helpBlock} variant="caption">
+                {helpBlock}
+              </Typography>
+            ))}
         </FormControl>
         {hasError && (
           <Typography

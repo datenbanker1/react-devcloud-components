@@ -198,6 +198,7 @@ class FormWrapper extends Component {
                 disabled={this.state.disable}
                 readOnly={this.state.readOnly}
                 variant={variant}
+                helpBlock={"Ich bin eine Hilfstext"}
               />
               <Date
                 xs={12}
