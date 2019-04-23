@@ -6,9 +6,6 @@ import Theme from "../Theme";
 import defaultStyle from "../../styles/Buttons/Button";
 
 class Switch extends Component {
-  onChange = name => event => {
-    this.props.onChange(Boolean(event.target.checked));
-  };
   render() {
     const {
       classes,
@@ -16,7 +13,6 @@ class Switch extends Component {
       style,
       value,
       onChange,
-      align,
       override = {}
     } = this.props;
     return (
@@ -27,7 +23,9 @@ class Switch extends Component {
           icon: classNames([classes.switchIcon, override.icon])
         }}
         checked={value}
-        onChange={onChange}
+        onChange={event => {
+          onChange(Boolean(event.target.checked));
+        }}
         value={"switch"}
         color={variant}
         variant="contained"

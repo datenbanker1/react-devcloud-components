@@ -33,7 +33,8 @@ class FormWrapper extends Component {
         ranger: [0, 2, 10],
         time: "",
         textField: "",
-        chips: ["some1", "some2"]
+        chips: ["some1", "some2"],
+        switch: false
       },
       errors: {
         text: false,
@@ -396,6 +397,7 @@ class FormWrapper extends Component {
               />
               <Grid item xs={12}>
                 <Switch
+                  value={this.state.values.switch}
                   onChange={value => {
                     let newState = { ...this.state };
                     newState.values.switch = value;
@@ -406,7 +408,6 @@ class FormWrapper extends Component {
             </Form>
           </Block>
         </Grid>
-
         <Grid item xs={12}>
           <Button
             variant="contained"
