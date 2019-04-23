@@ -1,7 +1,6 @@
 import Color from "color";
 const style = theme => materialUiTheme => ({
-  btn: {
-  },
+  btn: {},
   default: {
     backgroundColor: theme.palette.grey,
     color: "#000",
@@ -61,6 +60,10 @@ const style = theme => materialUiTheme => ({
         .hex(),
       color: "#fff"
     }
+  },
+  switchRoot: {},
+  switchIcon: {
+    boxShadow: "0px 0px 4px 0px rgba(0,0,0,0.7)"
   }
 });
 

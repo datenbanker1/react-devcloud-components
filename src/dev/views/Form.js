@@ -12,6 +12,7 @@ import {
   Chips,
   Time
 } from "../../components/Form";
+import { Switch } from "../../components/Buttons";
 
 class FormWrapper extends Component {
   constructor(props) {
@@ -375,6 +376,7 @@ class FormWrapper extends Component {
               />
               <Chips
                 xs={12}
+                sm={6}
                 primary
                 options={[
                   { label: "test1", value: "some1" },
@@ -388,13 +390,23 @@ class FormWrapper extends Component {
                   newState.values.chips = values;
                   this.setState(newState);
                 }}
-                justify="right"
+                justify="left"
                 pending={false}
                 select={{ xs: 12, sm: 6, lg: 2 }}
               />
+              <Grid item xs={12}>
+                <Switch
+                  onChange={value => {
+                    let newState = { ...this.state };
+                    newState.values.switch = value;
+                    this.setState(newState);
+                  }}
+                />
+              </Grid>
             </Form>
           </Block>
         </Grid>
+
         <Grid item xs={12}>
           <Button
             variant="contained"
