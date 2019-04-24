@@ -4,8 +4,7 @@ import {
   CircularProgress,
   FormControl,
   InputLabel,
-  Input,
-  InputBase
+  Input
 } from "@material-ui/core";
 import { Typography, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -177,8 +176,10 @@ class Text extends Component {
                 : classes.fullFieldRoot
             ])}
             classes={{
-              input:
-                variant === "fullField" && !readOnly && classes.fullFieldInput
+              input: classNames([
+                variant === "fullField" && !readOnly && classes.fullFieldInput,
+                variant === "fullField" && readOnly && classes.fullFieldReadOnly
+              ])
             }}
             autoComplete={type === "password" ? "current-password" : "off"}
             onChange={this.handleChange}

@@ -20,7 +20,8 @@ class Switch extends Component {
         classes={{
           ...override,
           root: classNames([classes.switchRoot, override.root]),
-          icon: classNames([classes.switchIcon, override.icon])
+          icon: classNames([classes.switchIcon, override.icon]),
+          switchBase: classNames([classes.switchBase, override.switchBase])
         }}
         checked={value}
         onChange={event => {

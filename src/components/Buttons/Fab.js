@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import classNames from "classnames";
 import { Fab as FabButton } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,14 +14,23 @@ class Fab extends Component {
       variant,
       style,
       onClick,
-      override = {}
+      override = {},
+      small,
+      medium
     } = this.props;
     const className = variant || "default";
     return (
       <FabButton
         className={classes[className]}
         size="small"
-        classes={{ root: override.button, label: override.icon }}
+        classes={{
+          root: classNames([
+            small && classes.fabSmall,
+            medium && classes.fabMedium,
+            override.button
+          ]),
+          label: classNames([classes.fabLabel, override.icon])
+        }}
         {...{ style, onClick }}
       >
         <FontAwesomeIcon icon={icon} />

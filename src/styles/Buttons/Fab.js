@@ -7,7 +7,7 @@ const style = theme => materialUiTheme => ({
       backgroundColor: Color(theme.palette.grey)
         .darken(0.2)
         .hex(),
-      color: "#000",
+      color: "#000"
     }
   },
   primary: {
@@ -59,6 +59,18 @@ const style = theme => materialUiTheme => ({
         .hex(),
       color: "#fff"
     }
+  },
+  fabLabel: {
+    fontSize: "1.5em"
+  },
+  fabSmall: {
+    width: "25px",
+    height: "25px",
+    minHeight: "25px"
+  },
+  fabMedium: {
+    width: "36px",
+    height: "36px"
   }
 });
 

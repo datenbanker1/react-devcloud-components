@@ -109,6 +109,12 @@ const style = theme => materialUiTheme => {
         backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5)
       }
     },
+    fullFieldReadOnly: {
+      padding: "9px 0px 8px"
+    },
+    multiLineReadOnly: {
+      padding: "0px"
+    },
     helpBlock: {
       margin: "2px 0px 0px 0px"
     }

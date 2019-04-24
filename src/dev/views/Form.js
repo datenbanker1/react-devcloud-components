@@ -12,7 +12,8 @@ import {
   Chips,
   Time
 } from "../../components/Form";
-import { Switch } from "../../components/Buttons";
+import { Switch, Fab } from "../../components/Buttons";
+import { faPlus } from "@fortawesome/pro-light-svg-icons/faPlus";
 
 class FormWrapper extends Component {
   constructor(props) {
@@ -404,6 +405,9 @@ class FormWrapper extends Component {
                     this.setState(newState);
                   }}
                 />
+                <Fab variant="success" icon={faPlus} small />
+                <Fab variant="success" icon={faPlus} medium />
+                <Fab variant="success" icon={faPlus} />
               </Grid>
             </Form>
           </Block>

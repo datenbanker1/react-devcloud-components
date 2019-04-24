@@ -61,9 +61,15 @@ const style = theme => materialUiTheme => ({
       color: "#fff"
     }
   },
-  switchRoot: {},
+  switchRoot: {
+    width: "36px"
+  },
   switchIcon: {
     boxShadow: "0px 0px 4px 0px rgba(0,0,0,0.7)"
+  },
+  switchBase: {
+    width: "22px",
+    height: "36px"
   }
 });
 
