@@ -4,7 +4,10 @@ import { withStyles } from "@material-ui/core/styles";
 import { Grid, Button, Typography } from "@material-ui/core";
 import Block from "../components/Block";
 import { Form, Text, Radio } from "../components/Form";
-const styles = theme => ({});
+
+const styles = theme => {
+  return {};
+};
 
 class Authenticator extends Component {
   constructor(props) {
@@ -507,11 +510,22 @@ class Authenticator extends Component {
     if (authenticated && children) return children;
     if (authenticated && !children) return <p>No Content Set</p>;
     return (
-      <div style={{ height: "100%" }}>
-        {this.state.challengesForm && this.renderChallenges()}
-        {this.state.loginForm && this.renderLoginForm()}
-        {this.state.resetCredentialsForm && this.renderResetCredentialsForm()}
-      </div>
+      <Grid
+        style={{ marginTop: "25px" }}
+        container
+        spacing={8}
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item xs={12} md={5}>
+          <div style={{ height: "100%" }}>
+            {this.state.challengesForm && this.renderChallenges()}
+            {this.state.loginForm && this.renderLoginForm()}
+            {this.state.resetCredentialsForm &&
+              this.renderResetCredentialsForm()}
+          </div>
+        </Grid>
+      </Grid>
     );
   }
 }

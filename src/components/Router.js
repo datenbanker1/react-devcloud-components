@@ -39,7 +39,7 @@ class Router extends Component {
                 key={"switch-" + index}
                 path={page.path}
                 component={withRouter(props => {
-                  const layouter = (
+                  return (
                     <Layouter
                       {...this.props.layouter || {}}
                       layout={page.layout}
@@ -47,21 +47,12 @@ class Router extends Component {
                       content={page.component}
                       icon={page.icon}
                       page={page.name}
+                      protected={page.protected}
+                      authenticator={page.authenticator}
                       contentProps={page.props || {}}
                       routing={props}
                     />
                   );
-                  if (!!page.protected || !!page.Authenticator)
-                    return (
-                      <Authenticator
-                        {...(page.Authenticator && page.Authenticator.props
-                          ? page.Authenticator.props
-                          : {})}
-                      >
-                        {layouter}
-                      </Authenticator>
-                    );
-                  return layouter;
                 })}
               />,
               ...(page.aliasPath || []).map((alias, i) => {
@@ -71,7 +62,7 @@ class Router extends Component {
                     key={"switch-alias-" + index + "-" + i}
                     path={alias}
                     component={withRouter(props => {
-                      const layouter = (
+                      return (
                         <Layouter
                           {...this.props.layouter || {}}
                           layout={page.layout}
@@ -79,21 +70,12 @@ class Router extends Component {
                           content={page.component}
                           icon={page.icon}
                           page={page.name}
+                          protected={page.protected}
+                          authenticator={page.authenticator}
                           contentProps={page.props || {}}
                           routing={props}
                         />
                       );
-                      if (!!page.protected || !!page.Authenticator)
-                        return (
-                          <Authenticator
-                            {...(page.Authenticator && page.Authenticator.props
-                              ? page.Authenticator.props
-                              : {})}
-                          >
-                            {layouter}
-                          </Authenticator>
-                        );
-                      return layouter;
                     })}
                   />
                 );

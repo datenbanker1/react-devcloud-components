@@ -120,6 +120,7 @@ class Theme {
               .hex()
           };
         }
+
         return createMuiTheme(mUiTheme);
       default:
         console.log("conversion type for theme not defined");

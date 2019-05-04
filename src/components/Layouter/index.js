@@ -6,6 +6,7 @@ import AppBarOnly from "./layouts/AppBarOnly";
 import { CircularProgress } from "@material-ui/core";
 import CenterElements from "../CenterElements";
 import Container from "../../container/Layouter";
+import Authenticator from "../../components/Authenticator";
 
 import Theme from "../Theme";
 import defaultStyle from "../../styles/Layouter";
@@ -68,6 +69,12 @@ class Layouter extends Component {
     }
   }
 
+  protectSite(authenticator, content) {
+    return (
+      <Authenticator {...authenticator.props || {}}>{content}</Authenticator>
+    );
+  }
+
   renderPendingContent() {
     const { classes } = this.props;
     return (
@@ -80,24 +87,35 @@ class Layouter extends Component {
   }
 
   render() {
-    const { layout, page, links, contentProps, routing } = this.props;
+    const {
+      layout,
+      page,
+      links,
+      contentProps,
+      routing,
+      authenticator = {}
+    } = this.props;
     const { content } = this.state;
+
+    const site = (
+      <div>
+        {this.getLayout(layout, {
+          page: page || "",
+          links: links || [],
+          content: !content.pending
+            ? React.createElement(content.toCreate, {
+                ...contentProps,
+                routing
+              })
+            : this.renderPendingContent(),
+          routing
+        })}
+      </div>
+    );
 
     return (
       <MuiThemeProvider theme={Theme.convert("material-ui")}>
-        <div>
-          {this.getLayout(layout, {
-            page: page || "",
-            links: links || [],
-            content: !content.pending
-              ? React.createElement(content.toCreate, {
-                  ...contentProps,
-                  routing
-                })
-              : this.renderPendingContent(),
-            routing
-          })}
-        </div>
+        {this.props.protected ? this.protectSite(authenticator, site) : site}
       </MuiThemeProvider>
     );
   }
