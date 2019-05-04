@@ -10,6 +10,7 @@ class Authenticator extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      authenticated: false,
       loginForm: true,
       login: {
         user: "",
@@ -44,7 +45,10 @@ class Authenticator extends Component {
     this.login = this.login.bind(this);
   }
   componentDidMount() {
-    this.props.autoLogin(this.props.on);
+    this.setState({
+      ...this.state,
+      authenticated: this.props.autoLogin(this.props.on)
+    });
   }
   async reset(formActions) {
     const { email, type } = this.state.resetCredentials;
@@ -67,7 +71,10 @@ class Authenticator extends Component {
     formActions.togglePending(true);
     try {
       const resp = await this.props.login(user, password, this.props.on);
-      if (resp === true) return true;
+      if (resp === true) {
+        this.setState({ ...this.state, authenticated: true });
+        return true;
+      }
       if (resp.challenges.length) {
         formActions.togglePending(false);
         let newState = { ...this.state };
@@ -76,6 +83,7 @@ class Authenticator extends Component {
         newState.challenges.required = resp.challenges;
         newState.challenges.session = resp.session;
         this.setState(newState);
+      } else {
       }
       //make challenges
     } catch (err) {
@@ -132,6 +140,7 @@ class Authenticator extends Component {
     });
     try {
       await this.props.challenge(challenges, session, this.props.on);
+      this.setState({ ...this.state, authenticated: true });
     } catch (error) {
       if (error.code === "validationError") {
         let newState = { ...this.state };
@@ -253,7 +262,7 @@ class Authenticator extends Component {
     const resetUsername =
       required.indexOf("change_username") > -1 ||
       required.indexOf("change_invitation_username") > -1;
-    console.log(resetUsername);
+
     const actions = formActions => (
       <Grid container direction="row" justify="flex-end">
         <Grid item xs={12} style={{ textAlign: "right" }}>
@@ -492,6 +501,11 @@ class Authenticator extends Component {
     }
   }
   render() {
+    const { authenticated } = this.state;
+    const { children } = this.props;
+
+    if (authenticated && children) return children;
+    if (authenticated && !children) return <p>No Content Set</p>;
     return (
       <div style={{ height: "100%" }}>
         {this.state.challengesForm && this.renderChallenges()}

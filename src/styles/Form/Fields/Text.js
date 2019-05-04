@@ -80,7 +80,7 @@ const style = theme => materialUiTheme => {
       padding: "0px",
       "&:hover": {
         borderRadius: materialUiTheme.shape.borderRadius,
-        backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5)
+        backgroundColor: fade("#e0e0e0", 0.5)
       },
       "&:hover:before": {
         borderBottom: "0px solid #fff !important"
@@ -104,9 +104,9 @@ const style = theme => materialUiTheme => {
       width: "100%",
       borderRadius: materialUiTheme.shape.borderRadius,
       padding: "9px 10px 8px",
-      backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5),
+      backgroundColor: fade("#e0e0e0", 0.5),
       "&:hover": {
-        backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5)
+        backgroundColor: fade("#e0e0e0", 0.5)
       }
     },
     fullFieldReadOnly: {

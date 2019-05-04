@@ -1,6 +1,6 @@
 {
   "name": "@datenbanker/react-devcloud-components",
-  "version": "0.1.49",
+  "version": "0.2.0",
   "description": "",
   "main": "build/index.js",
   "directories": {
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@datenbanker/devcloud-client-lib": "0.0.9",
+    "@datenbanker/devcloud-client-lib": "0.1.0",
     "@datenbanker/storage": "0.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
     "@fortawesome/pro-light-svg-icons": "^5.6.3",

@@ -18,7 +18,7 @@ const actions = dispatch => {
   return {
     dispatch: checkDispatch,
     autoLogin: on => {
-      if (storage.get("user:refreshToken")) {
+      if (!!storage.get("user:refreshToken")) {
         const tokens = {
           accessToken: storage.get("user:accessToken"),
           idToken: storage.get("user:idToken"),
@@ -26,7 +26,9 @@ const actions = dispatch => {
         };
         DevCloud.setTokens(tokens);
         checkDispatch(on, "signIn");
+        return true;
       }
+      return false;
     },
     login: async (username, password, on) => {
       const auth = new Authentication();

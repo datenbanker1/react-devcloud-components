@@ -31,10 +31,10 @@ export default [
     props: { label: "page 1", primary: true },
     display: false,
     group: "public",
-    path: "/login",
-    aliasPath: ["/"]
+    path: "/login"
   },
   {
+    protected: true,
     name: "Forms",
     icon: faEdit,
     layout: "admin",
@@ -43,7 +43,8 @@ export default [
     },
     props: { label: "page 2", primary: true },
     group: "private",
-    path: "/forms"
+    path: "/forms",
+    aliasPath: ["/"]
   },
   {
     name: "Browser",

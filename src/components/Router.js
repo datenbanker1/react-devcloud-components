@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route, BrowserRouter, withRouter } from "react-router-dom";
 import Layouter from "./Layouter";
 import Container from "../container/Router";
+import { Authenticator } from "..";
 
 class Router extends Component {
   getVisibleLinks(group, pages) {
@@ -38,7 +39,7 @@ class Router extends Component {
                 key={"switch-" + index}
                 path={page.path}
                 component={withRouter(props => {
-                  return (
+                  const layouter = (
                     <Layouter
                       {...this.props.layouter || {}}
                       layout={page.layout}
@@ -50,6 +51,17 @@ class Router extends Component {
                       routing={props}
                     />
                   );
+                  if (!!page.protected || !!page.Authenticator)
+                    return (
+                      <Authenticator
+                        {...(page.Authenticator && page.Authenticator.props
+                          ? page.Authenticator.props
+                          : {})}
+                      >
+                        {layouter}
+                      </Authenticator>
+                    );
+                  return layouter;
                 })}
               />,
               ...(page.aliasPath || []).map((alias, i) => {
@@ -59,7 +71,7 @@ class Router extends Component {
                     key={"switch-alias-" + index + "-" + i}
                     path={alias}
                     component={withRouter(props => {
-                      return (
+                      const layouter = (
                         <Layouter
                           {...this.props.layouter || {}}
                           layout={page.layout}
@@ -71,6 +83,17 @@ class Router extends Component {
                           routing={props}
                         />
                       );
+                      if (!!page.protected || !!page.Authenticator)
+                        return (
+                          <Authenticator
+                            {...(page.Authenticator && page.Authenticator.props
+                              ? page.Authenticator.props
+                              : {})}
+                          >
+                            {layouter}
+                          </Authenticator>
+                        );
+                      return layouter;
                     })}
                   />
                 );
