@@ -30,6 +30,9 @@ DevCloud.init({
   },
   handler: {
     tokenChange: tokens => {}
+  },
+  groups: {
+    "31a7c3a8-021e-4769-9ac3-b021ccc9f3e7": "admin"
   }
 });
 
@@ -47,7 +50,6 @@ const Store = createStore((state = [], action) => {
 ReactDOM.render(
   <Provider store={Store}>
     <Router
-      groups={["public"]}
       pages={routes}
       on={{}}
       layouter={{

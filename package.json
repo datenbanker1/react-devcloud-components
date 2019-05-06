@@ -1,6 +1,6 @@
 {
   "name": "@datenbanker/react-devcloud-components",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "",
   "main": "build/index.js",
   "directories": {
@@ -18,7 +18,7 @@
   "peerDependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "@datenbanker/devcloud-client-lib": "0.0.9",
+    "@datenbanker/devcloud-client-lib": "0.1.2",
     "@datenbanker/storage": "0.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
     "@fortawesome/pro-light-svg-icons": "^5.6.3",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@datenbanker/devcloud-client-lib": "0.1.0",
+    "@datenbanker/devcloud-client-lib": "0.1.3",
     "@datenbanker/storage": "0.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
     "@fortawesome/pro-light-svg-icons": "^5.6.3",
@@ -59,7 +59,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "webpack": "^4.28.1",
-    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
   },

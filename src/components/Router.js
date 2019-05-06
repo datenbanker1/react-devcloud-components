@@ -3,6 +3,7 @@ import { Switch, Route, BrowserRouter, withRouter } from "react-router-dom";
 import Layouter from "./Layouter";
 import Container from "../container/Router";
 import { Authenticator } from "..";
+import { DevCloud } from "@datenbanker/devcloud-client-lib";
 
 class Router extends Component {
   getVisibleLinks(group, pages) {
@@ -27,10 +28,11 @@ class Router extends Component {
   }
   renderContent(page) {}
   renderRoutes(group, pages) {
+    const groups = DevCloud.getGroups();
     return (
       <Switch>
         {pages.reduce((routes, page, index) => {
-          if (group && page.group && group.indexOf(page.group) === -1)
+          if (groups && page.group && groups.indexOf(page.group) === -1)
             return [...routes];
           const generateRoutes = page => {
             return [
@@ -43,7 +45,7 @@ class Router extends Component {
                     <Layouter
                       {...this.props.layouter || {}}
                       layout={page.layout}
-                      links={this.getVisibleLinks(group, pages)}
+                      links={this.getVisibleLinks(groups, pages)}
                       content={page.component}
                       icon={page.icon}
                       page={page.name}
@@ -66,7 +68,7 @@ class Router extends Component {
                         <Layouter
                           {...this.props.layouter || {}}
                           layout={page.layout}
-                          links={this.getVisibleLinks(group, pages)}
+                          links={this.getVisibleLinks(groups, pages)}
                           content={page.component}
                           icon={page.icon}
                           page={page.name}

@@ -18,7 +18,7 @@ export default [
     component: () => {
       return import("../views/AppBar");
     },
-    group: "private",
+    group: "admin",
     path: "/appBar"
   },
   {
@@ -30,7 +30,6 @@ export default [
     },
     props: { label: "page 1", primary: true },
     display: false,
-    group: "public",
     path: "/login"
   },
   {
@@ -42,7 +41,7 @@ export default [
       return import("../views/Form");
     },
     props: { label: "page 2", primary: true },
-    group: "private",
+    group: "admin",
     path: "/forms",
     aliasPath: ["/"]
   },
@@ -53,7 +52,7 @@ export default [
     component: () => {
       return import("../views/Browser");
     },
-    group: "private",
+    group: "admin",
     path: "/browser"
   },
   {
@@ -63,7 +62,7 @@ export default [
     component: () => {
       return import("../views/History");
     },
-    group: "private",
+    group: "admin",
     path: "/person/form"
   },
   {
@@ -73,7 +72,7 @@ export default [
     component: () => {
       return import("../views/Modal");
     },
-    group: "private",
+    group: "admin",
     path: "/modals"
   },
   {
@@ -86,21 +85,21 @@ export default [
         name: "Link 1",
         layout: "admin",
         component: () => {},
-        group: "private",
+        group: "admin",
         path: "/art/all"
       },
       {
         name: "Link 2",
         layout: "admin",
         component: () => {},
-        group: "private",
+        group: "admin",
         path: "/art/my"
       },
       {
         name: "Link 3",
         layout: "admin",
         component: () => {},
-        group: "private",
+        group: "admin",
         path: "/art/rent"
       },
       {
@@ -108,7 +107,7 @@ export default [
         name: "Neuen Link",
         layout: "admin",
         component: () => {},
-        group: "private",
+        group: "admin",
         path: "/art/rent"
       }
     ]
@@ -120,7 +119,7 @@ export default [
     component: () => {
       return import("../views/Timer");
     },
-    group: "private",
+    group: "admin",
     path: "/timer"
   }
 ];
