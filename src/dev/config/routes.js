@@ -18,7 +18,6 @@ export default [
     component: () => {
       return import("../views/AppBar");
     },
-    group: "admin",
     path: "/appBar"
   },
   {
@@ -41,7 +40,6 @@ export default [
       return import("../views/Form");
     },
     props: { label: "page 2", primary: true },
-    group: "admin",
     path: "/forms",
     aliasPath: ["/"]
   },
@@ -52,7 +50,6 @@ export default [
     component: () => {
       return import("../views/Browser");
     },
-    group: "admin",
     path: "/browser"
   },
   {
@@ -62,7 +59,6 @@ export default [
     component: () => {
       return import("../views/History");
     },
-    group: "admin",
     path: "/person/form"
   },
   {
@@ -72,7 +68,6 @@ export default [
     component: () => {
       return import("../views/Modal");
     },
-    group: "admin",
     path: "/modals"
   },
   {
@@ -85,21 +80,18 @@ export default [
         name: "Link 1",
         layout: "admin",
         component: () => {},
-        group: "admin",
         path: "/art/all"
       },
       {
         name: "Link 2",
         layout: "admin",
         component: () => {},
-        group: "admin",
         path: "/art/my"
       },
       {
         name: "Link 3",
         layout: "admin",
         component: () => {},
-        group: "admin",
         path: "/art/rent"
       },
       {
@@ -107,7 +99,6 @@ export default [
         name: "Neuen Link",
         layout: "admin",
         component: () => {},
-        group: "admin",
         path: "/art/rent"
       }
     ]

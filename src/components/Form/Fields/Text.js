@@ -111,7 +111,6 @@ class Text extends Component {
     if (!readOnly && type === "number" && addFloatKomma)
       value = this.formatNumber(value + ".");
     value = type === "number" ? this.formatNumber(value + "") : value;
-
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
         <FormControl className={classes.formControl}>
@@ -187,13 +186,13 @@ class Text extends Component {
             readOnly={readOnly}
             disabled={disabled}
           />
-          {hasError ||
-            (helpBlock && (
-              <Typography className={classes.helpBlock} variant="caption">
-                {helpBlock}
-              </Typography>
-            ))}
         </FormControl>
+        {!hasError &&
+          (Boolean(helpBlock) && (
+            <Typography className={classes.helpBlock} variant="caption">
+              {helpBlock}
+            </Typography>
+          ))}
         {hasError && (
           <Typography
             className={classNames([hasError ? classes.danger : ""])}
