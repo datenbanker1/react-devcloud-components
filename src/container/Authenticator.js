@@ -24,7 +24,6 @@ const actions = dispatch => {
           idToken: storage.get("user:idToken"),
           refreshToken: storage.get("user:refreshToken")
         };
-        console.log(tokens);
         DevCloud.setTokens(tokens);
         checkDispatch(on, "signIn");
         return true;
