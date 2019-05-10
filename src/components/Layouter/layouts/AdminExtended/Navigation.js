@@ -88,7 +88,7 @@ class AdminExtendedNavigation extends Component {
     const { logo, navigation, sideBar } = this.props.layoutProps;
     const showNavigation = this.state.navigation;
     const showSideBar = this.state.sideBar;
-    console.log(showSideBar);
+
     return (
       <header className={classes.header}>
         <div className={classes.tobBar}>
