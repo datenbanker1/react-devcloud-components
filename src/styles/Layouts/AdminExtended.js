@@ -48,8 +48,9 @@ const style = theme => materialUiTheme => {
     },
     main: {
       position: "absolute",
-      top: "0px",
-      margin: "60px 100px 0px 250px",
+      top: "60px",
+      left: "250px",
+      right: "100px",
       zIndex: 1
     },
     content: {
@@ -151,8 +152,9 @@ const style = theme => materialUiTheme => {
       },
       main: {
         position: "absolute",
-        top: "0px",
-        margin: "60px 0px 0px 0px"
+        top: "60px",
+        left: "0px",
+        right: "0px"
       },
       subNavigation: {
         display: "none"
