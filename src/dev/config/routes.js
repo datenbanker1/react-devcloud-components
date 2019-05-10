@@ -1,3 +1,4 @@
+import React from "react";
 import {
   faSignInAlt,
   faEdit,
@@ -35,7 +36,11 @@ export default [
     protected: true,
     name: "Forms",
     icon: faEdit,
-    layout: "admin",
+    layout: "admin-extended",
+    layoutProps: {
+      logo: <p>Test logo</p>,
+      sideBar: <p>Test sideBar</p>
+    },
     component: () => {
       return import("../views/Form");
     },

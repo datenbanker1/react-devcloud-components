@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import Admin from "./layouts/Admin";
+import AdminExtended from "./layouts/AdminExtended";
 import EmptyPage from "./layouts/EmptyPage";
 import AppBarOnly from "./layouts/AppBarOnly";
 import { CircularProgress } from "@material-ui/core";
@@ -45,12 +46,18 @@ class Layouter extends Component {
     if (this._isMounted) this.setState({ ...this.state, content });
     this.props.dispatch(this.props.on, "contentLoaded");
   }
-
   getLayout(name, params) {
     switch (name) {
       case "admin":
         return (
           <Admin
+            {...params}
+            signOut={() => this.props.dispatch(this.props.on, "signOut")}
+          />
+        );
+      case "admin-extended":
+        return (
+          <AdminExtended
             {...params}
             signOut={() => this.props.dispatch(this.props.on, "signOut")}
           />
@@ -68,13 +75,11 @@ class Layouter extends Component {
         console.log("LAYOUTER: layout not defined");
     }
   }
-
   protectSite(authenticator, content) {
     return (
       <Authenticator {...authenticator.props || {}}>{content}</Authenticator>
     );
   }
-
   renderPendingContent() {
     const { classes } = this.props;
     return (
@@ -85,7 +90,6 @@ class Layouter extends Component {
       </div>
     );
   }
-
   render() {
     const {
       layout,
@@ -93,26 +97,34 @@ class Layouter extends Component {
       links,
       contentProps,
       routing,
+      layoutProps,
       authenticator = {}
     } = this.props;
     const { content } = this.state;
-
     const site = (
       <div>
         {this.getLayout(layout, {
           page: page || "",
           links: links || [],
+          layoutProps: layoutProps || {},
           content: !content.pending
-            ? React.createElement(content.toCreate, {
-                ...contentProps,
-                routing
-              })
+            ? layout === "admin-extended"
+              ? {
+                  toCreate: content.toCreate,
+                  props: {
+                    ...contentProps,
+                    routing
+                  }
+                }
+              : React.createElement(content.toCreate, {
+                  ...contentProps,
+                  routing
+                })
             : this.renderPendingContent(),
           routing
         })}
       </div>
     );
-
     return (
       <MuiThemeProvider theme={Theme.convert("material-ui")}>
         {this.props.protected ? this.protectSite(authenticator, site) : site}

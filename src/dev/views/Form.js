@@ -16,6 +16,9 @@ import { Switch, Fab } from "../../components/Buttons";
 import { faPlus } from "@fortawesome/pro-light-svg-icons/faPlus";
 
 class FormWrapper extends Component {
+  componentWillMount() {
+    this.props.setSubNavigation(<p>SubNavigation Test</p>);
+  }
   constructor(props) {
     super(props);
     this.state = {

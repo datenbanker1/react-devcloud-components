@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Switch, Route, BrowserRouter, withRouter } from "react-router-dom";
 import Layouter from "./Layouter";
 import Container from "../container/Router";
-import { Authenticator } from "..";
 import { DevCloud } from "@datenbanker/devcloud-client-lib";
 
 class Router extends Component {
@@ -18,6 +17,7 @@ class Router extends Component {
           ...links,
           {
             path: link.path,
+            aliasPath: link.aliasPath,
             name: link.name,
             icon: link.icon,
             pending: link.pending,
@@ -45,6 +45,7 @@ class Router extends Component {
                     <Layouter
                       {...this.props.layouter || {}}
                       layout={page.layout}
+                      layoutProps={page.layoutProps}
                       links={this.getVisibleLinks(groups, pages)}
                       content={page.component}
                       icon={page.icon}
