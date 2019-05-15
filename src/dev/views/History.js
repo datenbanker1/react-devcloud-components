@@ -13,17 +13,19 @@ class PersonFormWrapper extends Component {
       elements.push({ name: "Test-" + i, potential: i });
     }
     return (
-      <History
-        elements={[
-          "ASD",
-          { $type: "yearFlag", year: 2019 },
-          "HUI",
-          { $type: "yearFlag", year: 2018 }
-        ]}
-        listElement={element => {
-          return <p>{element}</p>;
-        }}
-      />
+      <div style={{ padding: "8px" }}>
+        <History
+          elements={[
+            "ASD",
+            { $type: "yearFlag", year: 2019 },
+            "HUI",
+            { $type: "yearFlag", year: 2018 }
+          ]}
+          listElement={element => {
+            return <p>{element}</p>;
+          }}
+        />
+      </div>
     );
   }
 }

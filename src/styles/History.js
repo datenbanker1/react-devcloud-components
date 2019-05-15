@@ -66,8 +66,8 @@ const style = theme => materialUiTheme => ({
     position: "absolute",
     margin: "-16px 0px 0px -29px",
     borderRadius: "40px",
-    padding: "4px 0px",
-    backgroundColor: theme.palette.body
+    padding: "0px 0px",
+    backgroundColor: "rgba(255, 255, 255, 1)"
   },
   historyListItemCircle: {
     display: "block",
@@ -75,15 +75,15 @@ const style = theme => materialUiTheme => ({
     width: "16px",
     height: "16px",
     border: "4px solid " + theme.palette.primary,
-    backgroundColor: theme.palette.body
+    backgroundColor: "rgba(255, 255, 255, 1)"
   },
   historyYearFlag: {
     position: "relative",
     left: "-49px",
     padding: "2px 5px",
     display: "inline-block",
-    border: "3px dashed " + theme.palette.danger,
-    backgroundColor: theme.palette.body
+    border: "3px solid " + theme.palette.danger,
+    backgroundColor: "rgba(255, 255, 255, 1)"
   },
   historyYearFlagHolder: {
     marginBottom: "16px"
