@@ -69,6 +69,7 @@ class Router extends Component {
                         <Layouter
                           {...this.props.layouter || {}}
                           layout={page.layout}
+                          layoutProps={page.layoutProps}
                           links={this.getVisibleLinks(groups, pages)}
                           content={page.component}
                           icon={page.icon}

@@ -92,7 +92,14 @@ class AdminExtendedNavigation extends Component {
     return (
       <header className={classes.header}>
         <div className={classes.tobBar}>
-          <div className={classes.logo}>{Boolean(logo) && logo}</div>
+          <div
+            className={classNames([
+              classes.logo,
+              showNavigation && classes.logoShow
+            ])}
+          >
+            {Boolean(logo) && logo}
+          </div>
           <div
             className={classNames([
               classes.navigation,
@@ -101,19 +108,15 @@ class AdminExtendedNavigation extends Component {
           >
             {navigation ? navigation(links) : this.defaultNavigation()}
           </div>
+          <div
+            className={classNames([
+              classes.customBar,
+              showSideBar && classes.sideBarShow
+            ])}
+          >
+            {sideBar}
+          </div>
           <div className={classes.actions}>
-            <IconButton
-              onClick={() => {
-                this.setState({
-                  ...this.state,
-                  navigation: false,
-                  sideBar: !Boolean(this.state.sideBar)
-                });
-              }}
-              className={classNames([classes.btn, classes.respBtn])}
-            >
-              <FontAwesomeIcon icon={showSideBar ? faTimes : faUser} />
-            </IconButton>
             <IconButton
               onClick={() => {
                 this.setState({
@@ -138,14 +141,6 @@ class AdminExtendedNavigation extends Component {
               />
             </IconButton>
           </div>
-        </div>
-        <div
-          className={classNames([
-            classes.sideBar,
-            showSideBar && classes.sideBarShow
-          ])}
-        >
-          {sideBar}
         </div>
       </header>
     );

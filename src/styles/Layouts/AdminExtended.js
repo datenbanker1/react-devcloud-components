@@ -1,9 +1,7 @@
 const style = theme => materialUiTheme => {
   let element = {
     header: {
-      height: "400px",
-      backgroundColor: theme.palette.thirdly,
-      borderRadius: "0px 0px calc(80% - 50px) 0px"
+      backgroundColor: theme.palette.thirdly
     },
     tobBar: {
       display: "flex",
@@ -46,13 +44,7 @@ const style = theme => materialUiTheme => {
     signOutLogo: {
       marginLeft: "4px"
     },
-    main: {
-      position: "absolute",
-      top: "60px",
-      left: "250px",
-      right: "100px",
-      zIndex: 1
-    },
+    main: {},
     content: {
       padding: "8px"
     },
@@ -89,11 +81,6 @@ const style = theme => materialUiTheme => {
       color: "inherit !important",
       textDecoration: "none"
     },
-    sideBar: {
-      padding: "8px",
-      width: "234px",
-      height: "316px"
-    },
     rippleMenu: {
       color: theme.palette.primary
     },
@@ -105,15 +92,28 @@ const style = theme => materialUiTheme => {
       tobBar: {
         position: "fixed",
         backgroundColor: theme.palette.thirdly,
-        zIndex: 2
+        zIndex: 3
       },
       logo: {
+        display: "none",
+        padding: "0px",
+        maxWidth: "250px",
+        width: "250px",
+        height: "60px",
+        position: "absolute",
+        backgroundColor: theme.palette.thirdly,
+        top: "60px"
+      },
+      logoShow: {
+        display: "block"
+      },
+      customBar: {
         flexBasis: "auto",
         padding: "0px 8px",
         flexGrow: 1
       },
       actions: {
-        flexBasis: "150px"
+        flexBasis: "100px"
       },
       navigation: {
         display: "none",
@@ -121,21 +121,8 @@ const style = theme => materialUiTheme => {
         width: "250px",
         position: "absolute",
         backgroundColor: theme.palette.thirdly,
-        top: "60px",
+        top: "120px",
         flexGrow: "0"
-      },
-      sideBar: {
-        display: "none",
-        maxWidth: "250px",
-        width: "250px",
-        position: "fixed",
-        backgroundColor: theme.palette.thirdly,
-        top: "60px",
-        flexGrow: "0",
-        zIndex: 2
-      },
-      sideBarShow: {
-        display: "block"
       },
       navigationShow: {
         display: "block"

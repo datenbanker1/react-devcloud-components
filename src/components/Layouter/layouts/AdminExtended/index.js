@@ -10,16 +10,11 @@ class AdminExtended extends Component {
   state = {
     subNavigation: null
   };
-  setSubNavigation = content => {
-    this.setState({ ...this.state, subNavigation: content });
-  };
   renderContent(content) {
-    const setSubNavigation = this.setSubNavigation;
     return !content.toCreate
       ? content
       : React.createElement(content.toCreate, {
-          ...content.props,
-          setSubNavigation
+          ...content.props
         });
   }
   render() {
