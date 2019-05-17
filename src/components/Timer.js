@@ -47,7 +47,9 @@ class TimeClock extends Component {
     pause: storage.get("timer:pause") === "1",
     pauses: storage.get("timer:pauses")
       ? JSON.parse(storage.get("timer:pauses"))
-      : []
+      : [],
+    error: false,
+    errorDescr: ""
   };
   componentWillMount() {
     if (this.state.timer === false && this.state.start) {
@@ -113,8 +115,9 @@ class TimeClock extends Component {
     const { start, pauses } = this.state;
     const end = Date.now();
 
-    this.props.stopTimer(start, end, pauses);
-
+    this.props.stopTimer(start, end, pauses, this.onClear, this.onError);
+  }
+  onClear = () => {
     this.setState({
       ...this.state,
       confirmStop: false,
@@ -128,13 +131,40 @@ class TimeClock extends Component {
     storage.delete("timer:start");
     storage.delete("timer:pause");
     storage.delete("timer:pauses");
-  }
+  };
+  onError = error => {
+    this.setState({
+      ...this.state,
+      error: true,
+      errorDescr: JSON.stringify(error)
+    });
+  };
   toggleConfirmStop() {
     this.setState({ ...this.state, confirmStop: !this.state.confirmStop });
   }
   render() {
     const { classes } = this.props;
     const { pauses, pause, start } = this.state;
+    if (this.state.error)
+      return (
+        <div className="TimeClock" style={{ height: "100%" }}>
+          <div style={{ textAlign: "center" }}>
+            <Typography className={classes.error} variant="h4">
+              Fehler!
+            </Typography>
+            <Typography className={classes.error} variant="body1">
+              Der Server hat mit folgenden Fehler geantwortet:
+              <br />
+              <br />
+              {this.state.errorDescr || <i>Keine Meldung!</i>}
+              <br />
+              <br />
+              Bitte schicken Sie diese Nachricht ihrem Admin!
+            </Typography>
+          </div>
+        </div>
+      );
+
     return (
       <div className="TimeClock" style={{ height: "100%" }}>
         <div style={{ textAlign: "center" }}>

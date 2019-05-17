@@ -23,6 +23,9 @@ const style = theme => materialUiTheme => ({
   },
   warning: {
     color: theme.palette.warning
+  },
+  error: {
+    color: theme.palette.danger
   }
 });
 

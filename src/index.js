@@ -9,6 +9,7 @@ import * as ButtonsComponents from "./components/Buttons";
 import Browser from "./components/Browser";
 import History from "./components/History";
 import Modal from "./components/Modal";
+import Timer from "./components/Timer";
 
 export {
   Authenticator,
@@ -21,5 +22,6 @@ export {
   Layouter,
   SubAppBar,
   History,
-  Modal
+  Modal,
+  Timer
 };

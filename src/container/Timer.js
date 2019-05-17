@@ -17,11 +17,15 @@ const actions = dispatch => {
     startTimer: on => {
       checkDispatch(on, "startTimer");
     },
-    stopTimer: (start, end, pauses, on) => {
+    stopTimer: async (start, end, pauses, onSuccess, onError, on) => {
       const customer = new Customer();
-      customer.task.timeClock.add(start, end, pauses);
-
-      checkDispatch(on, "stopTimer");
+      try {
+        const result = await customer.task.timeClock.add(start, end, pauses);
+        onSuccess(result);
+        checkDispatch(on, "stopTimer");
+      } catch (err) {
+        onError(err);
+      }
     },
     startPause: on => {
       checkDispatch(on, "startPause");

@@ -76,6 +76,20 @@ export default [
     path: "/modals"
   },
   {
+    name: "Stechuhr",
+    protected: true,
+    icon: faClock,
+    layout: "admin-extended",
+    layoutProps: {
+      logo: <p>Test logo</p>,
+      sideBar: <p>Test sideBar</p>
+    },
+    component: () => {
+      return import("../views/Timer");
+    },
+    path: "/timer"
+  },
+  {
     name: "Liste",
     icon: faList,
     pending: true,
@@ -107,15 +121,5 @@ export default [
         path: "/art/rent"
       }
     ]
-  },
-  {
-    name: "Stechuhr",
-    icon: faClock,
-    layout: "admin",
-    component: () => {
-      return import("../views/Timer");
-    },
-    group: "admin",
-    path: "/timer"
   }
 ];
