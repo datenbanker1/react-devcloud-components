@@ -20,19 +20,26 @@ const style = theme => materialUiTheme => ({
     color: theme.palette.danger
   },
   historyHolder: {
-    paddingLeft: "20px"
+    paddingLeft: "20px",
+    "@media (max-width: 512px)": {
+      paddingLeft: "10px"
+    }
   },
   historyList: {
     listStyle: "none",
     borderLeft: "4px solid " + theme.palette.default,
     paddingLeft: "25px",
     marginTop: "0px",
-    paddingBottom: "16px"
+    paddingBottom: "16px",
+    "@media (max-width: 512px)": {
+      paddingLeft: "6px"
+    }
   },
   historyElement: {
     backgroundColor: "#fff",
     padding: "8px",
-    margin: "0px 0px 16px 0px"
+    margin: "0px 0px 16px 0px",
+    borderRadius: "4px"
   },
   historyListItemIndicator: {
     position: "absolute",
@@ -49,7 +56,10 @@ const style = theme => materialUiTheme => ({
       margin: "-8px 0px 0px 0px",
       borderRadius: "0px 0px 20px 0px",
       display: "block",
-      content: '""'
+      content: '""',
+      "@media (max-width: 512px)": {
+        display: "none"
+      }
     },
     "&:after": {
       borderTop: "3px solid #fff",
@@ -59,15 +69,24 @@ const style = theme => materialUiTheme => ({
       margin: "0px 0px 0px 0px",
       borderRadius: "0px 20px 0px 0px",
       display: "block",
-      content: '""'
+      content: '""',
+      "@media (max-width: 512px)": {
+        display: "none"
+      }
+    },
+    "@media (max-width: 512px)": {
+      backgroundColor: "initial"
     }
   },
   historyListItemCircleHolder: {
     position: "absolute",
-    margin: "-16px 0px 0px -29px",
+    margin: "-12px 0px 0px -29px",
     borderRadius: "40px",
     padding: "0px 0px",
-    backgroundColor: "rgba(255, 255, 255, 1)"
+    backgroundColor: theme.palette.primary,
+    "@media (max-width: 512px)": {
+      margin: "-10px 0px 0px -10px"
+    }
   },
   historyListItemCircle: {
     display: "block",
@@ -75,7 +94,7 @@ const style = theme => materialUiTheme => ({
     width: "16px",
     height: "16px",
     border: "4px solid " + theme.palette.primary,
-    backgroundColor: "rgba(255, 255, 255, 1)"
+    backgroundColor: theme.palette.primary
   },
   historyYearFlag: {
     position: "relative",
@@ -83,7 +102,10 @@ const style = theme => materialUiTheme => ({
     padding: "2px 5px",
     display: "inline-block",
     border: "3px solid " + theme.palette.danger,
-    backgroundColor: "rgba(255, 255, 255, 1)"
+    backgroundColor: "rgba(255, 255, 255, 1)",
+    "@media (max-width: 512px)": {
+      left: "-20px"
+    }
   },
   historyYearFlagHolder: {
     marginBottom: "16px"

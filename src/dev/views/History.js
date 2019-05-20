@@ -13,7 +13,7 @@ class PersonFormWrapper extends Component {
       elements.push({ name: "Test-" + i, potential: i });
     }
     return (
-      <div style={{ padding: "8px" }}>
+      <div>
         <History
           elements={[
             "ASD",
