@@ -39,6 +39,7 @@ DevCloud.init({
 Theme.init();
 
 const Store = createStore((state = [], action) => {
+  console.log(action.type);
   switch (action.type) {
     case "AUTHENTICATOR::SIGN_IN":
       window.location = "/forms";

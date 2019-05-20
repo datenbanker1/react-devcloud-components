@@ -7,7 +7,7 @@ const overrideStyle = {};
 class TimerWrapper extends Component {
   render() {
     const { classes } = this.props;
-    return <Timer />;
+    return <Timer on={{ stopTimer: "TIMER_STOP" }} />;
   }
 }
 

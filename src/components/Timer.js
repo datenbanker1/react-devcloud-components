@@ -115,7 +115,14 @@ class TimeClock extends Component {
     const { start, pauses } = this.state;
     const end = Date.now();
 
-    this.props.stopTimer(start, end, pauses, this.onClear, this.onError);
+    this.props.stopTimer(
+      start,
+      end,
+      pauses,
+      this.onClear,
+      this.onError,
+      this.props.on
+    );
   }
   onClear = () => {
     this.setState({
