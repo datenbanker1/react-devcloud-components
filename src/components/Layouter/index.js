@@ -94,6 +94,7 @@ class Layouter extends Component {
     const {
       layout,
       page,
+      breadCrumbs,
       links,
       contentProps,
       routing,
@@ -105,6 +106,7 @@ class Layouter extends Component {
       <div>
         {this.getLayout(layout, {
           page: page || "",
+          breadCrumbs: breadCrumbs || [],
           links: links || [],
           layoutProps: layoutProps || {},
           content: !content.pending

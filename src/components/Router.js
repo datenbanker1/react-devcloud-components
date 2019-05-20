@@ -50,6 +50,7 @@ class Router extends Component {
                       content={page.component}
                       icon={page.icon}
                       page={page.name}
+                      breadCrumbs={page.breadCrumbs || []}
                       protected={page.protected}
                       authenticator={page.authenticator}
                       contentProps={page.props || {}}
@@ -74,6 +75,7 @@ class Router extends Component {
                           content={page.component}
                           icon={page.icon}
                           page={page.name}
+                          breadCrumbs={page.breadCrumbs || []}
                           protected={page.protected}
                           authenticator={page.authenticator}
                           contentProps={page.props || {}}

@@ -7,14 +7,17 @@ import {
   List,
   ListItemIcon,
   ListItemText,
-  withStyles
+  withStyles,
+  Typography,
+  Grid
 } from "@material-ui/core";
-
 import Theme from "../../../Theme";
 import defaultStyle from "../../../../styles/Layouts/AdminExtended";
 import { faBars } from "@fortawesome/pro-light-svg-icons/faBars";
-import { faUser } from "@fortawesome/pro-light-svg-icons/faUser";
 import { faTimes } from "@fortawesome/pro-light-svg-icons/faTimes";
+import { faHome } from "@fortawesome/pro-light-svg-icons/faHome";
+import { faChevronRight } from "@fortawesome/pro-light-svg-icons/faChevronRight";
+import CenterElements from "../../../CenterElements";
 
 class AdminExtendedNavigation extends Component {
   state = {
@@ -84,15 +87,31 @@ class AdminExtendedNavigation extends Component {
     );
   }
   render() {
-    const { links, classes } = this.props;
-    const { logo, navigation, sideBar } = this.props.layoutProps;
+    const { links, classes, breadCrumbs } = this.props;
+    const {
+      logo,
+      navigation,
+      sideBar,
+      backgroundImage,
+      backgroundColor
+    } = this.props.layoutProps;
     const showNavigation = this.state.navigation;
     const showSideBar = this.state.sideBar;
+    let headerStyle = {};
+    let background = {};
+    if (backgroundImage)
+      headerStyle.backgroundImage = `url(${backgroundImage})`;
+    if (backgroundColor) {
+      headerStyle.backgroundColor = `${backgroundColor}`;
+      background.backgroundColor = `${backgroundColor}`;
+    }
+    const breadCrumbLast = breadCrumbs.length - 1;
 
     return (
-      <header className={classes.header}>
-        <div className={classes.tobBar}>
+      <header className={classes.header} style={headerStyle}>
+        <div className={classes.tobBar} style={background}>
           <div
+            style={background}
             className={classNames([
               classes.logo,
               showNavigation && classes.logoShow
@@ -101,6 +120,7 @@ class AdminExtendedNavigation extends Component {
             {Boolean(logo) && logo}
           </div>
           <div
+            style={background}
             className={classNames([
               classes.navigation,
               showNavigation && classes.navigationShow
@@ -141,6 +161,48 @@ class AdminExtendedNavigation extends Component {
               />
             </IconButton>
           </div>
+        </div>
+        <div className={classes.appBar}>
+          <Grid container spacing={8}>
+            <Grid item sm={6} xs={12}>
+              <Typography variant="h5" className={classes.title}>
+                {this.props.page}
+              </Typography>
+              <div className={classes.breadCrumbHolder}>
+                <div className={classes.homeHolder}>
+                  <FontAwesomeIcon className={classes.home} icon={faHome} />
+                </div>
+                {breadCrumbs.map((breadCrumb, index) => {
+                  return (
+                    <div
+                      key={"breadCrumb-" + index}
+                      className={classes.breadCrumb}
+                    >
+                      <div className={classes.breadCrumbIcon}>
+                        <FontAwesomeIcon icon={faChevronRight} />
+                      </div>
+                      <a href={breadCrumb.link}>
+                        <Typography
+                          className={
+                            breadCrumbLast === index
+                              ? classes.breadCrumbTitleActive
+                              : classes.breadCrumbTitle
+                          }
+                        >
+                          {breadCrumb.title}
+                        </Typography>
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </Grid>
+            <Grid item sm={6} xs={12}>
+              <CenterElements>
+                <div className={classes.actionHolder}>{this.props.actions}</div>
+              </CenterElements>
+            </Grid>
+          </Grid>
         </div>
       </header>
     );

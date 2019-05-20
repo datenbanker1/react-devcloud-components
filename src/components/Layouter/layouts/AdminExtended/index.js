@@ -8,27 +8,28 @@ import defaultStyle from "../../../../styles/Layouts/AdminExtended";
 
 class AdminExtended extends Component {
   state = {
-    subNavigation: null
+    actions: null
   };
   renderContent(content) {
     return !content.toCreate
       ? content
       : React.createElement(content.toCreate, {
-          ...content.props
+          ...content.props,
+          setActions: this.setActions
         });
   }
+  setActions = actions => {
+    this.setState({ ...this.state, actions });
+  };
   render() {
     const { content, classes } = this.props;
-    const subNavigation = this.state.subNavigation;
+
     return (
       <div className="admin-extended-layout">
-        <Navigation {...this.props} />
+        <Navigation {...this.props} actions={this.state.actions} />
         <main className={classes.main}>
           <div className={classes.content}>{this.renderContent(content)}</div>
         </main>
-        <div className={classNames([classes.subNavigation])}>
-          {subNavigation}
-        </div>
       </div>
     );
   }

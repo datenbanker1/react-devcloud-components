@@ -1,20 +1,20 @@
 const style = theme => materialUiTheme => {
   let element = {
     header: {
-      backgroundColor: theme.palette.thirdly
+      backgroundColor: theme.palette.thirdly,
+      height: "350px"
     },
     tobBar: {
       display: "flex",
       height: "60px",
       width: "100%",
-      zIndex: "2"
+      zIndex: "2",
+      borderBottom: "1px solid rgba(255, 255, 255, 0.1)"
     },
     logo: {
-      flexBasis: "242px",
       padding: "0px 8px"
     },
     navigation: {
-      maxWidth: "calc(100% - 366px)",
       overflow: "hidden",
       flexGrow: "1"
     },
@@ -44,9 +44,14 @@ const style = theme => materialUiTheme => {
     signOutLogo: {
       marginLeft: "4px"
     },
-    main: {},
+    main: {
+      marginTop: "-200px"
+    },
     content: {
-      padding: "8px"
+      padding: "32px",
+      "@media (max-width: 512px)": {
+        padding: "8px"
+      }
     },
     menu: {
       display: "flex",
@@ -88,10 +93,51 @@ const style = theme => materialUiTheme => {
       padding: "8px",
       width: "234px"
     },
+    appBar: {
+      padding: "32px",
+      "@media (max-width: 512px)": {
+        padding: "8px"
+      }
+    },
+    title: {
+      color: "#fff",
+      fontWeight: "100"
+    },
+    homeHolder: {
+      display: "inline-block",
+      padding: "8px 8px 8px 0px"
+    },
+    home: {
+      color: "rgba(255, 255, 255, 0.4)"
+    },
+    breadCrumbIcon: {
+      color: "rgba(255, 255, 255, 0.4)",
+      fontSize: "12px",
+      display: "inline-block"
+    },
+    breadCrumb: {
+      display: "inline-block",
+      padding: "4px"
+    },
+    breadCrumbTitle: {
+      display: "inline-block",
+      paddingLeft: "8px",
+      color: "rgba(255, 255, 255, 0.4)"
+    },
+    breadCrumbTitleActive: {
+      display: "inline-block",
+      paddingLeft: "8px",
+      color: "rgba(255, 255, 255, 1)"
+    },
+    actionHolder: {
+      textAlign: "right",
+      "@media (max-width: 512px)": {
+        textAlign: "left"
+      }
+    },
     "@media (max-width: 512px)": {
       tobBar: {
         position: "fixed",
-        backgroundColor: theme.palette.thirdly,
         zIndex: 3
       },
       logo: {
@@ -101,7 +147,6 @@ const style = theme => materialUiTheme => {
         width: "250px",
         height: "60px",
         position: "absolute",
-        backgroundColor: theme.palette.thirdly,
         top: "60px"
       },
       logoShow: {
@@ -120,7 +165,6 @@ const style = theme => materialUiTheme => {
         maxWidth: "250px",
         width: "250px",
         position: "absolute",
-        backgroundColor: theme.palette.thirdly,
         top: "120px",
         flexGrow: "0"
       },
@@ -132,14 +176,18 @@ const style = theme => materialUiTheme => {
       },
       fontMenu: {
         padding: "11px 16px",
-        margin: "10px 0px"
+        margin: "10px 0px",
+        color: "rgba(255, 255, 255, 0.4)",
+        "&:hover": {
+          color: "rgba(255, 255, 255, 1)",
+          backgroundColor: "inherit !important"
+        }
       },
       respBtn: {
         display: "inline-block"
       },
       main: {
         position: "absolute",
-        top: "60px",
         left: "0px",
         right: "0px"
       },

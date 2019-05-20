@@ -16,7 +16,9 @@ import { Switch, Fab } from "../../components/Buttons";
 import { faPlus } from "@fortawesome/pro-light-svg-icons/faPlus";
 
 class FormWrapper extends Component {
-  componentWillMount() {}
+  componentWillMount() {
+    this.props.setActions(<button>HUI</button>);
+  }
   constructor(props) {
     super(props);
     this.state = {

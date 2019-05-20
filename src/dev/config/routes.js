@@ -37,9 +37,14 @@ export default [
     name: "Forms",
     icon: faEdit,
     layout: "admin-extended",
+    breadCrumbs: [
+      { title: "Form", link: "/forms" },
+      { title: "Test", link: "/forms" }
+    ],
     layoutProps: {
       logo: <p>Test logo</p>,
-      sideBar: <p>Test sideBar</p>
+      sideBar: <p>Test sideBar</p>,
+      backgroundColor: "#000"
     },
     component: () => {
       return import("../views/Form");
