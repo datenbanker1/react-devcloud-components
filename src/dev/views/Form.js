@@ -12,12 +12,16 @@ import {
   Chips,
   Time
 } from "../../components/Form";
-import { Switch, Fab } from "../../components/Buttons";
+import { Switch, Fab, Button as MyButton } from "../../components/Buttons";
 import { faPlus } from "@fortawesome/pro-light-svg-icons/faPlus";
 
 class FormWrapper extends Component {
   componentWillMount() {
-    this.props.setActions(<button>HUI</button>);
+    this.props.setActions(
+      <div>
+        <MyButton>TEST</MyButton>
+      </div>
+    );
   }
   constructor(props) {
     super(props);

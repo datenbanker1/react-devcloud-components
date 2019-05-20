@@ -23,11 +23,16 @@ class AdminExtended extends Component {
   };
   render() {
     const { content, classes } = this.props;
-
+    const hasBtns = !!this.state.actions;
     return (
       <div className="admin-extended-layout">
         <Navigation {...this.props} actions={this.state.actions} />
-        <main className={classes.main}>
+        <main
+          className={classNames([
+            classes.main,
+            hasBtns && classes.mainActionsResp
+          ])}
+        >
           <div className={classes.content}>{this.renderContent(content)}</div>
         </main>
       </div>

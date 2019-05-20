@@ -96,6 +96,8 @@ const style = theme => materialUiTheme => {
     appBar: {
       padding: "32px",
       "@media (max-width: 512px)": {
+        position: "absolute",
+        top: "61px",
         padding: "8px"
       }
     },
@@ -187,9 +189,11 @@ const style = theme => materialUiTheme => {
         display: "inline-block"
       },
       main: {
-        position: "absolute",
         left: "0px",
         right: "0px"
+      },
+      mainActionsResp: {
+        marginTop: "-170px"
       },
       subNavigation: {
         display: "none"
