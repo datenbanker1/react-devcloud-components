@@ -1,7 +1,8 @@
 const style = theme => materialUiTheme => ({
   block: {
     padding: "16px",
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    borderRadius: "4px"
   },
   head: {
     margin: "-16px -16px 16px -16px",

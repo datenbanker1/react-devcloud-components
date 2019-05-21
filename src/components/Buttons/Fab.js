@@ -15,6 +15,7 @@ class Fab extends Component {
       style,
       onClick,
       override = {},
+      angular,
       small,
       medium
     } = this.props;
@@ -27,7 +28,8 @@ class Fab extends Component {
           root: classNames([
             small && classes.fabSmall,
             medium && classes.fabMedium,
-            override.button
+            override.button,
+            angular && classes.angular
           ]),
           label: classNames([classes.fabLabel, override.icon])
         }}

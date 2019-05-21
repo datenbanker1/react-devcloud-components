@@ -71,6 +71,9 @@ const style = theme => materialUiTheme => ({
   fabMedium: {
     width: "36px",
     height: "36px"
+  },
+  angular: {
+    borderRadius: "4px"
   }
 });
 

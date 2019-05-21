@@ -415,6 +415,9 @@ class FormWrapper extends Component {
                 <Fab variant="success" icon={faPlus} small />
                 <Fab variant="success" icon={faPlus} medium />
                 <Fab variant="success" icon={faPlus} />
+                <Fab variant="primary" angular icon={faPlus} small />
+                <Fab variant="primary" angular icon={faPlus} medium />
+                <Fab variant="primary" angular icon={faPlus} />
               </Grid>
             </Form>
           </Block>
