@@ -12,11 +12,21 @@ class Router extends Component {
         link.inMenu === false
       )
         return [...links];
-      else
+      else {
+        let linkTo = link.path;
+        if (link.path && link.path.includes(":") && link.defaultParams) {
+          for (const key in link.defaultParams) {
+            if (link.defaultParams.hasOwnProperty(key)) {
+              linkTo = linkTo.replace(`:${key}`, link.defaultParams[key]);
+            }
+          }
+        }
+
         return [
           ...links,
           {
             path: link.path,
+            linkTo,
             aliasPath: link.aliasPath,
             name: link.name,
             icon: link.icon,
@@ -24,6 +34,7 @@ class Router extends Component {
             elements: link.elements || false
           }
         ];
+      }
     }, []);
   }
   renderContent(page) {}

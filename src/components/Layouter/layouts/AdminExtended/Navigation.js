@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/pro-light-svg-icons/faSignOutAlt";
@@ -40,9 +41,9 @@ class AdminExtendedNavigation extends Component {
             keyPrefix && classes.linkListElementHolder
           ])}
         >
-          <a
+          <Link
             key={keyPrefix + "navigation-link-" + index}
-            href={link.path}
+            to={link.linkTo || ""}
             className={classes.linkMenu}
           >
             {link.icon && (
@@ -75,7 +76,7 @@ class AdminExtendedNavigation extends Component {
                 <span className={classes.menuTextTypo}>{link.name}</span>
               }
             />
-          </a>
+          </Link>
         </li>
       );
     };

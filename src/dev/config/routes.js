@@ -50,7 +50,8 @@ export default [
       return import("../views/Form");
     },
     props: { label: "page 2", primary: true },
-    path: "/forms",
+    path: "/forms/:id",
+    defaultParams: { id: "all" },
     aliasPath: ["/"]
   },
   {
