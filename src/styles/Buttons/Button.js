@@ -67,6 +67,10 @@ const style = theme => materialUiTheme => ({
   switchIcon: {
     boxShadow: "0px 0px 4px 0px rgba(0,0,0,0.7)"
   },
+  switchIconReadOnly: {
+    boxShadow: "0px 0px 0px 0px rgba(0,0,0,0)",
+    backgroundColor: "rgba(189, 189, 189, 1)"
+  },
   switchBase: {
     width: "22px",
     height: "36px"

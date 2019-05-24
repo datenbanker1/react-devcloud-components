@@ -13,6 +13,8 @@ class Switch extends Component {
       style,
       value,
       onChange,
+      readOnly,
+      disabled,
       override = {}
     } = this.props;
     return (
@@ -20,15 +22,20 @@ class Switch extends Component {
         classes={{
           ...override,
           root: classNames([classes.switchRoot, override.root]),
-          icon: classNames([classes.switchIcon, override.icon]),
+          icon: classNames([
+            classes.switchIcon,
+            !readOnly ? "" : classes.switchIconReadOnly,
+            override.icon
+          ]),
           switchBase: classNames([classes.switchBase, override.switchBase])
         }}
         checked={value}
         onChange={event => {
-          onChange(Boolean(event.target.checked));
+          if (!readOnly) onChange(Boolean(event.target.checked));
         }}
         value={"switch"}
         color={variant}
+        disabled={!!disabled}
         variant="contained"
         {...{ style }}
       />

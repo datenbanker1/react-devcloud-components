@@ -411,6 +411,8 @@ class FormWrapper extends Component {
                     newState.values.switch = value;
                     this.setState(newState);
                   }}
+                  disabled={this.state.disable}
+                  readOnly={this.state.readOnly}
                 />
                 <Fab variant="success" icon={faPlus} small />
                 <Fab variant="success" icon={faPlus} medium />
