@@ -39,13 +39,7 @@ class AdminExtendedNavigation extends Component {
       }
 
       const listElement = (
-        <span
-          onClick={e => {
-            if (!link.showElements && link.onClick)
-              this.props.dispatch(link.onClick);
-          }}
-          className={classes.linkMenu}
-        >
+        <span className={classes.linkMenu}>
           {link.icon && (
             <ListItemIcon
               classes={{
@@ -84,18 +78,37 @@ class AdminExtendedNavigation extends Component {
             keyPrefix && classes.linkListElementHolder
           ])}
         >
-          <Link
-            key={keyPrefix + "navigation-link-" + index}
-            to={link.linkTo || ""}
-            className={classNames([
-              classes.fontMenu,
-              active && classes.active,
-              classes.linkMenu,
-              !keyPrefix || classes.subMenuLink
-            ])}
-          >
-            {listElement}
-          </Link>
+          {link.linkTo && (
+            <Link
+              key={keyPrefix + "navigation-link-" + index}
+              to={link.linkTo || ""}
+              className={classNames([
+                classes.fontMenu,
+                active && classes.active,
+                classes.linkMenu,
+                !keyPrefix || classes.subMenuLink
+              ])}
+            >
+              {listElement}
+            </Link>
+          )}
+          {link.onClick && (
+            <div
+              className={classNames([
+                classes.fontMenu,
+                active && classes.active,
+                classes.linkMenu,
+                !keyPrefix || classes.subMenuLink
+              ])}
+              onClick={e => {
+                if (!link.showElements && link.onClick)
+                  this.props.dispatch(link.onClick);
+              }}
+            >
+              {listElement}
+            </div>
+          )}
+
           {!!link.showElements && !!link.elements && (
             <div style={background} className={classes.elementsHolder}>
               <div className={classes.subMenuClose}>

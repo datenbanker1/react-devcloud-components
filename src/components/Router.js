@@ -4,6 +4,18 @@ import Layouter from "./Layouter";
 import Container from "../container/Router";
 import { DevCloud } from "@datenbanker/devcloud-client-lib";
 
+const getLinkTo = link => {
+  let linkTo = link.path;
+  if (link.path && link.path.includes(":") && link.defaultParams) {
+    for (const key in link.defaultParams) {
+      if (link.defaultParams.hasOwnProperty(key)) {
+        linkTo = linkTo.replace(`:${key}`, link.defaultParams[key]);
+      }
+    }
+  }
+  return linkTo;
+};
+
 class Router extends Component {
   getVisibleLinks(group, pages) {
     return pages.reduce((links, link) => {
@@ -13,15 +25,7 @@ class Router extends Component {
       )
         return [...links];
       else {
-        let linkTo = link.path;
-        if (link.path && link.path.includes(":") && link.defaultParams) {
-          for (const key in link.defaultParams) {
-            if (link.defaultParams.hasOwnProperty(key)) {
-              linkTo = linkTo.replace(`:${key}`, link.defaultParams[key]);
-            }
-          }
-        }
-
+        const linkTo = getLinkTo(link);
         return [
           ...links,
           {
@@ -34,7 +38,12 @@ class Router extends Component {
             showElements: link.showElements,
             icon: link.icon,
             pending: link.pending,
-            elements: link.elements || false
+            elements: link.elements
+              ? link.elements.map(element => ({
+                  ...element,
+                  linkTo: getLinkTo(element)
+                }))
+              : false
           }
         ];
       }
