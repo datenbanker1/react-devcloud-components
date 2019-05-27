@@ -10,7 +10,8 @@ import {
   ListItemText,
   withStyles,
   Typography,
-  Grid
+  Grid,
+  CircularProgress
 } from "@material-ui/core";
 import Theme from "../../../Theme";
 import defaultStyle from "../../../../styles/Layouts/AdminExtended";
@@ -30,13 +31,53 @@ class AdminExtendedNavigation extends Component {
       const { classes, routing } = this.props;
       const paths = [link.path, ...(link.aliasPath || [])];
       const active = routing ? paths.indexOf(routing.match.path) > -1 : false;
+      const { backgroundColor } = this.props.layoutProps;
+      let background = {};
+      if (backgroundColor) {
+        background.backgroundColor = `${backgroundColor}`;
+      }
 
+      const listElement = (
+        <span
+          onClick={e => {
+            if (!link.showElements && link.onClick) link.onClick(e);
+          }}
+          className={classes.linkMenu}
+        >
+          {link.icon && (
+            <ListItemIcon
+              classes={{
+                root: classNames([
+                  classes.iconMenu,
+                  active && classes.activeLink
+                ])
+              }}
+            >
+              <FontAwesomeIcon icon={link.icon} />
+            </ListItemIcon>
+          )}
+          <ListItemText
+            disableTypography
+            classes={{
+              root: classNames([
+                classes.menuText,
+                keyPrefix && !link.icon && classes.linkListElementNoIcon,
+                keyPrefix && classes.linkListElementText
+              ]),
+              primary: classNames([
+                active && classes.activeLink,
+                keyPrefix && classes.linkListElementText
+              ])
+            }}
+            inset
+            primary={<span className={classes.menuTextTypo}>{link.name}</span>}
+          />
+        </span>
+      );
       return (
         <li
           key={"navigation-element-" + index}
           className={classNames([
-            classes.fontMenu,
-            active && classes.active,
             classes.rippleMenu,
             keyPrefix && classes.linkListElementHolder
           ])}
@@ -44,39 +85,44 @@ class AdminExtendedNavigation extends Component {
           <Link
             key={keyPrefix + "navigation-link-" + index}
             to={link.linkTo || ""}
-            className={classes.linkMenu}
+            className={classNames([
+              classes.fontMenu,
+              active && classes.active,
+              classes.linkMenu,
+              !keyPrefix || classes.subMenuLink
+            ])}
           >
-            {link.icon && (
-              <ListItemIcon
-                classes={{
-                  root: classNames([
-                    classes.iconMenu,
-                    active && classes.activeLink
-                  ])
-                }}
-              >
-                <FontAwesomeIcon icon={link.icon} />
-              </ListItemIcon>
-            )}
-            <ListItemText
-              disableTypography
-              classes={{
-                root: classNames([
-                  classes.menuText,
-                  keyPrefix && !link.icon && classes.linkListElementNoIcon,
-                  keyPrefix && classes.linkListElementText
-                ]),
-                primary: classNames([
-                  active && classes.activeLink,
-                  keyPrefix && classes.linkListElementText
-                ])
-              }}
-              inset
-              primary={
-                <span className={classes.menuTextTypo}>{link.name}</span>
-              }
-            />
+            {listElement}
           </Link>
+          {!!link.showElements && !!link.elements && (
+            <div style={background} className={classes.elementsHolder}>
+              <div className={classes.subMenuClose}>
+                <FontAwesomeIcon
+                  onClick={e => {
+                    if (link.showElements && link.onClose) link.onClose(e);
+                  }}
+                  style={{ cursor: "pointer" }}
+                  icon={faTimes}
+                />
+              </div>
+              {link.pending && (
+                <div style={{ textAlign: "center" }}>
+                  <CircularProgress size={22} style={{ color: "#fff" }} />
+                </div>
+              )}
+              {!link.pending && (
+                <ul className={classes.subMenu}>
+                  {link.elements.map((link, index) =>
+                    this.defaultNavigationElement(
+                      link,
+                      index,
+                      index + "subElement"
+                    )
+                  )}
+                </ul>
+              )}
+            </div>
+          )}
         </li>
       );
     };

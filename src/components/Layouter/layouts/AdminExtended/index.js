@@ -24,8 +24,14 @@ class AdminExtended extends Component {
   render() {
     const { content, classes } = this.props;
     const hasBtns = !!this.state.actions;
+    const { backgroundColor } = this.props.layoutProps;
+    let background = {};
+    if (backgroundColor) {
+      background.backgroundColor = `${backgroundColor}`;
+    }
     return (
       <div className="admin-extended-layout">
+        <div className={classes.bg} style={background} />
         <Navigation {...this.props} actions={this.state.actions} />
         <main
           className={classNames([

@@ -149,7 +149,7 @@ class FormWrapper extends Component {
     );
     return (
       <Grid container spacing={8}>
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12} lg={12}>
           <Block label="Statisch" head={{ primary: false }}>
             <Form actions={actions} pendingContent={pending}>
               <Text

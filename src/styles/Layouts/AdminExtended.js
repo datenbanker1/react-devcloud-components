@@ -1,8 +1,14 @@
 const style = theme => materialUiTheme => {
   let element = {
     header: {
+      backgroundColor: theme.palette.thirdly
+    },
+    bg: {
       backgroundColor: theme.palette.thirdly,
-      height: "350px"
+      height: "350px",
+      zIndex: -1,
+      width: "100%",
+      position: "absolute"
     },
     tobBar: {
       display: "flex",
@@ -15,7 +21,6 @@ const style = theme => materialUiTheme => {
       padding: "0px 8px"
     },
     navigation: {
-      overflow: "hidden",
       flexGrow: "1"
     },
     actions: {
@@ -44,9 +49,7 @@ const style = theme => materialUiTheme => {
     signOutLogo: {
       marginLeft: "4px"
     },
-    main: {
-      marginTop: "-200px"
-    },
+    main: {},
     content: {
       padding: "32px",
       "@media (max-width: 512px)": {
@@ -56,7 +59,11 @@ const style = theme => materialUiTheme => {
     menu: {
       display: "flex",
       flexDirection: "row",
-      padding: 0
+      padding: 0,
+      maxHeight: "calc(100vh - 101px)",
+      "@media (max-width: 512px)": {
+        overflowY: "scroll"
+      }
     },
     menuText: {
       color: "inherit",
@@ -83,7 +90,6 @@ const style = theme => materialUiTheme => {
     },
     linkMenu: {
       display: "flex",
-      color: "inherit !important",
       textDecoration: "none"
     },
     rippleMenu: {
@@ -96,9 +102,7 @@ const style = theme => materialUiTheme => {
     appBar: {
       padding: "32px",
       "@media (max-width: 512px)": {
-        position: "absolute",
-        top: "61px",
-        padding: "8px"
+        padding: "69px 8px 8px 8px"
       }
     },
     title: {
@@ -135,6 +139,34 @@ const style = theme => materialUiTheme => {
       textAlign: "right",
       "@media (max-width: 512px)": {
         textAlign: "left"
+      }
+    },
+    subMenu: {
+      listStyle: "none",
+      paddingLeft: "16px"
+    },
+    subMenuClose: {
+      color: "rgba(255, 255, 255, 0.4)",
+      textAlign: "right"
+    },
+    subMenuLink: {
+      "& :first-child": {
+        padding: "0px"
+      }
+    },
+    elementsHolder: {
+      display: "block",
+      backgroundColor: theme.palette.thirdly,
+      zIndex: "1",
+      maxWidth: "250px",
+      minWidth: "200px",
+      "@media (min-width: 512px)": {
+        textAlign: "left",
+        margin: "10px 0px 0px 0px",
+        padding: "8px",
+        borderTop: "0px",
+        position: "absolute",
+        border: "1px solid rgba(255, 255, 255, 0.1)"
       }
     },
     "@media (max-width: 512px)": {
@@ -187,13 +219,6 @@ const style = theme => materialUiTheme => {
       },
       respBtn: {
         display: "inline-block"
-      },
-      main: {
-        left: "0px",
-        right: "0px"
-      },
-      mainActionsResp: {
-        marginTop: "-170px"
       },
       subNavigation: {
         display: "none"

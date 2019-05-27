@@ -29,6 +29,9 @@ class Router extends Component {
             linkTo,
             aliasPath: link.aliasPath,
             name: link.name,
+            onClick: link.onClick,
+            onClose: link.onClose,
+            showElements: link.showElements,
             icon: link.icon,
             pending: link.pending,
             elements: link.elements || false

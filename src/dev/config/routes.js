@@ -98,8 +98,15 @@ export default [
   {
     name: "Liste",
     icon: faList,
-    pending: true,
+    pending: false,
     type: "list",
+    onClick: () => {
+      console.log("OPEN");
+    },
+    onClose: () => {
+      console.log("CLOSE");
+    },
+    showElements: false,
     elements: [
       {
         name: "Link 1",
