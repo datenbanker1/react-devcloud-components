@@ -51,9 +51,9 @@ const style = theme => materialUiTheme => {
     },
     main: {},
     content: {
-      padding: "32px",
+      padding: "0px 32px 0px",
       "@media (max-width: 512px)": {
-        padding: "8px"
+        padding: "16px 8px"
       }
     },
     menu: {

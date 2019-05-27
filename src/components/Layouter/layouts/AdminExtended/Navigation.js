@@ -20,6 +20,7 @@ import { faTimes } from "@fortawesome/pro-light-svg-icons/faTimes";
 import { faHome } from "@fortawesome/pro-light-svg-icons/faHome";
 import { faChevronRight } from "@fortawesome/pro-light-svg-icons/faChevronRight";
 import CenterElements from "../../../CenterElements";
+import Container from "../../../../container/Dispatcher";
 
 class AdminExtendedNavigation extends Component {
   state = {
@@ -40,7 +41,8 @@ class AdminExtendedNavigation extends Component {
       const listElement = (
         <span
           onClick={e => {
-            if (!link.showElements && link.onClick) link.onClick(e);
+            if (!link.showElements && link.onClick)
+              this.props.dispatch(link.onClick);
           }}
           className={classes.linkMenu}
         >
@@ -99,7 +101,8 @@ class AdminExtendedNavigation extends Component {
               <div className={classes.subMenuClose}>
                 <FontAwesomeIcon
                   onClick={e => {
-                    if (link.showElements && link.onClose) link.onClose(e);
+                    if (link.showElements && link.onClose)
+                      this.props.dispatch(link.onClose);
                   }}
                   style={{ cursor: "pointer" }}
                   icon={faTimes}
@@ -257,5 +260,5 @@ class AdminExtendedNavigation extends Component {
 }
 
 export default withStyles(Theme.getStyle("Layout/Admin", defaultStyle))(
-  AdminExtendedNavigation
+  Container(AdminExtendedNavigation)
 );

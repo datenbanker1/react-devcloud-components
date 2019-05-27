@@ -100,13 +100,9 @@ export default [
     icon: faList,
     pending: false,
     type: "list",
-    onClick: () => {
-      console.log("OPEN");
-    },
-    onClose: () => {
-      console.log("CLOSE");
-    },
-    showElements: false,
+    onClick: () => ({ type: "OPEN_SUB_MENU" }),
+    onClose: () => ({ type: "CLOSE_SUB_MENU" }),
+    showElements: true,
     elements: [
       {
         name: "Link 1",
