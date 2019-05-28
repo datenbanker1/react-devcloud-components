@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { DevCloud } from "@datenbanker/devcloud-client-lib";
 import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/pro-light-svg-icons/faSignOutAlt";
+import { withRouter } from "react-router-dom";
 import {
   IconButton,
   List,
@@ -27,154 +29,226 @@ class AdminExtendedNavigation extends Component {
     navigation: false,
     sideBar: false
   };
-  defaultNavigation() {
-    this.defaultNavigationElement = (link, index, keyPrefix = "") => {
-      const { classes, routing } = this.props;
-      const paths = [link.path, ...(link.aliasPath || [])];
-      const active = routing ? paths.indexOf(routing.match.path) > -1 : false;
-      const { backgroundColor } = this.props.layoutProps;
-      let background = {};
-      if (backgroundColor) {
-        background.backgroundColor = `${backgroundColor}`;
-      }
-
-      const listElement = (
-        <span className={classes.linkMenu}>
-          {link.icon && (
-            <ListItemIcon
-              classes={{
-                root: classNames([
-                  classes.iconMenu,
-                  active && classes.activeLink
-                ])
-              }}
-            >
-              <FontAwesomeIcon icon={link.icon} />
-            </ListItemIcon>
-          )}
-          <ListItemText
-            disableTypography
+  text = (link, active, keyPrefix = "") => {
+    const { classes } = this.props;
+    return (
+      <span className={classes.linkMenu}>
+        {link.icon && (
+          <ListItemIcon
             classes={{
-              root: classNames([
-                classes.menuText,
-                keyPrefix && !link.icon && classes.linkListElementNoIcon,
-                keyPrefix && classes.linkListElementText
-              ]),
-              primary: classNames([
-                active && classes.activeLink,
-                keyPrefix && classes.linkListElementText
-              ])
+              root: classNames([classes.iconMenu, active && classes.activeLink])
             }}
-            inset
-            primary={<span className={classes.menuTextTypo}>{link.name}</span>}
-          />
-        </span>
-      );
-      return (
-        <li
-          key={"navigation-element-" + index}
-          className={classNames([
-            classes.rippleMenu,
-            keyPrefix && classes.linkListElementHolder
-          ])}
-        >
-          {link.linkTo && (
-            <Link
-              key={keyPrefix + "navigation-link-" + index}
-              to={link.linkTo || ""}
-              className={classNames([
-                classes.fontMenu,
-                active && classes.active,
-                classes.linkMenu,
-                !keyPrefix || classes.subMenuLink
-              ])}
-            >
-              {listElement}
-            </Link>
-          )}
-          {link.onClick && (
-            <div
-              className={classNames([
-                classes.fontMenu,
-                active && classes.active,
-                classes.linkMenu,
-                !keyPrefix || classes.subMenuLink
-              ])}
-              onClick={e => {
-                if (!link.showElements && link.onClick)
-                  this.props.dispatch(link.onClick);
-              }}
-            >
-              {listElement}
-            </div>
-          )}
+          >
+            <FontAwesomeIcon icon={link.icon} />
+          </ListItemIcon>
+        )}
+        <ListItemText
+          disableTypography
+          classes={{
+            root: classNames([
+              classes.menuText,
+              keyPrefix && !link.icon && classes.linkListElementNoIcon,
+              keyPrefix && classes.linkListElementText
+            ]),
+            primary: classNames([
+              active && classes.activeLink,
+              keyPrefix && classes.linkListElementText
+            ])
+          }}
+          inset
+          primary={<span className={classes.menuTextTypo}>{link.label}</span>}
+        />
+      </span>
+    );
+  };
+  button = (link, active, index, keyPrefix) => {
+    const { classes } = this.props;
+    return (
+      <div
+        className={classNames([
+          classes.fontMenu,
+          (active || link.subMenu.show) && classes.active,
+          classes.linkMenu,
+          !keyPrefix || classes.subMenuLink
+        ])}
+        style={{ cursor: "pointer" }}
+        onClick={e => {
+          if (!link.subMenu.show && link.subMenu.onOpen)
+            this.props.dispatch(link.subMenu.onOpen);
+          if (link.subMenu.show && link.subMenu.onClose)
+            this.props.dispatch(link.subMenu.onClose);
+        }}
+      >
+        {this.text(link, active, keyPrefix)}
+      </div>
+    );
+  };
+  link = (link, active, index, keyPrefix) => {
+    const { classes } = this.props;
+    return (
+      <Link
+        key={keyPrefix + "navigation-link-" + index}
+        to={link.path || ""}
+        className={classNames([
+          classes.fontMenu,
+          active && classes.active,
+          classes.linkMenu,
+          !keyPrefix || classes.subMenuLink
+        ])}
+      >
+        {this.text(link, active, keyPrefix)}
+      </Link>
+    );
+  };
+  subMenu = (link, index, keyPrefix = "") => {
+    const { classes } = this.props;
 
-          {!!link.showElements && !!link.elements && (
-            <div style={background} className={classes.elementsHolder}>
-              <div className={classes.subMenuClose}>
-                <FontAwesomeIcon
-                  onClick={e => {
-                    if (link.showElements && link.onClose)
-                      this.props.dispatch(link.onClose);
-                  }}
-                  style={{ cursor: "pointer" }}
-                  icon={faTimes}
-                />
-              </div>
-              {link.pending && (
-                <div style={{ textAlign: "center" }}>
-                  <CircularProgress size={22} style={{ color: "#fff" }} />
-                </div>
-              )}
-              {!link.pending && (
-                <ul className={classes.subMenu}>
-                  {link.elements.map((link, index) =>
-                    this.defaultNavigationElement(
-                      link,
-                      index,
-                      index + "subElement"
-                    )
-                  )}
-                </ul>
-              )}
-            </div>
-          )}
-        </li>
-      );
-    };
+    return (
+      <div className={classes.elementsHolder}>
+        <div className={classes.subMenuClose}>
+          <FontAwesomeIcon
+            onClick={e => {
+              if (link.subMenu.show && link.subMenu.onClose)
+                this.props.dispatch(link.subMenu.onClose);
+            }}
+            style={{ cursor: "pointer" }}
+            icon={faTimes}
+          />
+        </div>
+        {link.subMenu.pending && (
+          <div style={{ textAlign: "center" }}>
+            <CircularProgress size={22} style={{ color: "#fff" }} />
+          </div>
+        )}
+        {!link.subMenu.pending && (
+          <ul className={classes.subMenu}>
+            {link.subMenu.links.map((link, index) =>
+              this.listElement(link, index, index + "subElement")
+            )}
+          </ul>
+        )}
+      </div>
+    );
+  };
+  listElement = (link, index, keyPrefix = "") => {
+    const { classes, match = {}, location = {} } = this.props;
+    const paths = link.originalPaths || [link.path];
+    const active =
+      paths.indexOf(match.path) > -1 || paths.indexOf(location.pathname) > -1;
+
+    return (
+      <li
+        key={"navigation-element-" + index}
+        className={classNames([
+          classes.rippleMenu,
+          keyPrefix && classes.linkListElementHolder
+        ])}
+      >
+        {link.path && this.link(link, active, index, keyPrefix)}
+        {!!link.subMenu &&
+          link.subMenu.onOpen &&
+          this.button(link, active, index, keyPrefix)}
+        {!!link.subMenu &&
+          link.subMenu.show &&
+          this.subMenu(link, active, index, keyPrefix)}
+      </li>
+    );
+  };
+  navigation() {
     const { links, classes } = this.props;
+    const groups = DevCloud.getGroups();
     return (
       <List className={classes.menu}>
-        {links.map((link, index) => this.defaultNavigationElement(link, index))}
+        {links
+          .filter(
+            link =>
+              !link.group || (link.group && groups.indexOf(link.group) > -1)
+          )
+          .map((link, index) => this.listElement(link, index))}
       </List>
     );
   }
+
+  getActiveLink(links, match, location) {
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i];
+
+      if (link.subMenu) {
+        const subLink = this.getActiveLink(link.subMenu.links, match, location);
+        if (subLink) return subLink;
+      }
+
+      const paths = link.originalPaths || [link.path];
+      if (paths.indexOf(match) > -1 || paths.indexOf(location) > -1)
+        return link;
+    }
+    return false;
+  }
+
+  appBar() {
+    const { classes, match, location } = this.props;
+    const activeLink = this.getActiveLink(
+      this.props.links,
+      match.path,
+      location.pathname
+    );
+
+    const breadCrumbs = activeLink.breadCrumbs || [];
+    const breadCrumbLast = breadCrumbs.length - 1;
+    return (
+      <div className={classes.appBar}>
+        <Grid container spacing={8}>
+          <Grid item sm={6} xs={12}>
+            <Typography variant="h5" className={classes.title}>
+              {activeLink.title || activeLink.label}
+            </Typography>
+            <div className={classes.breadCrumbHolder}>
+              <div className={classes.homeHolder}>
+                <FontAwesomeIcon className={classes.home} icon={faHome} />
+              </div>
+              {breadCrumbs.map((breadCrumb, index) => {
+                return (
+                  <div
+                    key={"breadCrumb-" + index}
+                    className={classes.breadCrumb}
+                  >
+                    <div className={classes.breadCrumbIcon}>
+                      <FontAwesomeIcon icon={faChevronRight} />
+                    </div>
+                    <a href={breadCrumb.link}>
+                      <Typography
+                        className={
+                          breadCrumbLast === index
+                            ? classes.breadCrumbTitleActive
+                            : classes.breadCrumbTitle
+                        }
+                      >
+                        {breadCrumb.title}
+                      </Typography>
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
+          </Grid>
+          <Grid item sm={6} xs={12}>
+            <CenterElements>
+              <div className={classes.actionHolder}>{this.props.actions}</div>
+            </CenterElements>
+          </Grid>
+        </Grid>
+      </div>
+    );
+  }
   render() {
-    const { links, classes, breadCrumbs } = this.props;
-    const {
-      logo,
-      navigation,
-      sideBar,
-      backgroundImage,
-      backgroundColor
-    } = this.props.layoutProps;
+    const { classes, breadCrumbs = [] } = this.props;
+    const { logo, sideBar } = this.props;
     const showNavigation = this.state.navigation;
     const showSideBar = this.state.sideBar;
-    let headerStyle = {};
-    let background = {};
-    if (backgroundImage)
-      headerStyle.backgroundImage = `url(${backgroundImage})`;
-    if (backgroundColor) {
-      headerStyle.backgroundColor = `${backgroundColor}`;
-      background.backgroundColor = `${backgroundColor}`;
-    }
-    const breadCrumbLast = breadCrumbs.length - 1;
-
     return (
-      <header className={classes.header} style={headerStyle}>
-        <div className={classes.tobBar} style={background}>
+      <header className={classes.header}>
+        <div className={classes.tobBar}>
           <div
-            style={background}
             className={classNames([
               classes.logo,
               showNavigation && classes.logoShow
@@ -183,13 +257,12 @@ class AdminExtendedNavigation extends Component {
             {Boolean(logo) && logo}
           </div>
           <div
-            style={background}
             className={classNames([
               classes.navigation,
               showNavigation && classes.navigationShow
             ])}
           >
-            {navigation ? navigation(links) : this.defaultNavigation()}
+            {this.navigation()}
           </div>
           <div
             className={classNames([
@@ -225,53 +298,12 @@ class AdminExtendedNavigation extends Component {
             </IconButton>
           </div>
         </div>
-        <div className={classes.appBar}>
-          <Grid container spacing={8}>
-            <Grid item sm={6} xs={12}>
-              <Typography variant="h5" className={classes.title}>
-                {this.props.page}
-              </Typography>
-              <div className={classes.breadCrumbHolder}>
-                <div className={classes.homeHolder}>
-                  <FontAwesomeIcon className={classes.home} icon={faHome} />
-                </div>
-                {breadCrumbs.map((breadCrumb, index) => {
-                  return (
-                    <div
-                      key={"breadCrumb-" + index}
-                      className={classes.breadCrumb}
-                    >
-                      <div className={classes.breadCrumbIcon}>
-                        <FontAwesomeIcon icon={faChevronRight} />
-                      </div>
-                      <a href={breadCrumb.link}>
-                        <Typography
-                          className={
-                            breadCrumbLast === index
-                              ? classes.breadCrumbTitleActive
-                              : classes.breadCrumbTitle
-                          }
-                        >
-                          {breadCrumb.title}
-                        </Typography>
-                      </a>
-                    </div>
-                  );
-                })}
-              </div>
-            </Grid>
-            <Grid item sm={6} xs={12}>
-              <CenterElements>
-                <div className={classes.actionHolder}>{this.props.actions}</div>
-              </CenterElements>
-            </Grid>
-          </Grid>
-        </div>
+        {this.appBar()}
       </header>
     );
   }
 }
 
 export default withStyles(Theme.getStyle("Layout/Admin", defaultStyle))(
-  Container(AdminExtendedNavigation)
+  withRouter(Container(AdminExtendedNavigation))
 );

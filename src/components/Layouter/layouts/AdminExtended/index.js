@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import classNames from "classnames";
 import { withStyles } from "@material-ui/core";
 import Navigation from "./Navigation";
-
 import Theme from "../../../Theme";
 import defaultStyle from "../../../../styles/Layouts/AdminExtended";
+import Content from "./Content";
 
 class AdminExtended extends Component {
   state = {
@@ -22,25 +21,16 @@ class AdminExtended extends Component {
     this.setState({ ...this.state, actions });
   };
   render() {
-    const { content, classes } = this.props;
-    const hasBtns = !!this.state.actions;
-    const { backgroundColor } = this.props.layoutProps;
-    let background = {};
-    if (backgroundColor) {
-      background.backgroundColor = `${backgroundColor}`;
-    }
+    const { classes } = this.props;
     return (
       <div className="admin-extended-layout">
-        <div className={classes.bg} style={background} />
-        <Navigation {...this.props} actions={this.state.actions} />
-        <main
-          className={classNames([
-            classes.main,
-            hasBtns && classes.mainActionsResp
-          ])}
-        >
-          <div className={classes.content}>{this.renderContent(content)}</div>
-        </main>
+        <div className={classes.bg} />
+        <Navigation
+          {...this.props.layout.props}
+          links={this.props.links}
+          actions={this.state.actions}
+        />
+        <Content routes={this.props.routes} />
       </div>
     );
   }

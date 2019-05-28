@@ -1,6 +1,4 @@
-import React from "react";
 import {
-  faSignInAlt,
   faEdit,
   faBrowser,
   faList,
@@ -11,124 +9,120 @@ import {
   faClock
 } from "@fortawesome/pro-light-svg-icons";
 
-export default [
+const routes = [
   {
-    name: "AppBar",
-    icon: faEquals,
-    layout: "admin",
     component: () => {
       return import("../views/AppBar");
     },
-    path: "/appBar"
+    paths: ["/appBar"]
   },
   {
-    name: "Login",
-    icon: faSignInAlt,
-    layout: "emptyPage",
     component: () => {
       return import("../views/Authenticator");
     },
-    props: { label: "page 1", primary: true },
-    display: false,
-    path: "/login"
+    paths: ["/login"]
   },
   {
-    protected: true,
-    name: "Forms",
+    component: () => {
+      return import("../views/Form");
+    },
+    paths: ["/forms"]
+  },
+  {
+    component: () => {
+      return import("../views/Browser");
+    },
+    paths: ["/browser"]
+  },
+  {
+    component: () => {
+      return import("../views/History");
+    },
+    paths: ["/person/form"]
+  },
+  {
+    component: () => {
+      return import("../views/Modal");
+    },
+    paths: ["/modals"]
+  },
+  {
+    component: () => {
+      return import("../views/Timer");
+    },
+    paths: ["/timer"]
+  },
+  {
+    component: () => {
+      return import("../views/Timer");
+    },
+    paths: ["/art/:id"]
+  }
+];
+const links = [
+  {
+    label: "AppBar",
+    icon: faEquals,
+    path: "/appBar"
+  },
+  {
+    title: "Formulare",
+    label: "Forms",
     icon: faEdit,
-    layout: "admin-extended",
     breadCrumbs: [
       { title: "Form", link: "/forms" },
       { title: "Test", link: "/forms" }
     ],
-    layoutProps: {
-      logo: <p>Test logo</p>,
-      sideBar: <p>Test sideBar</p>,
-      backgroundColor: "#000"
-    },
-    component: () => {
-      return import("../views/Form");
-    },
-    props: { label: "page 2", primary: true },
-    path: "/forms",
-    defaultParams: { id: "all" },
-    aliasPath: ["/"]
+    path: "/forms"
   },
   {
-    name: "Browser",
+    label: "Browser",
     icon: faBrowser,
-    layout: "admin",
-    component: () => {
-      return import("../views/Browser");
-    },
     path: "/browser"
   },
   {
-    name: "History",
+    label: "History",
     icon: faHistory,
-    layout: "admin",
-    component: () => {
-      return import("../views/History");
-    },
     path: "/person/form"
   },
   {
-    name: "Modals",
+    label: "Modals",
     icon: faExpand,
-    layout: "admin",
-    component: () => {
-      return import("../views/Modal");
-    },
     path: "/modals"
   },
   {
-    name: "Stechuhr",
-    protected: true,
+    label: "Stechuhr",
     icon: faClock,
-    layout: "admin-extended",
-    layoutProps: {
-      logo: <p>Test logo</p>,
-      sideBar: <p>Test sideBar</p>
-    },
-    component: () => {
-      return import("../views/Timer");
-    },
     path: "/timer"
   },
   {
-    name: "Liste",
+    label: "Liste",
     icon: faList,
-    pending: false,
-    type: "list",
-    onClick: () => ({ type: "OPEN_SUB_MENU" }),
-    onClose: () => ({ type: "CLOSE_SUB_MENU" }),
-    showElements: true,
-    elements: [
-      {
-        name: "Link 1",
-        layout: "admin",
-        component: () => {},
-        path: "/art/all"
-      },
-      {
-        name: "Link 2",
-        layout: "admin",
-        component: () => {},
-        path: "/art/my"
-      },
-      {
-        name: "Link 3",
-        layout: "admin",
-        component: () => {},
-        path: "/art/rent"
-      },
-      {
-        icon: faPlus,
-        name: "Neuen Link",
-        layout: "admin",
-        component: () => {},
-        path: "/art/rent"
-      }
-    ]
+    subMenu: {
+      onOpen: () => ({ type: "OPEN_SUB_MENU" }),
+      onClose: () => ({ type: "CLOSE_SUB_MENU" }),
+      show: false,
+      pending: false,
+      links: [
+        {
+          label: "Link 1",
+          path: "/art/all"
+        },
+        {
+          label: "Link 2",
+          path: "/art/my"
+        },
+        {
+          label: "Link 3",
+          path: "/art/rent"
+        },
+        {
+          icon: faPlus,
+          label: "Neuen Link",
+          path: "/art/rent"
+        }
+      ]
+    }
   }
 ];
+export { routes, links };

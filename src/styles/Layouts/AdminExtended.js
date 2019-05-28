@@ -169,6 +169,10 @@ const style = theme => materialUiTheme => {
         border: "1px solid rgba(255, 255, 255, 0.1)"
       }
     },
+    alignCenter: {
+      textAlign: "center",
+      paddingTop: "30px"
+    },
     "@media (max-width: 512px)": {
       tobBar: {
         position: "fixed",
