@@ -1,17 +1,22 @@
 import React, { Component } from "react";
 import { Grid } from "@material-ui/core";
 import Browser from "../../components/Browser";
+import Button from "../../components/Buttons/Button";
 
 class BrowserWrapper extends Component {
   state = {
     currentPage: 0,
     recordsPerPage: 4
   };
+  componentWillMount() {
+    this.props.setActions(<Button>Test</Button>);
+  }
   render() {
     const elements = [];
     for (let i = 0; i < 20; i++) {
       elements.push({ name: "Test-" + i, potential: i });
     }
+
     return (
       <Grid container spacing={8}>
         <Grid item xs={12}>

@@ -24,11 +24,11 @@ class LazyLoad extends Component {
   }
   render() {
     const { pending, error, component } = this.state;
-    const { js, props = {} } = this.props;
+    const { js, componentProps = {} } = this.props;
 
     if (error) return this.props.error;
     if (pending) return this.props.placeholder;
-    if (js) return React.createElement(component.default, props);
+    if (js) return React.createElement(component.default, componentProps);
     return component;
   }
 }

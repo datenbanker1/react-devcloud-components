@@ -162,7 +162,9 @@ class AdminExtendedNavigation extends Component {
         {links
           .filter(
             link =>
-              !link.group || (link.group && groups.indexOf(link.group) > -1)
+              (!link.group ||
+                (link.group && groups.indexOf(link.group) > -1)) &&
+              link.show !== false
           )
           .map((link, index) => this.listElement(link, index))}
       </List>

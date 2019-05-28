@@ -34,6 +34,7 @@ class Layouter extends Component {
 
   render() {
     const { layout } = this.props;
+
     return (
       <MuiThemeProvider theme={Theme.convert("material-ui")}>
         <BrowserRouter>

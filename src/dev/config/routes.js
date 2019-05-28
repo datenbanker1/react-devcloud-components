@@ -1,3 +1,5 @@
+import React from "react";
+import Button from "../../components/Buttons/Button";
 import {
   faEdit,
   faBrowser,
@@ -78,7 +80,8 @@ const links = [
   {
     label: "Browser",
     icon: faBrowser,
-    path: "/browser"
+    path: "/browser",
+    actions: <Button>Test</Button>
   },
   {
     label: "History",

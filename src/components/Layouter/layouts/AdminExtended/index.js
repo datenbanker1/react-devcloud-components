@@ -9,14 +9,7 @@ class AdminExtended extends Component {
   state = {
     actions: null
   };
-  renderContent(content) {
-    return !content.toCreate
-      ? content
-      : React.createElement(content.toCreate, {
-          ...content.props,
-          setActions: this.setActions
-        });
-  }
+
   setActions = actions => {
     this.setState({ ...this.state, actions });
   };
@@ -30,7 +23,7 @@ class AdminExtended extends Component {
           links={this.props.links}
           actions={this.state.actions}
         />
-        <Content routes={this.props.routes} />
+        <Content routes={this.props.routes} setActions={this.setActions} />
       </div>
     );
   }

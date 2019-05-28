@@ -7,6 +7,18 @@ import Theme from "../../../Theme";
 import defaultStyle from "../../../../styles/Layouts/AdminExtended";
 
 class AdminExtended extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.routes.length !== this.props.routes.length) return true;
+    for (let i = 0; this.props.routes.length > i; i++) {
+      const oldRoute = this.props.routes[i];
+      const newRoute = nextProps.routes[i];
+
+      if (JSON.stringify(oldRoute.paths) !== JSON.stringify(newRoute.paths))
+        return true;
+    }
+    return false;
+  }
+
   render() {
     const { classes, routes } = this.props;
     const groups = DevCloud.getGroups();
@@ -36,6 +48,7 @@ class AdminExtended extends Component {
                             </div>
                           }
                           component={route.component}
+                          componentProps={{ setActions: this.props.setActions }}
                           js
                         />
                       )}
