@@ -48,6 +48,7 @@ class TimeClock extends Component {
     pauses: storage.get("timer:pauses")
       ? JSON.parse(storage.get("timer:pauses"))
       : [],
+    pending: false,
     error: false,
     errorDescr: ""
   };
@@ -114,7 +115,7 @@ class TimeClock extends Component {
 
     const { start, pauses } = this.state;
     const end = Date.now();
-
+    this.setState({ ...this.state, pending: true });
     this.props.stopTimer(
       start,
       end,
@@ -133,6 +134,7 @@ class TimeClock extends Component {
       latestPause: "00:00:00",
       start: false,
       pause: false,
+      pending: false,
       pauses: []
     });
     storage.delete("timer:start");
@@ -142,6 +144,7 @@ class TimeClock extends Component {
   onError = error => {
     this.setState({
       ...this.state,
+      pending: false,
       error: true,
       errorDescr: JSON.stringify(error)
     });
@@ -237,7 +240,8 @@ class TimeClock extends Component {
                 </Button>
               </div>
             )}
-          {start !== false &&
+          {!this.state.pending &&
+            start !== false &&
             this.state.confirmStop === true &&
             pause === false && (
               <div className={classes.buttonBar}>
@@ -299,6 +303,20 @@ class TimeClock extends Component {
                     Zurück
                   </Button>
                 </Offline>
+              </div>
+            )}
+          {this.state.pending &&
+            start !== false &&
+            this.state.confirmStop === true &&
+            pause === false && (
+              <div className={classes.buttonBar}>
+                <Typography
+                  component="p"
+                  variant="body1"
+                  className={classes.confirmationText}
+                >
+                  Zeitmessung wird gespeichert...
+                </Typography>
               </div>
             )}
           {pause !== false && (
