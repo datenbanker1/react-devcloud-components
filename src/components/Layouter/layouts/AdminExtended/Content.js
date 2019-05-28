@@ -8,7 +8,14 @@ import defaultStyle from "../../../../styles/Layouts/AdminExtended";
 
 class AdminExtended extends Component {
   shouldComponentUpdate(nextProps) {
-    if (nextProps.routes.length !== this.props.routes.length) return true;
+    if (
+      nextProps.routing.location.pathname !==
+      this.props.routing.location.pathname
+    )
+      return true;
+    if (nextProps.routes.length !== this.props.routes.length)
+      //if it is not a location change check if it is a config change
+      return true;
     for (let i = 0; this.props.routes.length > i; i++) {
       const oldRoute = this.props.routes[i];
       const newRoute = nextProps.routes[i];
@@ -22,6 +29,7 @@ class AdminExtended extends Component {
   render() {
     const { classes, routes } = this.props;
     const groups = DevCloud.getGroups();
+
     return (
       <main className={classes.main}>
         <div className={classes.content}>

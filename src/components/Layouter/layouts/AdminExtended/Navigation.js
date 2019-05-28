@@ -4,7 +4,7 @@ import { DevCloud } from "@datenbanker/devcloud-client-lib";
 import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/pro-light-svg-icons/faSignOutAlt";
-import { withRouter } from "react-router-dom";
+
 import {
   IconButton,
   List,
@@ -131,7 +131,8 @@ class AdminExtendedNavigation extends Component {
     );
   };
   listElement = (link, index, keyPrefix = "") => {
-    const { classes, match = {}, location = {} } = this.props;
+    const { classes } = this.props;
+    const { match = {}, location = {} } = this.props.routing;
     const paths = link.originalPaths || [link.path];
     const active =
       paths.indexOf(match.path) > -1 || paths.indexOf(location.pathname) > -1;
@@ -188,7 +189,8 @@ class AdminExtendedNavigation extends Component {
   }
 
   appBar() {
-    const { classes, match, location } = this.props;
+    const { classes } = this.props;
+    const { match, location } = this.props.routing;
     const activeLink = this.getActiveLink(
       this.props.links,
       match.path,
@@ -307,5 +309,5 @@ class AdminExtendedNavigation extends Component {
 }
 
 export default withStyles(Theme.getStyle("Layout/Admin", defaultStyle))(
-  withRouter(Container(AdminExtendedNavigation))
+  Container(AdminExtendedNavigation)
 );

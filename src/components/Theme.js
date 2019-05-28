@@ -5,7 +5,7 @@ const defaultTheme = {
   palette: {
     primary: "#5c90d2",
     secondary: "#2c689c",
-    thirdly: "#2c343f",
+    thirdly: "#333333",
     background: "#ececec",
     danger: "#b7433f",
     success: "#559554",
@@ -33,8 +33,11 @@ class Theme {
   constructor() {
     this.config = { ...defaultTheme };
   }
-  init(config = false) {
-    if (config) this.config = config;
+  init(override = false) {
+    if (override.palette)
+      override.palette = { ...this.config.palette, ...override.palette };
+    if (override) this.config = { ...this.config, ...override };
+
     const bodyCss = this.config.basic.body;
     Object.keys(bodyCss).forEach(attr => {
       document.body.style[attr] = bodyCss[attr];

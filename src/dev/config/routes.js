@@ -28,7 +28,7 @@ const routes = [
     component: () => {
       return import("../views/Form");
     },
-    paths: ["/forms"]
+    paths: ["/forms", "/"]
   },
   {
     component: () => {
@@ -104,7 +104,7 @@ const links = [
     subMenu: {
       onOpen: () => ({ type: "OPEN_SUB_MENU" }),
       onClose: () => ({ type: "CLOSE_SUB_MENU" }),
-      show: false,
+      show: true,
       pending: false,
       links: [
         {

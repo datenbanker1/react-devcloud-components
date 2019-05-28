@@ -36,7 +36,11 @@ DevCloud.init({
   }
 });
 
-Theme.init();
+Theme.init({
+  palette: {
+    thirdly: "#000"
+  }
+});
 
 const Store = createStore((state = [], action) => {
   console.log(action.type);
