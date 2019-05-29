@@ -60,7 +60,7 @@ const style = theme => materialUiTheme => {
       display: "flex",
       flexDirection: "row",
       padding: 0,
-      maxHeight: "calc(100vh - 101px)",
+      maxHeight: "calc(100vh - 135px)",
       "@media (max-width: 512px)": {
         overflowY: "scroll"
       }
@@ -102,7 +102,7 @@ const style = theme => materialUiTheme => {
     appBar: {
       padding: "32px",
       "@media (max-width: 512px)": {
-        padding: "69px 8px 8px 8px"
+        padding: "80px 8px 8px 8px"
       }
     },
     title: {
@@ -147,7 +147,10 @@ const style = theme => materialUiTheme => {
     },
     subMenuClose: {
       color: "rgba(255, 255, 255, 0.4)",
-      textAlign: "right"
+      textAlign: "right",
+      "@media (max-width: 512px)": {
+        paddingRight: "16px"
+      }
     },
     subMenuLink: {
       "& :first-child": {
@@ -176,9 +179,11 @@ const style = theme => materialUiTheme => {
     "@media (max-width: 512px)": {
       tobBar: {
         position: "fixed",
-        zIndex: 3
+        zIndex: 3,
+        backgroundColor: theme.palette.thirdly
       },
       logo: {
+        backgroundColor: theme.palette.thirdly,
         display: "none",
         padding: "0px",
         maxWidth: "250px",
@@ -199,12 +204,14 @@ const style = theme => materialUiTheme => {
         flexBasis: "100px"
       },
       navigation: {
+        backgroundColor: theme.palette.thirdly,
         display: "none",
         maxWidth: "250px",
         width: "250px",
         position: "absolute",
         top: "120px",
-        flexGrow: "0"
+        flexGrow: "0",
+        paddingBottom: "16px"
       },
       navigationShow: {
         display: "block"

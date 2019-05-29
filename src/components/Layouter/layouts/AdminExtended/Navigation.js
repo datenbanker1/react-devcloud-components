@@ -4,7 +4,6 @@ import { DevCloud } from "@datenbanker/devcloud-client-lib";
 import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/pro-light-svg-icons/faSignOutAlt";
-
 import {
   IconButton,
   List,
@@ -23,6 +22,7 @@ import { faHome } from "@fortawesome/pro-light-svg-icons/faHome";
 import { faChevronRight } from "@fortawesome/pro-light-svg-icons/faChevronRight";
 import CenterElements from "../../../CenterElements";
 import Container from "../../../../container/Dispatcher";
+import { matchPath } from "react-router";
 
 class AdminExtendedNavigation extends Component {
   state = {
@@ -75,7 +75,7 @@ class AdminExtendedNavigation extends Component {
         onClick={e => {
           if (!link.subMenu.show && link.subMenu.onOpen)
             this.props.dispatch(link.subMenu.onOpen);
-          if (link.subMenu.show && link.subMenu.onClose)
+          else if (link.subMenu.show && !!link.subMenu.onClose)
             this.props.dispatch(link.subMenu.onClose);
         }}
       >
@@ -130,9 +130,9 @@ class AdminExtendedNavigation extends Component {
       </div>
     );
   };
-  listElement = (link, index, keyPrefix = "") => {
+  listElement = (link, index, match, keyPrefix = "") => {
     const { classes } = this.props;
-    const { match = {}, location = {} } = this.props.routing;
+    const { location = {} } = this.props.routing;
     const paths = link.originalPaths || [link.path];
     const active =
       paths.indexOf(match.path) > -1 || paths.indexOf(location.pathname) > -1;
@@ -155,7 +155,7 @@ class AdminExtendedNavigation extends Component {
       </li>
     );
   };
-  navigation() {
+  navigation(matched) {
     const { links, classes } = this.props;
     const groups = DevCloud.getGroups();
     return (
@@ -167,11 +167,25 @@ class AdminExtendedNavigation extends Component {
                 (link.group && groups.indexOf(link.group) > -1)) &&
               link.show !== false
           )
-          .map((link, index) => this.listElement(link, index))}
+          .map((link, index) => this.listElement(link, index, matched))}
       </List>
     );
   }
-
+  getMatchedRoute(pahtName) {
+    let match;
+    this.props.routes.find(route => {
+      route.paths.find(paht => {
+        match = matchPath(pahtName, {
+          path: paht,
+          exact: true,
+          strict: false
+        });
+        return !!match;
+      });
+      return !!match;
+    });
+    return match;
+  }
   getActiveLink(links, match, location) {
     for (let i = 0; i < links.length; i++) {
       const link = links[i];
@@ -187,13 +201,12 @@ class AdminExtendedNavigation extends Component {
     }
     return false;
   }
-
-  appBar() {
+  appBar(matched) {
     const { classes } = this.props;
-    const { match, location } = this.props.routing;
+    const { location } = this.props.routing;
     const activeLink = this.getActiveLink(
       this.props.links,
-      match.path,
+      matched.path,
       location.pathname
     );
 
@@ -235,20 +248,24 @@ class AdminExtendedNavigation extends Component {
               })}
             </div>
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CenterElements>
-              <div className={classes.actionHolder}>{this.props.actions}</div>
-            </CenterElements>
-          </Grid>
+          {!!this.props.actions && (
+            <Grid item sm={6} xs={12}>
+              <CenterElements>
+                <div className={classes.actionHolder}>{this.props.actions}</div>
+              </CenterElements>
+            </Grid>
+          )}
         </Grid>
       </div>
     );
   }
   render() {
-    const { classes, breadCrumbs = [] } = this.props;
+    const { classes } = this.props;
     const { logo, sideBar } = this.props;
     const showNavigation = this.state.navigation;
     const showSideBar = this.state.sideBar;
+    const matched = this.getMatchedRoute(this.props.routing.location.pathname);
+
     return (
       <header className={classes.header}>
         <div className={classes.tobBar}>
@@ -266,7 +283,7 @@ class AdminExtendedNavigation extends Component {
               showNavigation && classes.navigationShow
             ])}
           >
-            {this.navigation()}
+            {this.navigation(matched)}
           </div>
           <div
             className={classNames([
@@ -302,7 +319,7 @@ class AdminExtendedNavigation extends Component {
             </IconButton>
           </div>
         </div>
-        {this.appBar()}
+        {this.appBar(matched)}
       </header>
     );
   }

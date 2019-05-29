@@ -33,14 +33,19 @@ class AdminExtended extends Component {
         <Navigation
           {...this.props.layout.props}
           links={this.props.links}
+          routes={this.props.routes}
           routing={routing}
           actions={this.state.actions}
         />
-        <Content
-          routes={this.props.routes}
-          routing={routing}
-          setActions={this.setActions}
-        />
+        <main className={classes.main}>
+          <div className={classes.content}>
+            <Content
+              routes={this.props.routes}
+              routing={routing}
+              setActions={this.setActions}
+            />
+          </div>
+        </main>
       </div>
     );
   }

@@ -28,7 +28,7 @@ const routes = [
     component: () => {
       return import("../views/Form");
     },
-    paths: ["/forms", "/"]
+    paths: ["/forms/:id", "/"]
   },
   {
     component: () => {
@@ -75,7 +75,8 @@ const links = [
       { title: "Form", link: "/forms" },
       { title: "Test", link: "/forms" }
     ],
-    path: "/forms"
+    path: "/forms/all",
+    originalPaths: ["/forms/:id", "/"]
   },
   {
     label: "Browser",
