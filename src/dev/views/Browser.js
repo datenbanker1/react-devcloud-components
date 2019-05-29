@@ -66,6 +66,12 @@ class BrowserWrapper extends Component {
               },
               options: ["Name", "Potential"]
             }}
+            wrapper={elements => (
+              <div>
+                Das ist ein wrapper
+                <div style={{ padding: "25px" }}>{elements}</div>
+              </div>
+            )}
           />
         </Grid>
       </Grid>

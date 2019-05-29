@@ -29,6 +29,16 @@ class Browser extends Component {
     const recordsPerPage =
       this.props.recordsPerPage || this.state.recordsPerPage;
     const { element } = this.props;
+
+    if (this.props.wrapper)
+      return this.props.wrapper(
+        elements
+          .slice(
+            currentPage * recordsPerPage,
+            currentPage * recordsPerPage + recordsPerPage
+          )
+          .map(element)
+      );
     return elements
       .slice(
         currentPage * recordsPerPage,
