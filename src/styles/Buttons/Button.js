@@ -74,6 +74,12 @@ const style = theme => materialUiTheme => ({
   switchBase: {
     width: "22px",
     height: "36px"
+  },
+  switchPending: {
+    height: "36px",
+    width: "36px",
+    display: "inline-flex",
+    verticalAlign: "middle"
   }
 });
 

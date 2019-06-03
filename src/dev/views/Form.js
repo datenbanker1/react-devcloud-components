@@ -408,6 +408,22 @@ class FormWrapper extends Component {
                   disabled={this.state.disable}
                   readOnly={this.state.readOnly}
                 />
+                <Switch
+                  value={this.state.values.switch}
+                  instant
+                  onChange={async value => {
+                    //to test
+                    /*const art = new Art();
+                    try {
+                      await art.pool.myAll();
+                    } catch (err) {
+                      console.log(err);
+                    }
+                    return true; */
+                  }}
+                  disabled={this.state.disable}
+                  readOnly={this.state.readOnly}
+                />
                 <Fab variant="success" icon={faPlus} small />
                 <Fab variant="success" icon={faPlus} medium />
                 <Fab variant="success" icon={faPlus} />

@@ -1,22 +1,39 @@
 import React, { Component } from "react";
-import { Switch as MaSwitch } from "@material-ui/core";
+import { Switch as MaSwitch, CircularProgress } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import Theme from "../Theme";
 import defaultStyle from "../../styles/Buttons/Button";
 
 class Switch extends Component {
+  state = { pending: false };
+  onChange = async value => {
+    if (this.props.instant) {
+      this.setState({ ...this.state, pending: true });
+      await Promise.resolve(this.props.onChange(value));
+      this.setState({ ...this.state, pending: false });
+    } else {
+      this.props.onChange(value);
+    }
+  };
   render() {
     const {
       classes,
       variant = "primary",
       style,
       value,
-      onChange,
       readOnly,
       disabled,
       override = {}
     } = this.props;
+
+    if (this.state.pending && this.props.instant)
+      return (
+        <span className={classes.switchPending}>
+          <CircularProgress style={{ margin: "10px" }} size={16} />
+        </span>
+      );
+
     return (
       <MaSwitch
         classes={{
@@ -31,7 +48,7 @@ class Switch extends Component {
         }}
         checked={value}
         onChange={event => {
-          if (!readOnly) onChange(Boolean(event.target.checked));
+          if (!readOnly) this.onChange(Boolean(event.target.checked));
         }}
         value={"switch"}
         color={variant}
