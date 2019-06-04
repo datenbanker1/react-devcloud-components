@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import classNames from "classnames";
 import {
   CircularProgress,
@@ -6,7 +7,7 @@ import {
   InputLabel,
   Input
 } from "@material-ui/core";
-import { Typography, Grid } from "@material-ui/core";
+import { Typography, Grid, Menu, MenuItem } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -26,15 +27,14 @@ class Text extends Component {
       success: false,
       pending: false,
       addFloatKomma: false,
+      menuAnchor: null,
       value: this.props.value
     };
     this.handleChange = this.handleChange.bind(this);
   }
-
   componentWillUnmount() {
     if (this.timer) window.clearTimeout(this.timer);
   }
-
   formatNumber = (value, unify = false) => {
     value = typeof value !== "string" ? "" : value;
     if (unify) return value.split(",").join(".");
@@ -73,6 +73,11 @@ class Text extends Component {
       }, settings.delay);
     else this.props.onChange(value === 0 ? 0 : value || null);
   }
+  setMenu = anchor => {
+    let set = anchor;
+    if (anchor) set = ReactDOM.findDOMNode(anchor).getBoundingClientRect();
+    this.setState({ ...this.state, menuAnchor: set });
+  };
   render() {
     const {
       classes,
@@ -92,7 +97,7 @@ class Text extends Component {
       variant,
       helpBlock
     } = this.props;
-    const { addFloatKomma } = this.state;
+    const { addFloatKomma, menuAnchor } = this.state;
     const hasError =
       this.props.error && !this.props.readOnly && !this.state.pending;
     const isSuccess =
@@ -111,6 +116,7 @@ class Text extends Component {
     if (!readOnly && type === "number" && addFloatKomma)
       value = this.formatNumber(value + ".");
     value = type === "number" ? this.formatNumber(value + "") : value;
+    console.log(menuAnchor);
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
         <FormControl className={classes.formControl}>
@@ -132,6 +138,12 @@ class Text extends Component {
             }
             multiline={!!rows}
             rows={rows}
+            onFocus={e => {
+              if (this.props.menu) this.setMenu(e.currentTarget);
+            }}
+            onBlur={e => {
+              if (this.props.menu) this.setMenu(null);
+            }}
             placeholder={placeholder}
             className={classNames([
               variant !== "fullField"
@@ -185,6 +197,16 @@ class Text extends Component {
               />
             )}
           </div>
+          {!!menuAnchor && (
+            <div
+              className={classes.overlay}
+              style={{
+                top: menuAnchor.height
+              }}
+            >
+              {this.props.menu}
+            </div>
+          )}
         </FormControl>
         {!hasError &&
           (Boolean(helpBlock) && (

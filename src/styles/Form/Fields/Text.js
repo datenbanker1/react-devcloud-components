@@ -127,6 +127,14 @@ const style = theme => materialUiTheme => {
     },
     inputBase: {
       paddingRight: "37px"
+    },
+    overlay: {
+      position: "absolute",
+      width: "100%",
+      border: "1px solid " + theme.palette.default,
+      borderRadius: "4px",
+      backgroundColor: "#fff",
+      zIndex: "3"
     }
   };
   return element;
