@@ -116,7 +116,6 @@ class Text extends Component {
     if (!readOnly && type === "number" && addFloatKomma)
       value = this.formatNumber(value + ".");
     value = type === "number" ? this.formatNumber(value + "") : value;
-    console.log(menuAnchor);
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
         <FormControl className={classes.formControl}>
