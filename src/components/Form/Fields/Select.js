@@ -38,7 +38,7 @@ class SelectExport extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      success: true,
+      success: false,
       pending: false,
       value: this.props.value
     };
