@@ -121,6 +121,16 @@ const style = theme => materialUiTheme => {
       "&:hover": {
         backgroundColor: fade(materialUiTheme.palette.grey.main, 0.5)
       }
+    },
+    stateHolder: {
+      textAlign: "right"
+    },
+    state: {
+      position: "absolute",
+      margin: "-26px 0px 0px -40px"
+    },
+    inputBase: {
+      paddingRight: "50px"
     }
   };
   return element;

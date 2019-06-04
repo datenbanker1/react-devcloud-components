@@ -38,7 +38,7 @@ class SelectExport extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      success: false,
+      success: true,
       pending: false,
       value: this.props.value
     };
@@ -127,34 +127,6 @@ class SelectExport extends Component {
                 }}
               >
                 {this.props.label}
-                {this.state.pending && (
-                  <CircularProgress
-                    className={classes.default}
-                    style={{ marginLeft: "5px", display: "inline-block" }}
-                    size={13}
-                  />
-                )}
-                {readOnly && (
-                  <FontAwesomeIcon
-                    className={classes.default}
-                    style={{ marginLeft: "5px" }}
-                    icon={faLockAlt}
-                  />
-                )}
-                {hasError && (
-                  <FontAwesomeIcon
-                    className={classes.danger}
-                    style={{ marginLeft: "5px" }}
-                    icon={faExclamationCircle}
-                  />
-                )}
-                {isSuccess && (
-                  <FontAwesomeIcon
-                    className={classes.success}
-                    style={{ marginLeft: "5px" }}
-                    icon={faCheck}
-                  />
-                )}
               </InputLabel>
             )}
             <Select
@@ -164,6 +136,7 @@ class SelectExport extends Component {
               classes={{
                 root: override.select,
                 selectMenu: classNames([
+                  classes.inputBase,
                   variant === "fullField" && classes.fullFieldSelect,
                   disabled ? classes.disabledCursor : "",
                   placeholder && value === "" ? classes.placeholder : ""
@@ -220,6 +193,32 @@ class SelectExport extends Component {
                   );
               })}
             </Select>
+            <div className={classes.stateHolder}>
+              {this.state.pending && (
+                <CircularProgress
+                  className={classNames([classes.state, classes.default])}
+                  size={14}
+                />
+              )}
+              {isSuccess && (
+                <FontAwesomeIcon
+                  className={classNames([classes.state, classes.success])}
+                  icon={faCheck}
+                />
+              )}
+              {hasError && (
+                <FontAwesomeIcon
+                  className={classNames([classes.state, classes.danger])}
+                  icon={faExclamationCircle}
+                />
+              )}
+              {readOnly && !dontShowLock && (
+                <FontAwesomeIcon
+                  className={classNames([classes.state, classes.default])}
+                  icon={faLockAlt}
+                />
+              )}
+            </div>
           </FormControl>
           {hasError && (
             <Typography

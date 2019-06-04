@@ -204,6 +204,17 @@ class FormWrapper extends Component {
                 variant={variant}
                 helpBlock={"Ich bin eine Hilfstext"}
               />
+              <Text
+                xs={6}
+                placeholder="placeholder no label"
+                value={pending ? "" : ""}
+                onChange={value => {}}
+                error={this.state.errors.text}
+                disabled={this.state.disable}
+                readOnly={this.state.readOnly}
+                variant={variant}
+                helpBlock={"Ich bin eine Hilfstext"}
+              />
               <Date
                 xs={12}
                 sm={6}

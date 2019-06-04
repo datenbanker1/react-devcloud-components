@@ -124,34 +124,6 @@ class Text extends Component {
               }}
             >
               {this.props.label}
-              {this.state.pending && (
-                <CircularProgress
-                  className={classes.default}
-                  style={{ marginLeft: "5px", display: "inline-block" }}
-                  size={13}
-                />
-              )}
-              {readOnly && !dontShowLock && (
-                <FontAwesomeIcon
-                  className={classes.default}
-                  style={{ marginLeft: "5px" }}
-                  icon={faLockAlt}
-                />
-              )}
-              {hasError && (
-                <FontAwesomeIcon
-                  className={classes.danger}
-                  style={{ marginLeft: "5px" }}
-                  icon={faExclamationCircle}
-                />
-              )}
-              {isSuccess && (
-                <FontAwesomeIcon
-                  className={classes.success}
-                  style={{ marginLeft: "5px" }}
-                  icon={faCheck}
-                />
-              )}
             </InputLabel>
           )}
           <Input
@@ -176,6 +148,7 @@ class Text extends Component {
             ])}
             classes={{
               input: classNames([
+                classes.inputBase,
                 variant === "fullField" && !readOnly && classes.fullFieldInput,
                 variant === "fullField" && readOnly && classes.fullFieldReadOnly
               ])
@@ -186,6 +159,32 @@ class Text extends Component {
             readOnly={readOnly}
             disabled={disabled}
           />
+          <div className={classes.stateHolder}>
+            {this.state.pending && (
+              <CircularProgress
+                className={classNames([classes.state, classes.default])}
+                size={14}
+              />
+            )}
+            {isSuccess && (
+              <FontAwesomeIcon
+                className={classNames([classes.state, classes.success])}
+                icon={faCheck}
+              />
+            )}
+            {hasError && (
+              <FontAwesomeIcon
+                className={classNames([classes.state, classes.danger])}
+                icon={faExclamationCircle}
+              />
+            )}
+            {readOnly && !dontShowLock && (
+              <FontAwesomeIcon
+                className={classNames([classes.state, classes.default])}
+                icon={faLockAlt}
+              />
+            )}
+          </div>
         </FormControl>
         {!hasError &&
           (Boolean(helpBlock) && (

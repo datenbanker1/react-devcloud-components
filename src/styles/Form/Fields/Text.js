@@ -117,6 +117,16 @@ const style = theme => materialUiTheme => {
     },
     helpBlock: {
       margin: "2px 0px 0px 0px"
+    },
+    stateHolder: {
+      textAlign: "right"
+    },
+    state: {
+      position: "absolute",
+      margin: "-26px 0px 0px -25px"
+    },
+    inputBase: {
+      paddingRight: "37px"
     }
   };
   return element;
