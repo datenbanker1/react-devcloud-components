@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Modals from "../../components/Modal";
 import { Button as Btn } from "../../components/Buttons";
+import { Form, Text } from "../../components/Form";
 import Button from "@material-ui/core/Button";
 
 const overrideStyle = {
@@ -24,6 +25,7 @@ class AppBarWrapper extends Component {
   render() {
     const { open } = this.state;
     const action = <Btn variant="default">Schließen</Btn>;
+
     return (
       <div>
         <Button
@@ -40,7 +42,26 @@ class AppBarWrapper extends Component {
           onClose={() => this.toogleModal(false)}
           actions={action}
         >
-          <div>Hi</div>
+          <Form>
+            <Text
+              xs={12}
+              sm={6}
+              label="Text"
+              instant
+              value={""}
+              readOnly={false}
+              onChange={value => {}}
+              error={""}
+              variant={"fullField"}
+              menu={
+                <ul>
+                  <li>Test 1</li>
+                  <li>Test 2</li>
+                  <li>Test 3</li>
+                </ul>
+              }
+            />
+          </Form>
         </Modals>
       </div>
     );

@@ -7,14 +7,10 @@ import {
   InputLabel,
   Input
 } from "@material-ui/core";
-import { Typography, Grid, Menu, MenuItem } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faExclamationCircle,
-  faLockAlt
-} from "@fortawesome/pro-light-svg-icons";
+import { faCheck, faExclamationCircle } from "@fortawesome/pro-light-svg-icons";
 import settings from "./../settings";
 
 import Theme from "../../Theme";
@@ -91,7 +87,6 @@ class Text extends Component {
       strict,
       rows,
       label,
-      dontShowLock = false,
       placeholder,
       disabled,
       variant,
@@ -116,6 +111,7 @@ class Text extends Component {
     if (!readOnly && type === "number" && addFloatKomma)
       value = this.formatNumber(value + ".");
     value = type === "number" ? this.formatNumber(value + "") : value;
+
     return (
       <Grid item {...{ xs, sm, md, lg, xl }}>
         <FormControl className={classes.formControl}>
@@ -187,12 +183,6 @@ class Text extends Component {
               <FontAwesomeIcon
                 className={classNames([classes.state, classes.danger])}
                 icon={faExclamationCircle}
-              />
-            )}
-            {readOnly && !dontShowLock && (
-              <FontAwesomeIcon
-                className={classNames([classes.state, classes.default])}
-                icon={faLockAlt}
               />
             )}
           </div>

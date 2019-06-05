@@ -131,7 +131,7 @@ const style = theme => materialUiTheme => {
     overlay: {
       position: "absolute",
       width: "100%",
-      border: "1px solid " + theme.palette.default,
+      border: "1px solid rgb(236, 236, 236)",
       borderRadius: "4px",
       backgroundColor: "#fff",
       zIndex: "3"
