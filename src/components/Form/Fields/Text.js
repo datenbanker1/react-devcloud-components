@@ -256,7 +256,7 @@ class Menu extends Component {
   getDimensions = () => {
     const dimensions = this.props.anchor.getBoundingClientRect();
     let top = dimensions.y + dimensions.height;
-    console.log(window.innerHeight, top + maxHeight);
+
     if (window.innerHeight < top + maxHeight + 18)
       top = window.innerHeight - maxHeight - 18;
     return {
