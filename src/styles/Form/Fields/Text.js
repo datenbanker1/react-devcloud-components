@@ -128,13 +128,29 @@ const style = theme => materialUiTheme => {
     inputBase: {
       paddingRight: "37px"
     },
+    overlayBackground: {
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      position: "fixed",
+      zIndex: "110"
+    },
+    overlayBackdrop: {
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      position: "fixed",
+      zIndex: "-1",
+      touchAction: "none"
+    },
     overlay: {
-      position: "absolute",
-      width: "100%",
+      position: "relative",
       border: "1px solid rgb(236, 236, 236)",
       borderRadius: "4px",
       backgroundColor: "#fff",
-      zIndex: "3"
+      overflow: "auto"
     }
   };
   return element;

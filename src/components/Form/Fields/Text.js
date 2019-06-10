@@ -17,6 +17,7 @@ import Theme from "../../Theme";
 import defaultStyle from "../../../styles/Form/Fields/Text";
 
 class Text extends Component {
+  _menuHolder = null;
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +29,17 @@ class Text extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
+  componentWillMount() {
+    if (this.props.id) {
+      this._menuHolder = document.createElement("div");
+      this._menuHolder.id = this.props.id + "-menu-holder";
+      document.body.appendChild(this._menuHolder);
+    }
+  }
   componentWillUnmount() {
+    if (this._menuHolder) {
+      this._menuHolder.remove();
+    }
     if (this.timer) window.clearTimeout(this.timer);
   }
   formatNumber = (value, unify = false) => {
@@ -71,12 +82,13 @@ class Text extends Component {
   }
   setMenu = anchor => {
     let set = anchor;
-    if (anchor) set = ReactDOM.findDOMNode(anchor).getBoundingClientRect();
+    if (anchor) set = ReactDOM.findDOMNode(anchor);
     this.setState({ ...this.state, menuAnchor: set });
   };
   render() {
     const {
       classes,
+      id,
       xs,
       sm,
       md,
@@ -131,14 +143,14 @@ class Text extends Component {
             type={
               type && type !== "number" && !this.props.readOnly ? type : "text"
             }
-            multiline={!!rows}
-            rows={rows}
             onFocus={e => {
               if (this.props.menu) this.setMenu(e.currentTarget);
             }}
             onBlur={e => {
-              if (this.props.menu) this.setMenu(null);
+              //if (this.props.menu) this.setMenu(null);
             }}
+            multiline={!!rows}
+            rows={rows}
             placeholder={placeholder}
             className={classNames([
               variant !== "fullField"
@@ -187,14 +199,14 @@ class Text extends Component {
             )}
           </div>
           {!!menuAnchor && (
-            <div
-              className={classes.overlay}
-              style={{
-                top: menuAnchor.height
-              }}
-            >
-              {this.props.menu}
-            </div>
+            <Menu
+              classes={classes}
+              anchor={menuAnchor}
+              menu={this.props.menu}
+              port={this._menuHolder}
+              id={id}
+              onClose={() => this.setMenu(null)}
+            />
           )}
         </FormControl>
         {!hasError &&
@@ -215,6 +227,66 @@ class Text extends Component {
         )}
       </Grid>
     );
+  }
+}
+
+const maxHeight = 224;
+const minWidth = 250;
+class Menu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { ...this.getDimensions() };
+  }
+  componentWillMount() {
+    //block scrolling here
+    if (window.innerHeight < document.body.scrollHeight)
+      document.body.style.paddingRight = "15px";
+    document.body.style.overflow = "hidden";
+    window.addEventListener("resize", this.updateDimensions);
+  }
+  componentWillUnmount() {
+    //block scrolling here
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+    window.removeEventListener("resize", this.updateDimensions);
+  }
+  updateDimensions = () => {
+    this.setState({ ...this.state, ...this.getDimensions() });
+  };
+  getDimensions = () => {
+    const dimensions = this.props.anchor.getBoundingClientRect();
+    let top = dimensions.y + dimensions.height;
+    console.log(window.innerHeight, top + maxHeight);
+    if (window.innerHeight < top + maxHeight + 18)
+      top = window.innerHeight - maxHeight - 18;
+    return {
+      top: top,
+      left: dimensions.x,
+      width: dimensions.width
+    };
+  };
+  render() {
+    const { classes, port } = this.props;
+    const element = (
+      <div className={classes.overlayBackground}>
+        <div className={classes.overlayBackdrop} onClick={this.props.onClose}>
+          <div
+            className={classes.overlay}
+            style={{
+              top: this.state.top,
+              left: this.state.left,
+              width: this.state.width,
+              maxHeight,
+              minWidth: minWidth,
+              maxWidth: "100%"
+            }}
+          >
+            {this.props.menu}
+          </div>
+        </div>
+      </div>
+    );
+    return ReactDOM.createPortal(element, port);
   }
 }
 

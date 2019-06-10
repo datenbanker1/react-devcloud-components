@@ -40,6 +40,7 @@ class ResponsiveDialog extends React.Component {
           onClose={onClose}
           maxWidth={maxWidth}
           fullWidth={Boolean(maxWidth)}
+          style={{ zIndex: "100" }}
         >
           <DialogTitle>{title}</DialogTitle>
           <DialogContent>{children}</DialogContent>

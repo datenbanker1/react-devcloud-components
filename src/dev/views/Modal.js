@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Modals from "../../components/Modal";
 import { Button as Btn } from "../../components/Buttons";
-import { Form, Text } from "../../components/Form";
+import { Form, Text, Select } from "../../components/Form";
 import Button from "@material-ui/core/Button";
 
 const overrideStyle = {
@@ -43,23 +43,51 @@ class AppBarWrapper extends Component {
           actions={action}
         >
           <Form>
+            <Text xs={12} placeholder="TEST" value={""} variant={"fullField"} />
+            <Text xs={12} placeholder="TEST" value={""} variant={"fullField"} />
+            <Text xs={12} placeholder="TEST" value={""} variant={"fullField"} />
+            <Text xs={12} placeholder="TEST" value={""} variant={"fullField"} />
+            <Text xs={12} placeholder="TEST" value={""} variant={"fullField"} />
+            <Text xs={12} placeholder="TEST" value={""} variant={"fullField"} />
+            <Text xs={12} placeholder="TEST" value={""} variant={"fullField"} />
             <Text
-              xs={12}
-              sm={6}
-              label="Text"
-              instant
+              xs={6}
+              placeholder="Autocomplete"
               value={""}
-              readOnly={false}
               onChange={value => {}}
-              error={""}
-              variant={"fullField"}
+              id="my-test-id"
               menu={
                 <ul>
-                  <li>Test 1</li>
-                  <li>Test 2</li>
-                  <li>Test 3</li>
+                  <li>Item 1</li>
+                  <li>Item 2</li>
+                  <li>Item 3</li>
+                  <li>Item 3</li>
+                  <li>Item 3</li>
+                  <li>Item 3</li>
+                  <li>Item 3</li>
+                  <li>Item 3</li>
+                  <li>Item 3</li>
+                  <li>Item 3</li>
+                  <li>Item 3</li>
+                  <li>Item 3</li>
+                  <li>Item 3</li>
                 </ul>
               }
+              variant={"fullField"}
+            />
+            <Select
+              xs={6}
+              options={[
+                "option 1",
+                "option 2",
+                "option 3",
+                "option 4",
+                "option 5",
+                "option 6"
+              ]}
+              value={""}
+              onChange={value => {}}
+              variant={"fullField"}
             />
           </Form>
         </Modals>

@@ -223,6 +223,7 @@ class FormWrapper extends Component {
                 error={this.state.errors.text}
                 disabled={this.state.disable}
                 readOnly={this.state.readOnly}
+                id="my-test-id"
                 menu={<div>Ich bin ein ungestyltes Menu</div>}
                 variant={variant}
               />
